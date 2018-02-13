@@ -327,7 +327,7 @@ class Validator{
                 return parseInt(args[0].length, 10) === 0;
             },
             'email'         : (...args)=>{
-                return !new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[A-Za-z]{2,}$").test(args[0]);
+                return !new RegExp("^([a-z0-9]+[-._]?[a-z0-9]+)+@([a-z0-9]+[-._]?[a-z0-9]+)+\.[a-z]{2,}$").test(args[0]);
             },
             'alphanumeric'  : (...args)=>{
                 return !new RegExp('^[a-z0-9]+$').test(args[0]);
