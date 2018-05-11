@@ -9,7 +9,7 @@ class ConfigurationValidatorFromHTML extends ConfigurationValidatorFromObject{
 
     __requireEls(){
         this.configuration['fields'] = {};
-        document.querySelectorAll('.require').forEach(($require) =>{
+        document.querySelectorAll('[data-validationrules]').forEach(($require) =>{
             this.__paramsRulesNode($require);
         });
     }
