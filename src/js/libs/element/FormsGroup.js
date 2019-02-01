@@ -3,7 +3,7 @@ import Form from '../element/Form';
 export default class FormsGroup{
     constructor(config){
         this.__config = config;
-        this.index = 0;
+        this.__index = 0;
         this.__forms = [];
 
         document.querySelectorAll(this.__config.get().selector).forEach(($form, i) =>{
@@ -13,7 +13,7 @@ export default class FormsGroup{
 
     /*
     * subscription at the form property
-    * @param add form object
+    * @param form $el object
     */
     addForm($form){ 
         this.__forms.push(new Form($form));
@@ -21,10 +21,14 @@ export default class FormsGroup{
 
     /*
     * remove subscription at the form property
-    * @param form object
+    * @param form $el object
     */
     rmForm($form){
-        return null;
+        this.each((form, i)=>{
+            if(form.$el === $el){
+                delete this.__forms[i];
+            }
+        });
     }
 
     /*
@@ -44,7 +48,7 @@ export default class FormsGroup{
         this.reset();
         while(form = this.current()){
             this.next();
-            callback(form);
+            callback(form, this.__index - 1); // this.__index - 1 because current method add one point
         }
     }
 
@@ -52,8 +56,8 @@ export default class FormsGroup{
     * get current form object
     */
     current(){
-        let form = this.get()[this.index];
-        this.index += 1;
+        let form = this.get()[this.__index];
+        this.__index += 1;
 
         return form;
     }
@@ -62,13 +66,13 @@ export default class FormsGroup{
     * check next form object
     */
     next(){
-        return this.index >= this.get().length || this.get()[this.index] === null? false : true;
+        return this.__index >= this.get().length || this.get()[this.__index] === null? false : true;
     }
 
     /*
     * get first form object
     */
     reset(){
-        this.index = 0;
+        this.__index = 0;
     }
 }

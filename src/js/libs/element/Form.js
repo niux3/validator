@@ -1,5 +1,5 @@
-import { Element } from './Element';
-import { Field } from '../element/Field';
+import Element from './Element';
+import Field from '../element/Field';
 
 export default class Form extends Element{
     constructor($el = null){
@@ -8,10 +8,6 @@ export default class Form extends Element{
         this.$el.querySelectorAll('.require').forEach(($require, k) => {
             this.addField($require);
         });
-    }
-
-    update(){
-        console.log("update form");
     }
 
     addField($field){
@@ -23,7 +19,8 @@ export default class Form extends Element{
     }
 
     rmField(index){
-        this.__fields.splice(index,1);
+        this.__fields[index].clean();
+        delete this.__fields[index];
     }
 
     notify(callback){

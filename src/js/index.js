@@ -1,7 +1,6 @@
 import Validator from './libs/validator/Validator';
 
 window.addEventListener('DOMContentLoaded',(e)=>{
-    console.log('yep');
     let optionValidator = {
         "selector" : ".formToValidate",
         "mode" : "object",
@@ -86,7 +85,18 @@ window.addEventListener('DOMContentLoaded',(e)=>{
     let validate = new Validator(optionValidator);
     validate.form();
 
-    
+    var listRequireField = [
+        'input[type=text]',
+        'select',
+        'textarea',
+    ];
+
+    document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
+        $field.addEventListener('blur', (e)=>{
+            validate.element(e.target);
+        });
+    });
+
     var $phone = document.getElementById('phone');
     $phone.parentNode.style.display = 'none';
     document.getElementsByName('validatePhone').forEach(($input) =>{
@@ -98,18 +108,6 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 $phone.parentNode.style.display = 'none';
                 validate.removeRequireField($phone);
             }
-        });
-    });
-
-    var listRequireField = [
-        'input[type=text]',
-        'select',
-        'textarea',
-    ];
-
-    document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
-        $field.addEventListener('blur', (e)=>{
-            validate.element(e.target);
         });
     });
 });

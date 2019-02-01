@@ -39,6 +39,7 @@ export default class Validator{
     * init object
     * @param options is a object : configuration by the user
     */
+
     constructor(options = {}){
         Polyfills.run();
         this.__configuration = new Configuration(options);
@@ -48,11 +49,9 @@ export default class Validator{
         return this;
     }
 
-    
-
     /*
     * validate some fields in forms
-    * @param callback is lambda function : add a callback function to after validat form    *
+    * @param callback is lambda function : add a callback function to after validate form
     */
     form(callback = null){
         this.__FormsGroup.each((form)=>{
@@ -74,40 +73,61 @@ export default class Validator{
     * validate one field
     * @param $el is a input (node) : element in the dom
     */
-    element($el){
+    element($el, callback = null){
         this.__FormsGroup.each((form)=>{
             form.notify((field, i) =>{
                 if(field.$el === $el){
                     this.__manageField(field);
+                    if(callback !== null){
+                        callback();
+                    }
                 }
             });
         });
     }
 
-
+    /*
+    * add Field for validation
+    * @param $el is a input (node) : element in the dom
+    */
     addRequireField($el){
         this.__FormsGroup.each((form)=>{
             if(form.$el === $el.closest('form')){
-                form.addField($el);
                 $el.classList.add('require');
+                form.addField($el);
             }            
         });
     }
 
+    /*
+    * remove Field for validation
+    * @param $el is a input (node) : element in the dom
+    */
     removeRequireField($el){
-        this.__FormsGroup.each((form)=>{
-            form.notify((field, i)=>{
+        this.__FormsGroup.each((form, i)=>{
+            form.notify((field, j)=>{
                 if(field.$el === $el){
-                    form.rmField(i);
-                    $el.classList.remove('require');
-                    $el.classList.remove('error');
-                    var $stateMessage = document.getElementById(`${$el.id}_statemessage`);
-                    if($stateMessage){
-                        $stateMessage.parentNode.removeChild($stateMessage);
-                    }
+                    field.$el.classList.remove('require');
+                    form.rmField(j);
                 }
             })
         });
+    }
+
+    /*
+    * add Form for validation
+    * @param $el is a form (node) : element in the dom
+    */
+    addRequireForm($el){
+        this.__FormsGroup.addForm($el);
+    }
+
+    /*
+    * remove Form for validation
+    * @param $el is a form (node) : element in the dom
+    */
+    removeRequireForm($el){
+        this.__FormsGroup.rmForm($el);
     }
     
     /*
@@ -130,99 +150,8 @@ export default class Validator{
     * @param field is a attribute of Form object
     */
     __manageField(field){
-        this.__rmMessages(field);
-        this.__validate(field);
-        this.__displayState(field);
-    }
-
-    /*
-    * remove error
-    * @param field is a attribute of Form object
-    */
-    __rmMessages(field){
-        for(let item in field.state){
-            if(item !== "message" && field.state[item] === true){
-                field.resetState();
-                field.$el.classList.remove(item);
-
-                if(document.getElementById(`${field.$el.name}_statemessage`) !== null){
-                    let $errorMessage = document.getElementById(`${field.$el.name}_statemessage`);
-                    $errorMessage.parentNode.removeChild($errorMessage);
-                }
-            }
-        }
-    }
-
-
-    /*
-    * check validity field
-    * @param field is a attribute of Form object
-    */
-    __validate(field){
-        let defaultRules = this.__rules.get();
-        let rulesInNode = this.__configuration.getRulesList(field);
-        let fieldValue;
-        let checks = [];
-
-        //field is a group of checkbox or multiple choices or radio ?
-        if(field.$el.name.indexOf('[]') !== -1 || field.$el.type === "radio"){
-            document.getElementsByName(field.$el.name).forEach(($input) =>{
-                if($input.checked){
-                    checks.push($input.value);
-                }
-            });
-            fieldValue = checks;
-        }else{
-            fieldValue = field.$el.value.trim();
-        }
-
-        rulesInNode.forEach((ruleInNode) =>{
-            for(let key in defaultRules){
-                if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration.getNameKey(field.$el.name)[key])){
-                    field.state.error = true;
-                    field.state.message = this.__configuration.getNameKey(field.$el.name)[key]['message'];
-                }
-
-                if(!field.state.error){
-                    field.state.success = true;
-                }else{
-                    field.state.success = false;
-                }
-            }
-        });
-    }
-
-    /*
-    * return
-    * @param field is a attribute of Form object
-    */
-    __getTemplateMessage(cls, id, msg){
-        return `<span id="${id}_statemessage" class="${cls}">${msg}</span>`;
-    }
-
-    /*
-    * show error
-    * @param field is a attribute of Form object
-    */
-    __displayState(field){
-        if(document.getElementById(`${field.$el.name}_statemessage`)){
-            return;
-        }
-        for(let item in field.state){
-            if(item !== 'message' && field.state[item]){
-                field.$el.classList.add(item);
-                field.state.message = field.state.message !== null? field.state.message : '';
-
-                if(this.__configuration.get()['fields'][field.$el.name].hasOwnProperty('target')){
-                    if(field.$el.closest('form').querySelector(this.__configuration.getNameKey(field.$el.name)['target'][item])){
-                        field.$el.closest('form').querySelectorAll(this.__configuration.getNameKey(field.$el.name)['target'][item]).forEach(($target) =>{
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, field.$el.name , field.state.message ))
-                        });
-                    }
-                }else{
-                    field.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, field.$el.name, field.state.message ));
-                }
-            }
-        }
+        field.clean();
+        field.validate(this.__configuration, this.__rules);
+        field.displayState(this.__configuration);
     }
 }
