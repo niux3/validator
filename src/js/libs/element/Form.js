@@ -1,17 +1,21 @@
 import { Element } from './Element';
+import { Field } from '../element/Field';
 
-class Form extends Element{
+export default class Form extends Element{
     constructor($el = null){
         super($el);
         this.__fields = [];
+        this.$el.querySelectorAll('.require').forEach(($require, k) => {
+            this.addField($require);
+        });
     }
 
     update(){
         console.log("update form");
     }
 
-    addField(Field){
-        this.__fields.push(Field);
+    addField($field){
+        this.__fields.push(new Field($field));
     }
 
     getFields(){
@@ -22,11 +26,9 @@ class Form extends Element{
         this.__fields.splice(index,1);
     }
 
-    __notify(){
-        this.__fields.forEach((field)=>{
-            field.update();
+    notify(callback){
+        this.__fields.forEach((field, i)=>{
+            field.update(field, i, callback);
         });
     }
 }
-
-export { Form }

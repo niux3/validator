@@ -25,8 +25,10 @@ class Field extends Element{
         }
     }
 
-    update(){
-        console.log('field update');
+    update(obj, i, callback){
+        //console.log('field update >>>', obj, i, obj === this);
+
+        return callback(this);
     }
 }
 

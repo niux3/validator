@@ -47,5 +47,12 @@ class Element{
         return this.properties;
     }
 
+    //event
+    on(ev, callback, useCapture = false){
+        this.$el.addEventListener(ev,(e)=>{
+            callback(e, this);
+        }, useCapture);
+    }
+
 }
 export { Element }

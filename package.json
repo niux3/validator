@@ -32,7 +32,5 @@
     "webpack": "^3.4.1",
     "webpack-manifest-plugin": "^1.2.1"
   },
-  "dependencies": {
-    "jquery": "^3.3.1"
-  }
+  "dependencies": {}
 }

@@ -1,10 +1,10 @@
-import { ConfigurationValidatorFromObject } from './ConfigurationValidatorFromObject';
-
-class ConfigurationValidatorFromHTML extends ConfigurationValidatorFromObject{
+export default class ConfigFromHTML{
     constructor(options){
-        super(options);
-        this.__requireEls();
-        return this;
+        return options;
+
+        //super(options);
+        // this.__requireEls();
+        // return this;
     }
 
     __requireEls(){
@@ -46,5 +46,3 @@ class ConfigurationValidatorFromHTML extends ConfigurationValidatorFromObject{
         });
     }
 }
-
-export { ConfigurationValidatorFromHTML }
