@@ -1,7 +1,7 @@
 {
-  "name": "webpack",
-  "version": "1.0.0",
-  "description": "",
+  "name": "validator",
+  "version": "0.4.0",
+  "description": "validate data",
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=dev webpack",
@@ -9,8 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "renaudbourdeau@gmail.com",
+  "license": "MIT",
   "devDependencies": {
     "ajv-keywords": "^3.2.0",
     "aproba": "^2.0.0",

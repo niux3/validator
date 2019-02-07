@@ -1,14 +1,14 @@
 import Element from './Element';
 
 export default class Field extends Element{
-    constructor($el = null){
-        super($el);
+    constructor(props){
+        super(props);
+        this.__configuration = props.configuration;
         this.state = {
             success : false,
             error : false,
             message : null
         };
-        this.multipleData = false;
     }
 
     resetState(){
@@ -26,8 +26,6 @@ export default class Field extends Element{
     }
 
     update(obj, i, callback){
-        //console.log('field update >>>', obj, i, obj === this);
-
         return callback(this, i);
     }
 
@@ -37,49 +35,50 @@ export default class Field extends Element{
                 this.resetState();
                 this.$el.classList.remove(item);
 
-                if(document.getElementById(`${this.$el.name}_statemessage`) !== null){
-                    let $errorMessage = document.getElementById(`${this.$el.name}_statemessage`);
-                    $errorMessage.parentNode.removeChild($errorMessage);
+                if(document.getElementById(`${this.id}`) !== null){
+                    let $stateMessage = document.getElementById(`${this.id}`);
+                    $stateMessage.parentNode.removeChild($stateMessage);
                 }
             }
         }
+
+        return this;
     }
 
     /*
     * show state
     * @param field is a attribute of Form object
     */
-    displayState(configuration){
-        if(document.getElementById(`${this.$el.name}_statemessage`)){
-            return;
-        }
+    displayState(){
         for(let item in this.state){
             if(item !== 'message' && this.state[item]){
                 this.$el.classList.add(item);
                 this.state.message = this.state.message !== null? this.state.message : '';
 
-                if(configuration.get()['fields'][this.$el.name].hasOwnProperty('target')){
-                    if(this.$el.closest('form').querySelector(configuration.getNameKey(this.$el.name)['target'][item])){
-                        this.$el.closest('form').querySelectorAll(configuration.getNameKey(this.$el.name)['target'][item]).forEach(($target) =>{
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.$el.name , this.state.message ))
+                if(this.__configuration.hasOwnProperty('target')){
+                    if(this.$el.closest('form').querySelector(this.__configuration['target'][item])){
+                        this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
+                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id , this.state.message ))
                         });
                     }
                 }else{
-                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.$el.name, this.state.message ));
+                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id, this.state.message ));
                 }
             }
         }
+
+        return this;
     }
 
     /*
     * check validity field
     * @param field is a attribute of Form object
     */
-    validate(configuration, rules){
-        let defaultRules = rules.get();
-        let rulesInNode = configuration.getRulesList(this);
-        let fieldValue;
-        let checks = [];
+    validate(rules){
+        let defaultRules = rules.get(),
+            rulesInNode = this.__getRulesList(),
+            fieldValue,
+            checks = [];
 
         //field is a group of checkbox or multiple choices or radio ?
         if(this.$el.name.indexOf('[]') !== -1 || this.$el.type === "radio"){
@@ -95,9 +94,9 @@ export default class Field extends Element{
 
         rulesInNode.forEach((ruleInNode) =>{
             for(let key in defaultRules){
-                if( key === ruleInNode && defaultRules[key](fieldValue, configuration.getNameKey(this.$el.name)[key])){
+                if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration[key])){
                     this.state.error = true;
-                    this.state.message = configuration.getNameKey(this.$el.name)[key]['message'];
+                    this.state.message = this.__configuration[key]['message'];
                 }
 
                 if(!this.state.error){
@@ -107,6 +106,8 @@ export default class Field extends Element{
                 }
             }
         });
+
+        return this;
     }
 
     /*
@@ -114,6 +115,34 @@ export default class Field extends Element{
     * @param field is a attribute of Form object
     */
     __getTemplateMessage(cls, id, msg){
-        return `<span id="${id}_statemessage" class="${cls}">${msg}</span>`;
+        return `<span id="${id}" class="${cls}">${msg}</span>`;
+    }
+
+    /*
+    * manage rules list
+    * @param field is a attribute of Form object
+    *
+    * @return object
+    */
+    __getRulesList(){
+        let notempty = false,
+            rulesList = [];
+
+        for(let item in this.__configuration){
+            item = item.trim().replace(/\s+/g, ' ');
+            if(item !== "target"){
+                if(item === "notempty"){
+                    notempty = true;
+                }else{
+                    rulesList.push(item);
+                }
+            }
+        }
+
+        if(notempty){
+            rulesList.push('notempty');
+        }
+
+        return rulesList;
     }
 }

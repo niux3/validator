@@ -64,34 +64,7 @@ export default class Configuration{
         return this.get()['fields'][name];
     }
 
-    /*
-    * manage rules list
-    * @param field is a attribute of Form object
-    *
-    * @return object
-    */
-    getRulesList(field){
-        let rulesInField = this.getNameKey(field.$el.name);
-        let notempty = false;
-        let rulesList = [];
-
-        for(let item in rulesInField){
-            item = item.trim().replace(/\s+/g, ' ');
-            if(item !== "target"){
-                if(item === "notempty"){
-                    notempty = true;
-                }else{
-                    rulesList.push(item);
-                }
-            }
-        }
-
-        if(notempty){
-            rulesList.push('notempty');
-        }
-
-        return rulesList;
-    }
+    
 }
 
 export { Configuration }

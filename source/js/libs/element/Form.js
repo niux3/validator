@@ -2,8 +2,9 @@ import Element from './Element';
 import Field from '../element/Field';
 
 export default class Form extends Element{
-    constructor($el = null){
-        super($el);
+    constructor(props){
+        super(props);
+        this.__configuration = props.configuration;
         this.__fields = [];
         this.$el.querySelectorAll('.require').forEach(($require, k) => {
             this.addField($require);
@@ -11,7 +12,14 @@ export default class Form extends Element{
     }
 
     addField($field){
-        this.__fields.push(new Field($field));
+        let index = Object.keys(this.__configuration).indexOf($field.name),
+            config = index !== -1 ? this.__configuration[ Object.keys(this.__configuration)[index] ] : {},
+            property = {
+                element : $field,
+                id : `${this.id}_vfi${this.__fields.length}`,
+                configuration : config
+            };
+        this.__fields.push(new Field(property));
     }
 
     getFields(){

@@ -15,7 +15,7 @@ a888P          ..c6888969""..,"o888888888o.?8888888888"".ooo8888oo.
                                                         .:o888.o8o.  "866o9888o
                                                          :888.o8888.  "88."89".
     author : Renaud Bourdeau                            . 89  888888    "88":.
-    version : 2.0                                       :.     '8888o
+    version : 0.4.0                                     :.     '8888o
     email : renaudbourdeau@gmail.com                     .       "8888..
                                                                    888888o.
                                                                     "888889,
@@ -57,7 +57,7 @@ export default class Validator{
         this.__FormsGroup.each((form)=>{
             form.on('submit', (e, form)=>{
                 form.notify((field, i) =>{
-                    this.__manageField(field);
+                    field.clean().validate(this.__rules).displayState();
                 });
                 if(e.target.querySelectorAll('.error').length > 0){
                     if(callback !== null){
@@ -77,7 +77,7 @@ export default class Validator{
         this.__FormsGroup.each((form)=>{
             form.notify((field, i) =>{
                 if(field.$el === $el){
-                    this.__manageField(field);
+                    field.clean().validate(this.__rules).displayState();
                     if(callback !== null){
                         callback();
                     }
@@ -137,21 +137,5 @@ export default class Validator{
     */
     addRules(key, rule){
         this.__rules.set(key, rule);
-    }
-
-    /*
-    *
-    * private method
-    *
-    */
-
-    /*
-    * validate one field
-    * @param field is a attribute of Form object
-    */
-    __manageField(field){
-        field.clean();
-        field.validate(this.__configuration, this.__rules);
-        field.displayState(this.__configuration);
     }
 }

@@ -2,11 +2,11 @@ import Form from '../element/Form';
 
 export default class FormsGroup{
     constructor(config){
-        this.__config = config;
+        this.__configuration = config;
         this.__index = 0;
         this.__forms = [];
 
-        document.querySelectorAll(this.__config.get().selector).forEach(($form, i) =>{
+        document.querySelectorAll(this.__configuration.get().selector).forEach(($form, i) =>{
             this.addForm($form);
         });
     }
@@ -16,7 +16,12 @@ export default class FormsGroup{
     * @param form $el object
     */
     addForm($form){ 
-        this.__forms.push(new Form($form));
+        let property = {
+            element : $form,
+            id : `vfo${this.__forms.length}_`,
+            configuration : this.__configuration.get()['fields']
+        };
+        this.__forms.push(new Form(property));
     }
 
     /*

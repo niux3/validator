@@ -17,7 +17,7 @@ div{
             box-shadow: none;
         }
 
-        *[id$=_statemessage]{
+        span[id^=vfo]{
             display: block;
 
             &.error{

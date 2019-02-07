@@ -1,6 +1,7 @@
 export default class Element{
-    constructor($el = null){
-        this.$el = $el;
+    constructor(properties){
+        this.$el = properties.element;
+        this.id = properties.id;
     }
 
     //event
