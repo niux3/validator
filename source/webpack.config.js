@@ -80,12 +80,12 @@ if(!dev){
     configuration.plugins.push(new ManifestPlugin({
         fileName : '../manifest.json'
     }));
-    // configuration.plugins.push(new CleanWebpackPlugin(['./js', './css'], {
-    //     root : path.resolve('./'),
-    //     verbose : true,
-    //     dry : true,
+    configuration.plugins.push(new CleanWebpackPlugin(['./js', './css'], {
+        root : path.resolve('../example/'),
+        verbose : true,
+        dry : false,
 
-    // }));
+    }));
 }
 
 module.exports = configuration;
