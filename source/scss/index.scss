@@ -1,0 +1,91 @@
+@import './libs/knacss';
+
+
+.container{
+    max-width: 96rem;
+    margin: 0 auto;
+    color:#333;
+}
+
+div{
+    &.input{
+        margin-top: 2.5rem;
+
+        &.radio,
+        &.checkbox{
+            width: auto;height: auto;
+            box-shadow: none;
+        }
+
+        *[id$=_statemessage]{
+            display: block;
+
+            &.error{
+                color: red;
+            }
+
+            &.success{
+                color: #5CB85C;
+            }
+        }
+
+        .wrap-input{
+            position: relative;
+            label{
+                display: block;
+                cursor: pointer;
+                position: absolute;
+                left: .6rem;top: 50%;
+                transform:translateY(-50%);
+                transition: transform .4s, font-size .4s;
+                background-color: #fff;
+            }
+
+
+            input[type=text], input[type=email], input[type=number], select, textarea{
+                box-shadow: none;
+                border: 1px solid #dadce0; 
+                border-radius:.3rem;
+                background-color: transparent;
+                width: 100%;
+                transition: border-color .4s;
+
+                &.error{
+                    border-color: red;
+                }
+
+                &:focus{
+                    border: 1px solid #0275D8; 
+                }
+            }
+
+            select{
+                background-color: transparent;
+            }
+
+            textarea{
+                width: 100%;
+            }
+        }
+
+        &.on-data{
+            .wrap-input{
+                label{
+                    transform:translateY(-2.75rem);
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        &.select{
+            .wrap-input{
+                label{
+                    position: static;
+                    transform:translateY(0);
+                }
+            }
+        }
+    }
+
+
+}

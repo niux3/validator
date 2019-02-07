@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Titre du document</title>
+    <link rel="stylesheet" href="./css/min.css">
+  </head>
+  <body>
+    <div class="container">
+        <form action="contact" method="post" class="formToValidate">
+            <div class="select input">
+                <div class="wrap-input">
+                    <label for="civility">
+                        <select name="civility" id="civility" class="require">
+                            <option value="">Civilité</option>
+                            <option value="1">Mademoiselle</option>
+                            <option value="2">Madame</option>
+                            <option value="3">Monsieur</option>
+                        </select>
+                    </label>
+                </div>
+                <span id="messageCivility"></span>
+            </div>
+            <div class="grid-2 has-gutter">
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="firstname">prénom</label>
+                        <input type="text" name="firstname" id="firstname" class="require">
+                    </div>
+                    <span class="messageFirstname"></span>
+                </div>
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="lastname">nom</label>
+                        <input type="text" name="lastname" id="lastname" class="require">
+                    </div>
+                    <span class="messageLastname"></span>
+                </div>
+            </div>
+            <div class="grid-2 has-gutter">
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="email">email</label>
+                        <input type="text" name="email" id="email" class="require">
+                    </div>
+                    <span id="messageEmail"></span>
+                </div>
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="subject">sujet</label>
+                        <input type="text" name="subject" id="subject" class="require">
+                    </div>
+                    <span id="messageSubject"></span>
+                </div>
+            </div>
+            <div class="grid-2 has-gutter">
+                <div class="radio input">
+                    <label for="validatePhoneYes">validate phone yes</label>
+                    <input type="radio" name="validatePhone" class="radio" id="validatePhoneYes" value="1">
+                </div>
+                <div class="radio input">
+                    <label for="validatePhoneNo">validate phone no</label>
+                    <input type="radio" name="validatePhone" class="radio" id="validatePhoneNo" value="2">
+                </div>
+            </div>
+            <div class="text input">
+                <div class="wrap-input">
+                    <label for="phone">phone</label>
+                    <input type="text" name="phone" id="phone" class="">
+                </div>
+                <span id="messagePhone"></span>
+            </div>
+            <div class="textarea input">
+                <div class="wrap-input">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" class="require"></textarea>
+                </div>
+                <span id="messageMessage"></span>
+            </div>
+            <div class="submit input">
+                <input type="submit" class="btn--primary" name="send" value="envoyer">
+            </div>
+        </form>
+        <hr>
+        <form action="about" method="post" class="formToValidate">
+            <div class="grid-2 has-gutter">
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="firstnamebis">prénom</label>
+                        <input type="text" name="firstname" id="firstnamebis" class="require">
+                    </div>
+                    <span class="messageFirstname"></span>
+                </div>
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="lastnamebis">nom</label>
+                        <input type="text" name="lastname" id="lastnamebis" class="require">
+                    </div>
+                    <span class="messageLastname"></span>
+                </div>
+            </div>
+            <div class="submit input">
+                <input type="submit" class="btn--primary" name="send" value="envoyer">
+            </div>
+        </form>
+    </div>
+    <script src="./js/min.js"></script>
+    <script>
+        Array.slice(document.querySelectorAll('div.input input'), 0).forEach(function($div){
+            $div.addEventListener('focus',function(){
+                this.parentNode.parentNode.classList.add('on-data');
+                return this;
+            })
+            $div.addEventListener('blur',function(){
+                if(this.value === ""){
+                    this.parentNode.parentNode.classList.remove('on-data');                        
+                }
+            });
+        });
+    </script>
+    <script>
+        
+    </script>
+</body>
+</html>

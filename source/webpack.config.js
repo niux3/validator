@@ -30,14 +30,14 @@ let configuration = {
     devtool : dev ? "cheap-eval-source-map" : false,
     entry : {
         min : [
-            './src/js/index.js',
-            './src/scss/index.scss'
+            './js/index.js',
+            './scss/index.scss'
         ]
     },
     output : {
-        path : path.resolve('./js'),
+        path : path.resolve('../example/js/'),
         filename : dev ? '[name].js' : '[name].[chunkhash:5].js',
-        publicPath: './'
+        publicPath: '../../example/js/'
     },
     module : {
         rules : [
@@ -70,7 +70,7 @@ let configuration = {
     },
     plugins : [
         new ExtractTextPlugin({
-            filename : dev ? '../css/[name].css' : '../css/[name].[contenthash:5].css',
+            filename : dev ? '../../example/css/[name].css' : '../../example/css/[name].[contenthash:5].css',
             disable : false
         })
     ]
@@ -80,11 +80,12 @@ if(!dev){
     configuration.plugins.push(new ManifestPlugin({
         fileName : '../manifest.json'
     }));
-    configuration.plugins.push(new CleanWebpackPlugin(['./js', './css'], {
-        root : path.resolve('./'),
-        verbose : true,
-        dry : false,
+    // configuration.plugins.push(new CleanWebpackPlugin(['./js', './css'], {
+    //     root : path.resolve('./'),
+    //     verbose : true,
+    //     dry : true,
 
-    }));
+    // }));
 }
+
 module.exports = configuration;

@@ -1,6 +1,7 @@
 import Validator from './libs/validator/Validator';
 
 window.addEventListener('DOMContentLoaded',(e)=>{
+    //configuration validator
     let optionValidator = {
         "selector" : ".formToValidate",
         "mode" : "object",
@@ -14,6 +15,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 }
             },
             "firstname" : {
+                "target" : {
+                    "error" : ".messageFirstname",
+                },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
                 },
@@ -23,6 +27,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 }
             },
             "lastname" : {
+                "target" : {
+                    "error" : "messageLastname",
+                },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
                 },
@@ -32,6 +39,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 }
             },
             "email" : {
+                "target" : {
+                    "error" : "#messageEmail",
+                },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
                 },
@@ -40,6 +50,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 }
             },
             "subject" : {
+                "target" : {
+                    "error" : "#messageSubject",
+                },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
                 },
@@ -49,6 +62,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 }
             },
             "message" : {
+                "target" : {
+                    "error" : "#messageMessage",
+                },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
                 },
@@ -66,6 +82,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 }
             },
             "phone" : {
+                "target" : {
+                    "error" : "#messagePhone",
+                },
                 "notempty" : {
                     "message" : "Ce champ ne doit pas être vide"
                 }
@@ -81,23 +100,24 @@ window.addEventListener('DOMContentLoaded',(e)=>{
         }
     };
 
-
+    //check form when it's submitted
     let validate = new Validator(optionValidator);
     validate.form();
 
-    var listRequireField = [
+    //check each element(input/select/textarea) when it's has lost focus
+    let listRequireField = [
         'input[type=text]',
         'select',
         'textarea',
     ];
-
     document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
         $field.addEventListener('blur', (e)=>{
             validate.element(e.target);
         });
     });
 
-    var $phone = document.getElementById('phone');
+    //add require field if you answer 'yes' at 'add phone number' 
+    let $phone = document.getElementById('phone');
     $phone.parentNode.style.display = 'none';
     document.getElementsByName('validatePhone').forEach(($input) =>{
         $input.addEventListener('click', (e)=>{
