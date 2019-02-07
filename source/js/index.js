@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded',(e)=>{
             },
             "lastname" : {
                 "target" : {
-                    "error" : "messageLastname",
+                    "error" : ".messageLastname",
                 },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"

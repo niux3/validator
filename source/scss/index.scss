@@ -21,7 +21,7 @@ div{
             display: block;
 
             &.error{
-                color: red;
+                color: #f00;
             }
 
             &.success{
@@ -41,7 +41,6 @@ div{
                 background-color: #fff;
             }
 
-
             input[type=text], input[type=email], input[type=number], select, textarea{
                 box-shadow: none;
                 border: 1px solid #dadce0; 
@@ -59,6 +58,8 @@ div{
                 }
             }
 
+
+
             select{
                 background-color: transparent;
             }
@@ -75,12 +76,29 @@ div{
                     font-size: 1.2rem;
                 }
             }
+
+            &.textarea{
+                .wrap-input{
+                    label{
+                        transform:translateY(-1rem);
+                    }
+                }
+            }
         }
 
         &.select{
             .wrap-input{
                 label{
                     position: static;
+                    transform:translateY(0);
+                }
+            }
+        }
+
+        &.textarea{
+            .wrap-input{
+                label{
+                    top: 0.1rem;
                     transform:translateY(0);
                 }
             }

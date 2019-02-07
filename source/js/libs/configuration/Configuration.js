@@ -60,10 +60,6 @@ export default class Configuration{
         return this.__configuration;
     }
 
-    getNameKey(name){
-        return this.get()['fields'][name];
-    }
-
     
 }
 
