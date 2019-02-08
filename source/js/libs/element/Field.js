@@ -84,12 +84,21 @@ export default class Field extends Element{
             checks = [];
 
         //field is a group of checkbox or multiple choices or radio ?
-        if(this.$el.name.indexOf('[]') !== -1 || this.$el.type === "radio"){
-            document.getElementsByName(this.$el.name).forEach(($input) =>{
-                if($input.checked){
-                    checks.push($input.value);
-                }
-            });
+        if(this.$el.type === 'checkbox' || (this.$el.nodeName.toLowerCase() === 'select' && this.$el.hasAttribute('multiple'))  || this.$el.type === "radio"){
+            if((this.$el.nodeName.toLowerCase() === 'select')){
+                this.$el.querySelectorAll('option').forEach(($option)=>{
+                    if($option.selected){
+                        checks.push($option.value);
+                    }
+                });
+            }else{
+                document.getElementsByName(this.$el.name).forEach(($input) =>{
+                    if($input.checked){
+                        checks.push($input.value);
+                    }
+                });
+            }
+
             fieldValue = checks;
         }else{
             fieldValue = this.$el.value.trim();
