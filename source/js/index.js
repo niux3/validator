@@ -149,4 +149,6 @@ window.addEventListener('DOMContentLoaded',(e)=>{
             }
         });
     });
+
+    console.log("'dom@dom' ===  format email --> ", validate.check('dom@dom', 'email'));
 });
