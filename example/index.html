@@ -5,7 +5,7 @@
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Titre du document</title>
-    <link rel="stylesheet" href="./css/min.ef8ba.css">
+    <link rel="stylesheet" href="./css/min.css">
   </head>
   <body>
     <div class="container">
@@ -101,12 +101,68 @@
                     <span class="messageLastname"></span>
                 </div>
             </div>
+            <p>Vos loisirs ?</p>
+            <div class="grid-2 has-gutter">
+                <div class="input radio">
+                    <label for="hobbiesYes">oui</label>
+                    <input type="radio" id="hobbiesYes" name="hobbiesChoice" value="1" class="radio require">
+                </div>
+                <div class="input radio">
+                    <label for="hobbiesNo">non</label>
+                    <input type="radio" id="hobbiesNo" name="hobbiesChoice" value="0" class="radio require">
+                </div>
+                <span class="choiceHobbiesMessage"></span>
+            </div>
+            <div class="grid-5 has-gutter">
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesMovies" name="hobbies[]" value="Cinéma" class="require checkbox">
+                    <label for="hobbiesMovies">Cinéma</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesMusic" name="hobbies[]" value="Musique" class="require checkbox">
+                    <label for="hobbiesMusic">Musique</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiestravel" name="hobbies[]" value="Voyage" class="require checkbox">
+                    <label for="hobbiestravel">Voyage</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesRead" name="hobbies[]" value="Lecture" class="require checkbox">
+                    <label for="hobbiesRead">Lecture</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesDraw" name="hobbies[]" value="Dessiner/Peindre" class="require checkbox">
+                    <label for="hobbiesDraw">Dessiner/Peindre</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesPhoto" name="hobbies[]" value="Photographie" class="require checkbox">
+                    <label for="hobbiesPhoto">Photographie</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesDanse" name="hobbies[]" value="Danser" class="require checkbox">
+                    <label for="hobbiesDanse">Danser</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesPlay" name="hobbies[]" value="Jouer" class="require checkbox">
+                    <label for="hobbiesPlay">Jouer</label>
+                </div>
+                <div class="input checkbox">
+                    <input type="checkbox" id="hobbiesTheater" name="hobbies[]" value="Théatre" class="require checkbox">
+                    <label for="hobbiesTheater">Théatre</label>
+                </div>
+            </div>
+            <span class="hobbiesMessage"></span>
             <div class="submit input">
                 <input type="submit" class="btn--primary" name="send" value="envoyer">
             </div>
         </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </div>
-    <script src="./js/min.42882.js"></script>
+    <script src="./js/min.js"></script>
     <script>
         Array.slice(document.querySelectorAll('div.input input, div.input textarea'), 0).forEach(function($div){
             $div.addEventListener('focus',function(){

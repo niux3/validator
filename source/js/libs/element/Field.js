@@ -35,8 +35,8 @@ export default class Field extends Element{
                 this.resetState();
                 this.$el.classList.remove(item);
 
-                if(document.getElementById(`${this.id}`) !== null){
-                    let $stateMessage = document.getElementById(`${this.id}`);
+                if(document.getElementById(this.id) !== null){
+                    let $stateMessage = document.getElementById(this.id);
                     $stateMessage.parentNode.removeChild($stateMessage);
                 }
             }
@@ -50,6 +50,7 @@ export default class Field extends Element{
     * @param field is a attribute of Form object
     */
     displayState(){
+        let selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`;
         for(let item in this.state){
             if(item !== 'message' && this.state[item]){
                 this.$el.classList.add(item);
@@ -58,11 +59,13 @@ export default class Field extends Element{
                 if(this.__configuration.hasOwnProperty('target')){
                     if(this.$el.closest('form').querySelector(this.__configuration['target'][item])){
                         this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id , this.state.message ))
+                            if($target.querySelectorAll(selectorState).length > 0) return;
+                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.state.message ))
                         });
                     }
                 }else{
-                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id, this.state.message ));
+                    if(this.$el.parentNode.querySelectorAll(selectorState).length > 0) return;
+                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.state.message ));
                 }
             }
         }
@@ -91,7 +94,7 @@ export default class Field extends Element{
         }else{
             fieldValue = this.$el.value.trim();
         }
-
+        
         rulesInNode.forEach((ruleInNode) =>{
             for(let key in defaultRules){
                 if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration[key])){
@@ -114,8 +117,8 @@ export default class Field extends Element{
     * return
     * @param field is a attribute of Form object
     */
-    __getTemplateMessage(cls, id, msg){
-        return `<span id="${id}" class="${cls}">${msg}</span>`;
+    __getTemplateMessage(cls, id, dataname, msg){
+        return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`;
     }
 
     /*

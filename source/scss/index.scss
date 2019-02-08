@@ -7,26 +7,26 @@
     color:#333;
 }
 
+span[id^=vfo]{
+    display: block;
+
+    &.error{
+        color: #f00;
+    }
+
+    &.success{
+        color: #5CB85C;
+    }
+}
+
 div{
     &.input{
-        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
 
         &.radio,
         &.checkbox{
             width: auto;height: auto;
             box-shadow: none;
-        }
-
-        span[id^=vfo]{
-            display: block;
-
-            &.error{
-                color: #f00;
-            }
-
-            &.success{
-                color: #5CB85C;
-            }
         }
 
         .wrap-input{
