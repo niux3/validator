@@ -51,7 +51,7 @@ export default class Rules{
             'equalto'       : (...args)=>{
                 let params = args[1]['params'];
                 if(document.querySelector(params)){
-                    if(args[0] != document.querySelector(params).value.trim()){
+                    if(args[0] !== document.querySelector(params).value.trim()){
                         return true;
                     }
                 }else{

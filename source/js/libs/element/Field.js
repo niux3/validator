@@ -47,7 +47,6 @@ export default class Field extends Element{
 
     /*
     * show state
-    * @param field is a attribute of Form object
     */
     displayState(){
         let selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`;
@@ -94,7 +93,7 @@ export default class Field extends Element{
         }else{
             fieldValue = this.$el.value.trim();
         }
-        
+
         rulesInNode.forEach((ruleInNode) =>{
             for(let key in defaultRules){
                 if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration[key])){
