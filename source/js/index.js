@@ -85,6 +85,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 "target" : {
                     "error" : "#messagePhone",
                 },
+                "checkphone" : {
+                    "message" : "Le format ne semble pas être bon 0102030405"
+                },
                 "notempty" : {
                     "message" : "Ce champ ne doit pas être vide"
                 }
@@ -100,9 +103,17 @@ window.addEventListener('DOMContentLoaded',(e)=>{
         }
     };
 
-    //check form when it's submitted
+    //add custom config in the library
     let validate = new Validator(optionValidator);
+
+    //add rules for phone input
+    validate.addRules('checkphone', (value)=>{
+        return !/^0[1-8][ .-]?(\d{2}[ .-]?){4}$/.test(value);
+    });
+    
+    //check form when it's submitted
     validate.form();
+
 
     //check each element(input/select/textarea) when it's has lost focus
     let listRequireField = [
