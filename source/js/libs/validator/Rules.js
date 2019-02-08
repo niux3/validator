@@ -63,10 +63,10 @@ export default class Rules{
                 }
             },
             'date'          : (...args)=>{
-                if(args[0] === ''){
+                if(args[0] === '' || args[0] === null){
                     return true;
                 }
-                let partsDate = args[0].match(/^(\d{4})-(\d{2})-(\d{2})/,'gi'),
+                let partsDate = args[0].match(/^(\d{4})-(\d{2})-(\d{2})/,'gi').map((item)=>{ return Number(item); }),
                     m = partsDate[2],
                     y = partsDate[1],
                     d = partsDate[3];
