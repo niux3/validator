@@ -58,11 +58,11 @@
             <div class="grid-2 has-gutter">
                 <div class="radio input">
                     <label for="validatePhoneYes">validate phone yes</label>
-                    <input type="radio" name="validatePhone" class="radio" id="validatePhoneYes" value="1">
+                    <input type="radio" required name="validatePhone" class="radio" id="validatePhoneYes" value="1">
                 </div>
                 <div class="radio input">
                     <label for="validatePhoneNo">validate phone no</label>
-                    <input type="radio" name="validatePhone" class="radio" id="validatePhoneNo" value="2">
+                    <input type="radio" required name="validatePhone" class="radio" id="validatePhoneNo" value="2">
                 </div>
             </div>
             <div class="text input">
@@ -75,7 +75,7 @@
             <div class="textarea input">
                 <div class="wrap-input">
                     <label for="message">Message</label>
-                    <textarea name="message" id="message" class="require"></textarea>
+                    <textarea name="message" id="message" required></textarea>
                 </div>
                 <span id="messageMessage"></span>
             </div>
@@ -89,7 +89,7 @@
                 <div class="text input">
                     <div class="wrap-input">
                         <label for="firstnamebis">prénom</label>
-                        <input type="text" name="firstname" id="firstnamebis" class="require">
+                        <input type="text" name="firstname" required id="firstnamebis">
                     </div>
                     <span class="messageFirstname"></span>
                 </div>
@@ -101,66 +101,82 @@
                     <span class="messageLastname"></span>
                 </div>
             </div>
-            <p>Vos loisirs ?</p>
+            <fieldset>
+                <legend>Vos loisirs ?</legend>
+                <div class="grid-2 has-gutter">
+                    <div class="input radio">
+                        <label for="hobbiesYes">oui</label>
+                        <input type="radio" id="hobbiesYes" name="hobbiesChoice" value="1" class="radio require">
+                    </div>
+                    <div class="input radio">
+                        <label for="hobbiesNo">non</label>
+                        <input type="radio" id="hobbiesNo" name="hobbiesChoice" value="0" class="radio require">
+                    </div>
+                    <span class="choiceHobbiesMessage"></span>
+                </div>
+                <div id="hobies-container">
+                    <div class="grid-5 has-gutter">
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesMovies" name="hobbies[]" value="Cinéma" class="require checkbox">
+                            <label for="hobbiesMovies">Cinéma</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesMusic" name="hobbies[]" value="Musique" class="require checkbox">
+                            <label for="hobbiesMusic">Musique</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiestravel" name="hobbies[]" value="Voyage" class="require checkbox">
+                            <label for="hobbiestravel">Voyage</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesRead" name="hobbies[]" value="Lecture" class="require checkbox">
+                            <label for="hobbiesRead">Lecture</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesDraw" name="hobbies[]" value="Dessiner/Peindre" class="require checkbox">
+                            <label for="hobbiesDraw">Dessiner/Peindre</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesPhoto" name="hobbies[]" value="Photographie" class="require checkbox">
+                            <label for="hobbiesPhoto">Photographie</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesDanse" name="hobbies[]" value="Danser" class="require checkbox">
+                            <label for="hobbiesDanse">Danser</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesPlay" name="hobbies[]" value="Jouer" class="require checkbox">
+                            <label for="hobbiesPlay">Jouer</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesTheater" name="hobbies[]" value="Théatre" class="require checkbox">
+                            <label for="hobbiesTheater">Théatre</label>
+                        </div>
+                    </div>
+                    <span class="hobbiesMessage"></span>
+                </div>
+            </fieldset>
             <div class="grid-2 has-gutter">
-                <div class="input radio">
-                    <label for="hobbiesYes">oui</label>
-                    <input type="radio" id="hobbiesYes" name="hobbiesChoice" value="1" class="radio require">
+                <div class="password input">
+                    <div class="wrap-input">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" id="password" class="require">
+                    </div>
+                    <span class="messagePassword"></span>
                 </div>
-                <div class="input radio">
-                    <label for="hobbiesNo">non</label>
-                    <input type="radio" id="hobbiesNo" name="hobbiesChoice" value="0" class="radio require">
+                <div class="password input">
+                    <div class="wrap-input">
+                        <label for="check-password">Mot de passe identique</label>
+                        <input type="password" name="checkpassword" id="check-password" class="require">
+                    </div>
+                    <span class="messageCheckPassword"></span>
                 </div>
-                <span class="choiceHobbiesMessage"></span>
+                
             </div>
-            <div class="grid-5 has-gutter">
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesMovies" name="hobbies[]" value="Cinéma" class="require checkbox">
-                    <label for="hobbiesMovies">Cinéma</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesMusic" name="hobbies[]" value="Musique" class="require checkbox">
-                    <label for="hobbiesMusic">Musique</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiestravel" name="hobbies[]" value="Voyage" class="require checkbox">
-                    <label for="hobbiestravel">Voyage</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesRead" name="hobbies[]" value="Lecture" class="require checkbox">
-                    <label for="hobbiesRead">Lecture</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesDraw" name="hobbies[]" value="Dessiner/Peindre" class="require checkbox">
-                    <label for="hobbiesDraw">Dessiner/Peindre</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesPhoto" name="hobbies[]" value="Photographie" class="require checkbox">
-                    <label for="hobbiesPhoto">Photographie</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesDanse" name="hobbies[]" value="Danser" class="require checkbox">
-                    <label for="hobbiesDanse">Danser</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesPlay" name="hobbies[]" value="Jouer" class="require checkbox">
-                    <label for="hobbiesPlay">Jouer</label>
-                </div>
-                <div class="input checkbox">
-                    <input type="checkbox" id="hobbiesTheater" name="hobbies[]" value="Théatre" class="require checkbox">
-                    <label for="hobbiesTheater">Théatre</label>
-                </div>
-            </div>
-            <span class="hobbiesMessage"></span>
             <div class="submit input">
                 <input type="submit" class="btn--primary" name="send" value="envoyer">
             </div>
         </form>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </div>
     <script src="./js/min.js"></script>
     <script>
