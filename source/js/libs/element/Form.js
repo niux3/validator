@@ -6,7 +6,7 @@ export default class Form extends Element{
         super(props);
         this.__configuration = props.configuration;
         this.__fields = [];
-        this.$el.querySelectorAll('.require').forEach(($require, k) => {
+        this.$el.querySelectorAll('.require, [required]').forEach(($require, k) => {
             this.addField($require);
         });
     }

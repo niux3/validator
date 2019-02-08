@@ -81,6 +81,14 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                     "message" : "Ce champ ne doit pas être vide"
                 }
             },
+            "hobbiesChoice" : {
+                "target" : {
+                    "error" : ".choiceHobbiesMessage",
+                },
+                "notempty" : {
+                    "message" : "Ce champ ne doit pas être vide"
+                }
+            },
             "phone" : {
                 "target" : {
                     "error" : "#messagePhone",
@@ -101,12 +109,32 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                     "message" : "vous devez choisir au moins 2 loisirs"
                 },
                 "maxlength":{
-                    'params' : 5,
-                    "message" : "vous devez choisir au maximum 5 loisirs"
+                    'params' : 3,
+                    "message" : "vous devez choisir au maximum 3 loisirs"
                 },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
                 },
+            },
+            "password" : {
+                "target" : {
+                    "error" : ".messagePassword",
+                },
+                "notempty":{
+                    "message" : "Ce champ ne doit pas être vide"
+                }
+            },
+            "checkpassword" : {
+                "target" : {
+                    "error" : ".messageCheckPassword",
+                },
+                "notempty":{
+                    "message" : "Ce champ ne doit pas être vide"
+                },
+                "equalto":{
+                    "params" : '#password',
+                    "message" : "Ce champ doit être identique au champs mot de passe"
+                }
             }
         }
     };
@@ -126,6 +154,7 @@ window.addEventListener('DOMContentLoaded',(e)=>{
     //check each element(input/select/textarea) when it's has lost focus
     let listRequireField = [
         'input[type=text]',
+        'input[type=password]',
         'select',
         'textarea',
     ];
@@ -139,7 +168,7 @@ window.addEventListener('DOMContentLoaded',(e)=>{
     let $phone = document.getElementById('phone');
     $phone.parentNode.style.display = 'none';
     document.getElementsByName('validatePhone').forEach(($input) =>{
-        $input.addEventListener('click', (e)=>{
+        $input.addEventListener('change', (e)=>{
             if(e.target.checked && e.target.id === "validatePhoneYes"){
                 $phone.parentNode.style.display = 'block';
                 validate.addRequireField($phone);
@@ -149,6 +178,27 @@ window.addEventListener('DOMContentLoaded',(e)=>{
             }
         });
     });
+
+    //add require fields if you answer 'yes' 
+    let $hobbies = document.getElementsByName('hobbies[]'),
+        $hobbiesContainer = document.getElementById('hobies-container');
+    document.getElementsByName('hobbiesChoice').forEach(($radio) =>{
+        $radio.addEventListener('change', (e)=>{
+            if(e.target.checked && e.target.id === "hobbiesYes"){
+                $hobbiesContainer.style.display = 'block';
+                $hobbies.forEach(($checkbox)=>{
+                    validate.addRequireField($checkbox);
+                });
+            }else{
+                $hobbiesContainer.style.display = 'none';
+                $hobbies.forEach(($checkbox)=>{
+                    validate.removeRequireField($checkbox);
+                });
+            }
+        });
+    });
+
+
 
     console.log("'dom@dom' ===  format email --> ", validate.check('dom@dom', 'email'));
 });

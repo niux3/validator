@@ -5,6 +5,7 @@
     max-width: 96rem;
     margin: 0 auto;
     color:#333;
+    padding-bottom: 15rem;
 }
 
 span[id^=vfo]{
@@ -18,10 +19,23 @@ span[id^=vfo]{
         color: #5CB85C;
     }
 }
+fieldset{
+    margin-top: 1.5rem;
+    border: 1px solid #dadce0; 
+    border-radius:.5rem;
 
+    legend{
+        font-size: 1.6rem;
+        width: auto;
+    }
+}
 div{
+    &#hobies-container{
+        display: none;
+    }
+
     &.input{
-        margin-bottom: 2.5rem;
+        margin-top: 1.5rem;
 
         &.radio,
         &.checkbox{
@@ -41,7 +55,7 @@ div{
                 background-color: #fff;
             }
 
-            input[type=text], input[type=email], input[type=number], select, textarea{
+            input[type=text],input[type=password], input[type=email], input[type=number], select, textarea{
                 box-shadow: none;
                 border: 1px solid #dadce0; 
                 border-radius:.3rem;

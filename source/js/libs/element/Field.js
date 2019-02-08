@@ -4,11 +4,12 @@ export default class Field extends Element{
     constructor(props){
         super(props);
         this.__configuration = props.configuration;
-        this.state = {
+        this.__state = {
             success : false,
             error : false,
             message : null
         };
+        this.__switchRequireAttribute();
     }
 
     resetState(){
@@ -21,7 +22,7 @@ export default class Field extends Element{
 
     setState(val){
         if(typeof val === "object"){
-            this.state = val;
+            this.__state = val;
         }
     }
 
@@ -30,8 +31,8 @@ export default class Field extends Element{
     }
 
     clean(){
-        for(let item in this.state){
-            if(item !== "message" && this.state[item] === true){
+        for(let item in this.__state){
+            if(item !== "message" && this.__state[item] === true){
                 this.resetState();
                 this.$el.classList.remove(item);
 
@@ -50,21 +51,21 @@ export default class Field extends Element{
     */
     displayState(){
         let selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`;
-        for(let item in this.state){
-            if(item !== 'message' && this.state[item]){
+        for(let item in this.__state){
+            if(item !== 'message' && this.__state[item]){
                 this.$el.classList.add(item);
-                this.state.message = this.state.message !== null? this.state.message : '';
+                this.__state.message = this.__state.message !== null? this.__state.message : '';
 
                 if(this.__configuration.hasOwnProperty('target')){
                     if(this.$el.closest('form').querySelector(this.__configuration['target'][item])){
                         this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
                             if($target.querySelectorAll(selectorState).length > 0) return;
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.state.message ))
+                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.__state.message ))
                         });
                     }
                 }else{
                     if(this.$el.parentNode.querySelectorAll(selectorState).length > 0) return;
-                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.state.message ));
+                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.__state.message ));
                 }
             }
         }
@@ -97,14 +98,14 @@ export default class Field extends Element{
         rulesInNode.forEach((ruleInNode) =>{
             for(let key in defaultRules){
                 if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration[key])){
-                    this.state.error = true;
-                    this.state.message = this.__configuration[key]['message'];
+                    this.__state.error = true;
+                    this.__state.message = this.__configuration[key]['message'];
                 }
 
-                if(!this.state.error){
-                    this.state.success = true;
+                if(!this.__state.error){
+                    this.__state.success = true;
                 }else{
-                    this.state.success = false;
+                    this.__state.success = false;
                 }
             }
         });
@@ -146,5 +147,12 @@ export default class Field extends Element{
         }
 
         return rulesList;
-    }
+    }  
+
+    __switchRequireAttribute(){
+        if(this.$el.hasAttribute('required')){
+            this.$el.removeAttribute('required');
+            this.$el.classList.add('require');
+        }
+    }  
 }
