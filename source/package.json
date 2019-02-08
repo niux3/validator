@@ -1,6 +1,6 @@
 {
   "name": "validator",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "validate data",
   "main": "index.js",
   "scripts": {
