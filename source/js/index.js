@@ -92,9 +92,17 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                     "message" : "Ce champ ne doit pas être vide"
                 }
             },
-            "loisirs[]":{
+            "hobbies[]":{
                 "target" : {
-                    "error" : "#messageLoisirs",
+                    "error" : ".hobbiesMessage",
+                },
+                "minlength":{
+                    'params' : 2,
+                    "message" : "vous devez choisir au moins 2 loisirs"
+                },
+                "maxlength":{
+                    'params' : 5,
+                    "message" : "vous devez choisir au maximum 5 loisirs"
                 },
                 "notempty":{
                     "message" : "Ce champ ne doit pas être vide"
