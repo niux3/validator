@@ -5,11 +5,18 @@
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Titre du document</title>
-    <link rel="stylesheet" href="./css/min.css">
+    <link rel="stylesheet" href="./css/min.8904d.css">
   </head>
   <body>
     <div class="container">
+        <div class="grid-2 has-gutter">
         <form action="contact" method="post" class="formToValidate">
+            <div class="text input">
+                <div class="wrap-input">
+                    <label for="noTest1">pas de test sur ce champ</label>
+                    <input type="text" name="noTest1" id="noTest1">
+                </div>
+            </div>
             <div class="select input">
                 <div class="wrap-input">
                     <label for="civility">
@@ -55,22 +62,33 @@
                     <span id="messageSubject"></span>
                 </div>
             </div>
-            <div class="grid-2 has-gutter">
-                <div class="radio input">
-                    <label for="validatePhoneYes">validate phone yes</label>
-                    <input type="radio" required name="validatePhone" class="radio" id="validatePhoneYes" value="1">
+            <fieldset>
+                <legend>Vous contactez par téléphone : </legend>
+                <div class="grid-2 has-gutter">
+                    <div class="radio input">
+                        <label for="validatePhoneYes">oui</label>
+                        <input type="radio" required name="validatePhone" class="radio" id="validatePhoneYes" value="1">
+                    </div>
+                    <div class="radio input">
+                        <label for="validatePhoneNo">non</label>
+                        <input type="radio" required name="validatePhone" class="radio" id="validatePhoneNo" value="2">
+                    </div>
                 </div>
-                <div class="radio input">
-                    <label for="validatePhoneNo">validate phone no</label>
-                    <input type="radio" required name="validatePhone" class="radio" id="validatePhoneNo" value="2">
+                <div class="text input">
+                    <div class="wrap-input">
+                        <label for="phone">phone</label>
+                        <input type="text" name="phone" id="phone">
+                    </div>
+                    <span id="messagePhone"></span>
                 </div>
-            </div>
-            <div class="text input">
+                <span id="messagePhoneChoice"></span>
+            </fieldset>
+            <div class="date input">
                 <div class="wrap-input">
-                    <label for="phone">phone</label>
-                    <input type="text" name="phone" id="phone" class="">
+                    <label for="dateAppointement">Disponibilité pour un rendez-vous ? </label>
+                    <input type="date" id="dateAppointement" class="require" name="dateAppointement" value="" min="2018-01-01" max="2019-12-31">
                 </div>
-                <span id="messagePhone"></span>
+                <span id="messageDate"></span>
             </div>
             <div class="textarea input">
                 <div class="wrap-input">
@@ -79,12 +97,31 @@
                 </div>
                 <span id="messageMessage"></span>
             </div>
+            <div class="select input">
+                <div class="wrap-input">
+                    <label for="selectMultiple">
+                        <select name="selectMultiple[]" id="selectMultiple" multiple="true" class="require">
+                            <option value="">rien</option>
+                            <option value="1">lorem</option>
+                            <option value="2">ipsum</option>
+                            <option value="3">bla bla</option>
+                            <option value="4">lo lo</option>
+                        </select>
+                    </label>
+                </div>
+                <span id="messageSelectMultiple"></span>
+            </div>
             <div class="submit input">
                 <input type="submit" class="btn--primary" name="send" value="envoyer">
             </div>
         </form>
-        <hr>
         <form action="about" method="post" class="formToValidate">
+            <div class="text input">
+                <div class="wrap-input">
+                    <label for="noTest2">pas de test sur ce champ</label>
+                    <input type="text" name="noTest2" id="noTest2">
+                </div>
+            </div>
             <div class="grid-2 has-gutter">
                 <div class="text input">
                     <div class="wrap-input">
@@ -112,10 +149,9 @@
                         <label for="hobbiesNo">non</label>
                         <input type="radio" id="hobbiesNo" name="hobbiesChoice" value="0" class="radio require">
                     </div>
-                    <span class="choiceHobbiesMessage"></span>
                 </div>
                 <div id="hobies-container">
-                    <div class="grid-5 has-gutter">
+                    <div class="grid-3 has-gutter">
                         <div class="input checkbox">
                             <input type="checkbox" id="hobbiesMovies" name="hobbies[]" value="Cinéma" class="require checkbox">
                             <label for="hobbiesMovies">Cinéma</label>
@@ -133,8 +169,8 @@
                             <label for="hobbiesRead">Lecture</label>
                         </div>
                         <div class="input checkbox">
-                            <input type="checkbox" id="hobbiesDraw" name="hobbies[]" value="Dessiner/Peindre" class="require checkbox">
-                            <label for="hobbiesDraw">Dessiner/Peindre</label>
+                            <input type="checkbox" id="hobbiesDraw" name="hobbies[]" value="Peindre" class="require checkbox">
+                            <label for="hobbiesDraw">Peindre</label>
                         </div>
                         <div class="input checkbox">
                             <input type="checkbox" id="hobbiesPhoto" name="hobbies[]" value="Photographie" class="require checkbox">
@@ -145,8 +181,12 @@
                             <label for="hobbiesDanse">Danser</label>
                         </div>
                         <div class="input checkbox">
-                            <input type="checkbox" id="hobbiesPlay" name="hobbies[]" value="Jouer" class="require checkbox">
-                            <label for="hobbiesPlay">Jouer</label>
+                            <input type="checkbox" id="hobbiesA" name="hobbies[]" value="Couture" class="require checkbox">
+                            <label for="hobbiesA">Couture</label>
+                        </div>
+                        <div class="input checkbox">
+                            <input type="checkbox" id="hobbiesB" name="hobbies[]" value="Tricot" class="require checkbox">
+                            <label for="hobbiesB">Tricot</label>
                         </div>
                         <div class="input checkbox">
                             <input type="checkbox" id="hobbiesTheater" name="hobbies[]" value="Théatre" class="require checkbox">
@@ -155,6 +195,7 @@
                     </div>
                     <span class="hobbiesMessage"></span>
                 </div>
+                <span class="choiceHobbiesMessage"></span>
             </fieldset>
             <div class="grid-2 has-gutter">
                 <div class="password input">
@@ -171,14 +212,15 @@
                     </div>
                     <span class="messageCheckPassword"></span>
                 </div>
-                
+
             </div>
             <div class="submit input">
                 <input type="submit" class="btn--primary" name="send" value="envoyer">
             </div>
         </form>
+        </div>
     </div>
-    <script src="./js/min.js"></script>
+    <script src="./js/min.9618c.js"></script>
     <script>
         Array.slice(document.querySelectorAll('div.input input, div.input textarea'), 0).forEach(function($div){
             $div.addEventListener('focus',function(){
@@ -187,7 +229,7 @@
             })
             $div.addEventListener('blur',function(){
                 if(this.value === ""){
-                    this.parentNode.parentNode.classList.remove('on-data');                        
+                    this.parentNode.parentNode.classList.remove('on-data');
                 }
             });
         });

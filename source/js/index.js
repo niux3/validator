@@ -73,9 +73,9 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                     "message" : "Ce champ doit avoir minimum 3 caractères"
                 }
             },
-            "contactEvent" : {
+            "validatePhone" : {
                 "target" : {
-                    "error" : "#messageContactEvent",
+                    "error" : "#messagePhoneChoice",
                 },
                 "notempty" : {
                     "message" : "Ce champ ne doit pas être vide"
@@ -124,6 +124,19 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                     "message" : "Ce champ ne doit pas être vide"
                 }
             },
+            "selectMultiple[]" : {
+                "minlength":{
+                    'params' : 2,
+                    "message" : "vous devez choisir au moins 2 items"
+                },
+                "maxlength":{
+                    'params' : 3,
+                    "message" : "vous devez choisir au maximum 3 items"
+                },
+                "notempty":{
+                    "message" : "Ce champ ne doit pas être vide"
+                },
+            },
             "checkpassword" : {
                 "target" : {
                     "error" : ".messageCheckPassword",
@@ -134,6 +147,17 @@ window.addEventListener('DOMContentLoaded',(e)=>{
                 "equalto":{
                     "params" : '#password',
                     "message" : "Ce champ doit être identique au champs mot de passe"
+                }
+            },
+            "dateAppointement" : {
+                "target" : {
+                    "error" : "#messageDate",
+                },
+                "notempty":{
+                    "message" : "Ce champ ne doit pas être vide"
+                },
+                "date":{
+                    "message" : "Ce champ doit être une date valide"
                 }
             }
         }
@@ -146,25 +170,36 @@ window.addEventListener('DOMContentLoaded',(e)=>{
     validate.addRules('checkphone', (value)=>{
         return !/^0[1-8][ .-]?(\d{2}[ .-]?){4}$/.test(value);
     });
-    
+
     //check form when it's submitted
     validate.form();
 
 
-    //check each element(input/select/textarea) when it's has lost focus
+    //check each element(input/select/textarea) when it's in focus and has lost focus
     let listRequireField = [
         'input[type=text]',
+        'input[type=date]',
         'input[type=password]',
+        'input[type=radio]',
+        'input[type=checkbox]',
         'select',
         'textarea',
     ];
     document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
+        let event = $field.nodeName.toLowerCase() === 'select'? 'change' : 'focus';
+        $field.addEventListener(event, (e)=>{
+            e.target.classList.remove('error');
+            if(e.target.closest('form').querySelector(`[data-name="field_${e.target.name}"]`)){
+                let $message = e.target.closest('form').querySelector(`[data-name="field_${e.target.name}"]`);
+                $message.parentNode.removeChild($message);
+            }
+        });
         $field.addEventListener('blur', (e)=>{
             validate.element(e.target);
         });
     });
 
-    //add require field if you answer 'yes' at 'add phone number' 
+    //add require field if you answer 'yes' at 'add phone number'
     let $phone = document.getElementById('phone');
     $phone.parentNode.style.display = 'none';
     document.getElementsByName('validatePhone').forEach(($input) =>{
@@ -179,7 +214,7 @@ window.addEventListener('DOMContentLoaded',(e)=>{
         });
     });
 
-    //add require fields if you answer 'yes' 
+    //add require fields if you answer 'yes'
     let $hobbies = document.getElementsByName('hobbies[]'),
         $hobbiesContainer = document.getElementById('hobies-container');
     document.getElementsByName('hobbiesChoice').forEach(($radio) =>{
