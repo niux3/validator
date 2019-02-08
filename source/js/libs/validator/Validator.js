@@ -15,7 +15,7 @@ a888P          ..c6888969""..,"o888888888o.?8888888888"".ooo8888oo.
                                                         .:o888.o8o.  "866o9888o
                                                          :888.o8888.  "88."89".
     author : Renaud Bourdeau                            . 89  888888    "88":.
-    version : 0.5.1                                     :.     '8888o
+    version : 0.5.4                                     :.     '8888o
     email : renaudbourdeau@gmail.com                     .       "8888..
                                                                    888888o.
                                                                     "888889,
@@ -45,7 +45,7 @@ export default class Validator{
         this.__configuration = new Configuration(options);
         this.__rules = new Rules();
         this.__FormsGroup = new FormsGroup(this.__configuration);
-        
+
         return this;
     }
 
@@ -81,6 +81,8 @@ export default class Validator{
                     if(callback !== null){
                         callback();
                     }
+
+                    return field.$el;
                 }
             });
         });
@@ -95,7 +97,7 @@ export default class Validator{
             if(form.$el === $el.closest('form')){
                 $el.classList.add('require');
                 form.addField($el);
-            }            
+            }
         });
     }
 
@@ -129,7 +131,7 @@ export default class Validator{
     removeRequireForm($el){
         this.__FormsGroup.rmForm($el);
     }
-    
+
     /*
     * add or update rule attribute
     * @param key is a string : a name of rule
