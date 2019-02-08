@@ -21,7 +21,7 @@ span[id^=vfo]{
 }
 fieldset{
     margin-top: 1.5rem;
-    border: 1px solid #dadce0; 
+    border: 1px solid #dadce0;
     border-radius:.5rem;
 
     legend{
@@ -55,9 +55,9 @@ div{
                 background-color: #fff;
             }
 
-            input[type=text],input[type=password], input[type=email], input[type=number], select, textarea{
+            input, select, textarea{
                 box-shadow: none;
-                border: 1px solid #dadce0; 
+                border: 1px solid #dadce0;
                 border-radius:.3rem;
                 background-color: transparent;
                 width: 100%;
@@ -68,7 +68,7 @@ div{
                 }
 
                 &:focus{
-                    border: 1px solid #0275D8; 
+                    border: 1px solid #0275D8;
                 }
             }
 
