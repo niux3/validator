@@ -1,9 +1,12 @@
 export default class Polyfills{
     static run(){
+
+        console.log('Polyfills');
         /*
         closest
         */
         if (window.Element && !Element.prototype.closest) {
+            console.log('closest', window.Element && !Element.prototype.closest);
             Element.prototype.closest = function(s) {
                 var matches = (this.document || this.ownerDocument).querySelectorAll(s),
                     i, el = this;
@@ -23,6 +26,7 @@ export default class Polyfills{
 
 
         if (!Array.prototype.forEach) {
+            console.log('forEach', Array.prototype.forEach);
 
             Array.prototype.forEach = function(callback) {
 
