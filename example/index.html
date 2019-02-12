@@ -220,9 +220,9 @@
         </form>
         </div>
     </div>
-    <script src="./js/min.fc758.js"></script>
+    <script src="./js/min.7144f.js"></script>
     <script>
-        Array.slice(document.querySelectorAll('div.input input, div.input textarea'), 0).forEach(function($div){
+        Array.prototype.slice.call(document.querySelectorAll('div.input input, div.input textarea'), 0).forEach(function($div){
             $div.addEventListener('focus',function(){
                 this.parentNode.parentNode.classList.add('on-data');
                 return this;
