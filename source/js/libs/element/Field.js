@@ -113,7 +113,6 @@ export default class Field extends Element{
                     this.__state.success = true;
                     if(this.__configuration[key] !== undefined && this.__configuration[key].hasOwnProperty('success')){
                         this.__state.message = this.__configuration[key]['success'];
-                        console.log(this.__state.message);
                     }
                 }else{
                     this.__state.success = false;

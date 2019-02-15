@@ -1,6 +1,9 @@
 @import './libs/knacss';
 
 
+$colorError : #f00;
+$colorSuccess : #5CB85C;
+
 .container{
     max-width: 96rem;
     margin: 0 auto;
@@ -18,11 +21,11 @@ span[id^=vfo]{
 
 
     &.error{
-        color: #f00;
+        color: $colorError;
     }
 
     &.success{
-        color: #5CB85C;
+        color: $colorSuccess;
     }
 
     .icon{
@@ -81,7 +84,11 @@ div{
                 transition: border-color .4s;
 
                 &.error{
-                    border-color: red;
+                    border: 1px solid $colorError;
+                }
+
+                &.success{
+                    border: 1px solid $colorSuccess;
                 }
 
                 &:focus{

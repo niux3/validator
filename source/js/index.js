@@ -40,16 +40,13 @@ window.addEventListener('DOMContentLoaded',(e)=>{
             "firstname" : {
                 "target" : {
                     "error" : ".messageFirstname",
-                    "success" : ".messageFirstname",
                 },
                 "notempty":{
                     "error" : defaultErrorMessage,
-                    "success" : iconSuccess
                 },
                 "minlength":{
                     'params': 3,
                     "error" : iconError + "<span>Ce champ doit avoir minimum 3 caractères</span>",
-                    "success" : iconSuccess
                 }
             },
             "lastname" : {
