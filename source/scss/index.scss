@@ -9,7 +9,13 @@
 }
 
 span[id^=vfo]{
-    display: block;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    margin-top: .8rem;
+
 
     &.error{
         color: #f00;
@@ -17,6 +23,17 @@ span[id^=vfo]{
 
     &.success{
         color: #5CB85C;
+    }
+
+    .icon{
+        width: 1.6rem;
+        padding-top: .4rem;
+        margin-right: .5rem;
+    }
+
+    > *{
+        margin: auto 0;
+        line-height: 1.2
     }
 }
 fieldset{

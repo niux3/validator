@@ -56,13 +56,11 @@ export default class Field extends Element{
                 this.$el.classList.add(item);
                 this.__state.message = this.__state.message !== null? this.__state.message : '';
 
-                if(this.__configuration.hasOwnProperty('target')){
-                    if(this.$el.closest('form').querySelector(this.__configuration['target'][item])){
-                        this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
-                            if($target.querySelectorAll(selectorState).length > 0) return;
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.__state.message ))
-                        });
-                    }
+                if(this.__configuration.hasOwnProperty('target') && this.$el.closest('form').querySelector(this.__configuration['target'][item])){
+                    this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
+                        if($target.querySelectorAll(selectorState).length > 0) return;
+                        $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.__state.message ))
+                    });
                 }else{
                     if(this.$el.parentNode.querySelectorAll(selectorState).length > 0) return;
                     this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.__state.message ));
@@ -108,11 +106,15 @@ export default class Field extends Element{
             for(let key in defaultRules){
                 if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration[key])){
                     this.__state.error = true;
-                    this.__state.message = this.__configuration[key]['message'];
+                    this.__state.message = this.__configuration[key]['error'];
                 }
 
                 if(!this.__state.error){
                     this.__state.success = true;
+                    if(this.__configuration[key] !== undefined && this.__configuration[key].hasOwnProperty('success')){
+                        this.__state.message = this.__configuration[key]['success'];
+                        console.log(this.__state.message);
+                    }
                 }else{
                     this.__state.success = false;
                 }
