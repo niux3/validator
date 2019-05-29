@@ -58,12 +58,18 @@ export default class Field extends Element{
 
                 if(this.__configuration.hasOwnProperty('target') && this.$el.closest('form').querySelector(this.__configuration['target'][item])){
                     this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
+                        //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                         if($target.querySelectorAll(selectorState).length > 0) return;
-                        $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.__state.message ))
+                        if(this.__state.message !== ""){
+                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.__state.message ))
+                        }
                     });
                 }else{
+                    //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                     if(this.$el.parentNode.querySelectorAll(selectorState).length > 0) return;
-                    this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.__state.message ));
+                    if(this.__state.message !== ""){
+                        this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.__state.message ));
+                    }
                 }
             }
         }
@@ -164,5 +170,12 @@ export default class Field extends Element{
             this.$el.removeAttribute('required');
             this.$el.classList.add('require');
         }
-    }  
+    }
+
+    __displayMessage(target, targetLen, position, state){
+        if(targetLen > 0) return;
+        if(this.__state.message !== ""){
+            target.insertAdjacentHTML(position, this.__getTemplateMessage( state, this.id,this.$el.name, this.__state.message ));
+        }
+    }
 }
