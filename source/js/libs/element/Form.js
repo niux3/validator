@@ -6,7 +6,7 @@ export default class Form extends Element{
         super(props);
         this.__configuration = props.configuration;
         this.__fields = [];
-        this.$el.querySelectorAll('.require, [required]').forEach(($require, k) => {
+        this.$el.querySelectorAll(this.__getSelectorRequiresFields()).forEach(($require, k) => {
             this.addField($require);
         });
     }
@@ -35,5 +35,17 @@ export default class Form extends Element{
         this.__fields.forEach((field, i)=>{
             field.update(field, i, callback);
         });
+    }
+
+    __getSelectorRequiresFields(){
+        let fieldType = [
+            'input',
+            'textarea',
+            'select',
+        ];
+        fieldType.map((input)=>{
+            return `${input}.require,${input}[required]`;
+        });
+        return fieldType.join(',')
     }
 }
