@@ -1,7 +1,5 @@
 export default class Polyfills{
     static run(){
-
-        console.log('Polyfills');
         /*
         closest
         */
