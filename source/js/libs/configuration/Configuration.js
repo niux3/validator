@@ -21,7 +21,7 @@ export default class Configuration{
             retObj;
 
         if (argl < 2) {
-            throw new Error('There should be at least 2 arguments passed to array_replace_recursive()')
+            throw new Error('There should be at least 2 arguments passed to this.__replace()')
         }
 
         // Although docs state that the arguments are passed in by reference,
@@ -42,7 +42,7 @@ export default class Configuration{
         for (i = 1; i < argl; i++) {
             for (p in arguments[i]) {
                 if (retObj[p] && typeof retObj[p] === 'object') {
-                    retObj[p] = array_replace_recursive(retObj[p], arguments[i][p])
+                    retObj[p] = this.__replace(retObj[p], arguments[i][p])
                 } else {
                     retObj[p] = arguments[i][p]
                 }
