@@ -25,7 +25,6 @@ a888P          ..c6888969""..,"o888888888o.?8888888888"".ooo8888oo.
 import Polyfills from '../Polyfills';
 import Configuration from '../configuration/Configuration';
 import FormsGroup from '../element/FormsGroup';
-import Middleware from './Middleware';
 import Rules from './Rules';
 
 export default class Validator{
@@ -43,10 +42,20 @@ export default class Validator{
 
     constructor(options = {}){
         Polyfills.run();
-        this.middleware = new Middleware();
 
-        this.__configuration = new Configuration(options);
-        this.__rules = new Rules();
+        this.middleware = {
+            formOnError : null,
+            formOnSuccess : null,
+            fieldOnError : null,
+            fieldOnSuccess : null,
+        };
+
+        this.__configuration = {
+            params : new Configuration(options),
+            rules : new Rules(),
+            middleware : this.middleware,
+            state : []
+        };
         this.__FormsGroup = new FormsGroup(this.__configuration);
 
 
@@ -57,12 +66,14 @@ export default class Validator{
     * validate some fields in forms
     */
     form(){
-        this.__FormsGroup.each((form)=>{
+        this.__FormsGroup.each((form, i)=>{
             form.on('submit', (event, form)=>{
-                form.notify((field, i) =>{
-                    field.clean().validate(this.__rules).displayState();
+                this.__configuration.state[i].success = false;
+                form.notify((field) =>{
+                    field.clean().validate().displayState();
                 });
-                if(event.target.querySelectorAll('.error').length > 0){
+
+                if(!this.__configuration.state[i].success){
                     if(this.middleware.formOnError !== null){
                         this.middleware.formOnError(event, form.$el);
                     }
@@ -84,13 +95,7 @@ export default class Validator{
         this.__FormsGroup.each((form)=>{
             form.notify((field, i) =>{
                 if(field.$el === $el){
-                    field.clean().validate(this.__rules).displayState();
-                    if(field.getState().error === true && this.middleware.fieldOnError !== null){
-                        this.middleware.fieldOnError(field.$el);
-                    }else if(field.getState().success === true && this.middleware.fieldOnSuccess !== null){
-                        this.middleware.fieldOnSuccess(field.$el);
-                    }
-
+                    field.clean().validate().displayState();
                     return field.$el;
                 }
             });
@@ -147,18 +152,21 @@ export default class Validator{
     * @param rule  is a lambda function : return bollean validation (the first argument of the lambda method is the field object)
     */
     addRules(key, rule){
-        this.__rules.set(key, rule);
+        this.__configuration.rules.set(key, rule);
     }
 
-    formOnError(name, callback, event, $el){
-        if(this.__middleware.hasOwnProperty(name)){
-            switch(name){
-                case 'formOnError':
-
-                    break;
+    /*
+    * check if the form is valid
+    * @param $el is a form (node) : element in the dom
+    */
+    formIsValid($el){
+        let state = false;
+        this.__FormsGroup.each((form, i)=>{
+            if(form.$el === $el){
+                state = this.__configuration.state[i].success;
             }
-            
-        }
+        });
+        return state;
     }
 
 
@@ -170,6 +178,6 @@ export default class Validator{
     * @return boolean
     */
     check(data, rulesname, configuration = {}){
-        return !this.__rules.get()[rulesname](data, configuration);
+        return !this.__configuration.rules.get()[rulesname](data, configuration);
     }
 }

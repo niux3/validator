@@ -3,18 +3,20 @@ import Element from './Element';
 export default class Field extends Element{
     constructor(props){
         super(props);
-        this.__configuration = props.configuration;
-        this.__state = {
+        this.__configuration = props;
+
+        let state = {
             success : false,
             error : false,
             message : null
         };
+        this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField] = state
         this.__switchRequireAttribute();
     }
 
     resetState(){
         this.setState({
-            sucess : false,
+            success : false,
             error : false,
             message : null
         });
@@ -22,12 +24,8 @@ export default class Field extends Element{
 
     setState(val){
         if(typeof val === "object"){
-            this.__state = val;
+            this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField] = val;
         }
-    }
-
-    getState(){
-        return this.__state;
     }
 
     update(obj, i, callback){
@@ -35,8 +33,9 @@ export default class Field extends Element{
     }
 
     clean(){
-        for(let item in this.__state){
-            if(item !== "message" && this.__state[item] === true){
+        let state = this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField];
+        for(let item in state){
+            if(item !== "message" && state[item] === true){
                 this.resetState();
                 this.$el.classList.remove(item);
 
@@ -54,25 +53,27 @@ export default class Field extends Element{
     * show state
     */
     displayState(){
-        let selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`;
-        for(let item in this.__state){
-            if(item !== 'message' && this.__state[item]){
+        let selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`,
+            state = this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField],
+            params = this.__configuration.params;
+        for(let item in state){
+            if(item !== 'message' && state[item]){
                 this.$el.classList.add(item);
-                this.__state.message = this.__state.message !== null? this.__state.message : '';
+                state.message = state.message !== null? state.message : '';
 
-                if(this.__configuration.hasOwnProperty('target') && this.$el.closest('form').querySelector(this.__configuration['target'][item])){
-                    this.$el.closest('form').querySelectorAll(this.__configuration['target'][item]).forEach(($target) =>{
+                if(params.hasOwnProperty('target') && this.$el.closest('form').querySelector(params['target'][item])){
+                    this.$el.closest('form').querySelectorAll(params['target'][item]).forEach(($target) =>{
                         //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                         if($target.querySelectorAll(selectorState).length > 0) return;
-                        if(this.__state.message !== ""){
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, this.__state.message ))
+                        if(state.message !== ""){
+                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, state.message ))
                         }
                     });
                 }else{
                     //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                     if(this.$el.parentNode.querySelectorAll(selectorState).length > 0) return;
-                    if(this.__state.message !== ""){
-                        this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, this.__state.message ));
+                    if(state.message !== ""){
+                        this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, state.message ));
                     }
                 }
             }
@@ -85,9 +86,12 @@ export default class Field extends Element{
     * check validity field
     * @param field is a attribute of Form object
     */
-    validate(rules){
-        let defaultRules = rules.get(),
+    validate(){
+        let defaultRules = this.__configuration.rules.get(),
+            state = this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField],
             rulesInNode = this.__getRulesList(),
+            middleware = this.__configuration.middleware,
+            params = this.__configuration.params,
             fieldValue,
             checks = [];
 
@@ -114,23 +118,42 @@ export default class Field extends Element{
 
         rulesInNode.forEach((ruleInNode) =>{
             for(let key in defaultRules){
-                if( key === ruleInNode && defaultRules[key](fieldValue, this.__configuration[key])){
-                    this.__state.error = true;
-                    this.__state.message = this.__configuration[key]['error'];
+                if( key === ruleInNode && defaultRules[key](fieldValue, params[key])){
+                    state.error = true;
+                    state.message = params[key]['error'];
+                    if(middleware.fieldOnError !== null){
+                        middleware.fieldOnError(this.$el);
+                    }
                 }
 
-                if(!this.__state.error){
-                    this.__state.success = true;
-                    if(this.__configuration[key] !== undefined && this.__configuration[key].hasOwnProperty('success')){
-                        this.__state.message = this.__configuration[key]['success'];
+                if(!state.error){
+                    state.success = true;
+                    if(params[key] !== undefined && params[key].hasOwnProperty('success')){
+                        state.message = params[key]['success'];
+                    }
+                    if(middleware.fieldOnSuccess !== null){
+                        middleware.fieldOnSuccess(this.$el);
                     }
                 }else{
-                    this.__state.success = false;
+                    state.success = false;
                 }
             }
         });
+        this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField]  = state;
+        this.__checkFormSuccess();
 
         return this;
+    }
+
+    __checkFormSuccess(){
+        let fieldsState = this.__configuration.state[this.__configuration.indexForm].fields,
+            formSuccess = true;
+        fieldsState.forEach((stateField) => {
+            if(stateField.error){
+                formSuccess = false;
+            }
+        })
+        this.__configuration.state[this.__configuration.indexForm].success = formSuccess;
     }
 
     /*
@@ -151,7 +174,7 @@ export default class Field extends Element{
         let notempty = false,
             rulesList = [];
 
-        for(let item in this.__configuration){
+        for(let item in this.__configuration.params){
             item = item.trim().replace(/\s+/g, ' ');
             if(item !== "target"){
                 if(item === "notempty"){
@@ -178,8 +201,8 @@ export default class Field extends Element{
 
     __displayMessage(target, targetLen, position, state){
         if(targetLen > 0) return;
-        if(this.__state.message !== ""){
-            target.insertAdjacentHTML(position, this.__getTemplateMessage( state, this.id,this.$el.name, this.__state.message ));
+        if(this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField].message !== ""){
+            target.insertAdjacentHTML(position, this.__getTemplateMessage( state, this.id,this.$el.name, this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField].message ));
         }
     }
 }

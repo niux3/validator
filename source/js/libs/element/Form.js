@@ -4,7 +4,8 @@ import Field from '../element/Field';
 export default class Form extends Element{
     constructor(props){
         super(props);
-        this.__configuration = props.configuration;
+
+        this.__configuration = props;
         this.__fields = [];
         this.$el.querySelectorAll(this.__getSelectorRequiresFields()).forEach(($require, k) => {
             this.addField($require);
@@ -12,12 +13,19 @@ export default class Form extends Element{
     }
 
     addField($field){
-        let index = Object.keys(this.__configuration).indexOf($field.name),
-            config = index !== -1 ? this.__configuration[ Object.keys(this.__configuration)[index] ] : {},
+        this.__configuration.state[this.__configuration.indexForm].fields[this.__fields.length] = {};
+
+        let index = Object.keys(this.__configuration.params).indexOf($field.name),
+            config = index !== -1 ? this.__configuration.params[ Object.keys(this.__configuration.params)[index] ] : {},
             property = {
                 element : $field,
                 id : `${this.id}_vfi${this.__fields.length}`,
-                configuration : config
+                params : config,
+                indexForm : this.__configuration.indexForm,
+                indexField : this.__fields.length,
+                state : this.__configuration.state,
+                rules : this.__configuration.rules,
+                middleware : this.__configuration.middleware                
             };
         this.__fields.push(new Field(property));
     }
@@ -43,9 +51,8 @@ export default class Form extends Element{
             'textarea',
             'select',
         ];
-        fieldType.map((input)=>{
+        return fieldType.map((input)=>{
             return `${input}.require,${input}[required]`;
-        });
-        return fieldType.join(',')
+        }).join(',');
     }
 }

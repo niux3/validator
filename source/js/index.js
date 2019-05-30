@@ -194,22 +194,24 @@ window.addEventListener('DOMContentLoaded',(e)=>{
         return !/^0[1-8][ .-]?(\d{2}[ .-]?){4}$/.test(value);
     });
 
-    validate.middleware.formOnError = (e, $el)=>{
-        console.log('formOnError', e, $el);
-    }
+    // validate.middleware.formOnError = (e, $el)=>{
+    //     console.log('formOnError', e, $el);
+    // }
 
-    validate.middleware.formOnSuccess = (e, $el)=>{
-        console.log('formOnSuccess', e, $el);
-    }
+    // validate.middleware.formOnSuccess = (e, $el)=>{
+    //     console.log('formOnSuccess', e, $el);
+    // }
 
 
-    validate.middleware.fieldOnError = ($el)=>{
-        console.log('fieldOnError', $el);
-    }
+    // validate.middleware.fieldOnError = ($el)=>{
+    //     console.log('fieldOnError', $el);
+    // }
 
-    validate.middleware.fieldOnSuccess = ($el)=>{
-        console.log('fieldOnSuccess', $el);
-    }
+    // validate.middleware.fieldOnSuccess = ($el)=>{
+    //     if(document.querySelector('#firstname') === $el){
+    //         console.log('fieldOnSuccess', $el);
+    //     }
+    // }
 
     //check form when it's submitted
     validate.form();
@@ -276,4 +278,8 @@ window.addEventListener('DOMContentLoaded',(e)=>{
 
 
     console.log("'dom@dom' ===  format email --> ", validate.check('dom@dom', 'email'));
+    // document.querySelector('#monForm').addEventListener("submit",(e)=>{
+    //     console.log('#monForm is valid ? ', validate.formIsValid(e.target));
+    //     e.preventDefault();
+    // });
 });

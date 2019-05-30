@@ -6,7 +6,7 @@ export default class FormsGroup{
         this.__index = 0;
         this.__forms = [];
 
-        document.querySelectorAll(this.__configuration.get().selector).forEach(($form, i) =>{
+        document.querySelectorAll(this.__configuration.params.get().selector).forEach(($form, i) =>{
             this.addForm($form);
         });
     }
@@ -16,10 +16,19 @@ export default class FormsGroup{
     * @param form $el object
     */
     addForm($form){ 
+        this.__configuration.state[ this.__forms.length ] = {
+            success : false,
+            fields : []
+        };
+
         let property = {
             element : $form,
             id : `vfo${this.__forms.length}_`,
-            configuration : this.__configuration.get()['fields']
+            indexForm : this.__forms.length,
+            params : this.__configuration.params.get()['fields'],
+            state : this.__configuration.state,
+            rules : this.__configuration.rules,
+            middleware : this.__configuration.middleware
         };
         this.__forms.push(new Form(property));
     }
