@@ -25,6 +25,7 @@ a888P          ..c6888969""..,"o888888888o.?8888888888"".ooo8888oo.
 import Polyfills from '../Polyfills';
 import Configuration from '../configuration/Configuration';
 import FormsGroup from '../element/FormsGroup';
+import Middleware from './Middleware';
 import Rules from './Rules';
 
 export default class Validator{
@@ -42,28 +43,34 @@ export default class Validator{
 
     constructor(options = {}){
         Polyfills.run();
+        this.middleware = new Middleware();
+
         this.__configuration = new Configuration(options);
         this.__rules = new Rules();
         this.__FormsGroup = new FormsGroup(this.__configuration);
+
 
         return this;
     }
 
     /*
     * validate some fields in forms
-    * @param callback is lambda function : add a callback function to after validate form
     */
-    form(callback = null){
+    form(){
         this.__FormsGroup.each((form)=>{
-            form.on('submit', (e, form)=>{
+            form.on('submit', (event, form)=>{
                 form.notify((field, i) =>{
                     field.clean().validate(this.__rules).displayState();
                 });
-                if(e.target.querySelectorAll('.error').length > 0){
-                    if(callback !== null){
-                        callback();
+                if(event.target.querySelectorAll('.error').length > 0){
+                    if(this.middleware.formOnError !== null){
+                        this.middleware.formOnError(event, form.$el);
                     }
-                    e.preventDefault();
+                    event.preventDefault();
+                }else{
+                    if(this.middleware.formOnSuccess !== null){
+                        this.middleware.formOnSuccess(event, form.$el);
+                    }
                 }
             });
         });
@@ -73,13 +80,15 @@ export default class Validator{
     * validate one field
     * @param $el is a input (node) : element in the dom
     */
-    element($el, callback = null){
+    element($el){
         this.__FormsGroup.each((form)=>{
             form.notify((field, i) =>{
                 if(field.$el === $el){
                     field.clean().validate(this.__rules).displayState();
-                    if(callback !== null){
-                        callback();
+                    if(field.getState().error === true && this.middleware.fieldOnError !== null){
+                        this.middleware.fieldOnError(field.$el);
+                    }else if(field.getState().success === true && this.middleware.fieldOnSuccess !== null){
+                        this.middleware.fieldOnSuccess(field.$el);
                     }
 
                     return field.$el;
@@ -139,6 +148,17 @@ export default class Validator{
     */
     addRules(key, rule){
         this.__rules.set(key, rule);
+    }
+
+    formOnError(name, callback, event, $el){
+        if(this.__middleware.hasOwnProperty(name)){
+            switch(name){
+                case 'formOnError':
+
+                    break;
+            }
+            
+        }
     }
 
 

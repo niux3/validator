@@ -26,6 +26,10 @@ export default class Field extends Element{
         }
     }
 
+    getState(){
+        return this.__state;
+    }
+
     update(obj, i, callback){
         return callback(this, i);
     }

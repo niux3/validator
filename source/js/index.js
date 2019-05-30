@@ -194,6 +194,23 @@ window.addEventListener('DOMContentLoaded',(e)=>{
         return !/^0[1-8][ .-]?(\d{2}[ .-]?){4}$/.test(value);
     });
 
+    validate.middleware.formOnError = (e, $el)=>{
+        console.log('formOnError', e, $el);
+    }
+
+    validate.middleware.formOnSuccess = (e, $el)=>{
+        console.log('formOnSuccess', e, $el);
+    }
+
+
+    validate.middleware.fieldOnError = ($el)=>{
+        console.log('fieldOnError', $el);
+    }
+
+    validate.middleware.fieldOnSuccess = ($el)=>{
+        console.log('fieldOnSuccess', $el);
+    }
+
     //check form when it's submitted
     validate.form();
 
