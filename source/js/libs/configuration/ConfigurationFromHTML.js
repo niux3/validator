@@ -1,16 +1,13 @@
 export default class ConfigurationFromHTML{
     constructor(options){
+        this.__configuration = options;
+        this.__requireEls();
         
-        console.log('config >>>', options);
-        return options;
-
-        //super(options);
-        // this.__requireEls();
-        // return this;
+        return this.__configuration;
     }
 
     __requireEls(){
-        this.configuration['fields'] = {};
+        this.__configuration['fields'] = {};
         document.querySelectorAll('[data-validationrules]').forEach(($require) =>{
             this.__paramsRulesNode($require);
         });
@@ -18,10 +15,10 @@ export default class ConfigurationFromHTML{
 
     __paramsRulesNode($field){
         $field.getAttribute('data-validationrules').trim().replace(/\s+/g, ' ').split(' ').forEach((rule)=>{
-            if(this.configuration['fields'][ $field.name ] === undefined){
-                this.configuration['fields'][ $field.name ] = {};
+            if(this.__configuration['fields'][ $field.name ] === undefined){
+                this.__configuration['fields'][ $field.name ] = {};
             }
-            this.configuration['fields'][ $field.name ][ rule ]  = {};
+            this.__configuration['fields'][ $field.name ][ rule ]  = {};
 
             //params message
             var targetMsg = {};
@@ -34,17 +31,20 @@ export default class ConfigurationFromHTML{
             }
 
             if(targetMsg.hasOwnProperty('error') || targetMsg.hasOwnProperty('success')){
-                this.configuration['fields'][ $field.name ]['target'] = targetMsg;
+                this.__configuration['fields'][ $field.name ]['target'] = targetMsg;
             }
 
             //params rule
             var optionsRules = {};
-            if($field.getAttribute('data-validation' + rule) !== null){
-                optionsRules["params"] = $field.getAttribute('data-validation' + rule).trim();
+            if($field.getAttribute('data-validation' + rule + 'args') !== null){
+                optionsRules['params'] = $field.getAttribute('data-validation' + rule + 'args').trim();
             }
-            optionsRules["message"] = $field.getAttribute('data-error' + rule).trim();
+            if($field.getAttribute('data-success' + rule) !== null){
+                optionsRules["success"] = $field.getAttribute('data-success' + rule).trim();
+            }
+            optionsRules["error"] = $field.getAttribute('data-error' + rule).trim();
 
-            this.configuration['fields'][ $field.name ][ rule ] = optionsRules;
+            this.__configuration['fields'][ $field.name ][ rule ] = optionsRules;
         });
     }
 }
