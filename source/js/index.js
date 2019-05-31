@@ -242,38 +242,42 @@ window.addEventListener('DOMContentLoaded',(e)=>{
     });
 
     //add require field if you answer 'yes' at 'add phone number'
-    let $phone = document.getElementById('phone');
-    $phone.parentNode.style.display = 'none';
-    document.getElementsByName('validatePhone').forEach(($input) =>{
-        $input.addEventListener('change', (e)=>{
-            if(e.target.checked && e.target.id === "validatePhoneYes"){
-                $phone.parentNode.style.display = 'block';
-                validate.addRequireField($phone);
-            }else{
-                $phone.parentNode.style.display = 'none';
-                validate.removeRequireField($phone);
-            }
+    if(document.getElementById('phone')){
+        let $phone = document.getElementById('phone');
+        $phone.parentNode.style.display = 'none';
+        document.getElementsByName('validatePhone').forEach(($input) =>{
+            $input.addEventListener('change', (e)=>{
+                if(e.target.checked && e.target.id === "validatePhoneYes"){
+                    $phone.parentNode.style.display = 'block';
+                    validate.addRequireField($phone);
+                }else{
+                    $phone.parentNode.style.display = 'none';
+                    validate.removeRequireField($phone);
+                }
+            });
         });
-    });
+    }
 
     //add require fields if you answer 'yes'
-    let $hobbies = document.getElementsByName('hobbies[]'),
-        $hobbiesContainer = document.getElementById('hobies-container');
-    document.getElementsByName('hobbiesChoice').forEach(($radio) =>{
-        $radio.addEventListener('change', (e)=>{
-            if(e.target.checked && e.target.id === "hobbiesYes"){
-                $hobbiesContainer.style.display = 'block';
-                $hobbies.forEach(($checkbox)=>{
-                    validate.addRequireField($checkbox);
-                });
-            }else{
-                $hobbiesContainer.style.display = 'none';
-                $hobbies.forEach(($checkbox)=>{
-                    validate.removeRequireField($checkbox);
-                });
-            }
+    if(document.getElementsByName('hobbies[]')){
+        let $hobbies = document.getElementsByName('hobbies[]'),
+            $hobbiesContainer = document.getElementById('hobies-container');
+        document.getElementsByName('hobbiesChoice').forEach(($radio) =>{
+            $radio.addEventListener('change', (e)=>{
+                if(e.target.checked && e.target.id === "hobbiesYes"){
+                    $hobbiesContainer.style.display = 'block';
+                    $hobbies.forEach(($checkbox)=>{
+                        validate.addRequireField($checkbox);
+                    });
+                }else{
+                    $hobbiesContainer.style.display = 'none';
+                    $hobbies.forEach(($checkbox)=>{
+                        validate.removeRequireField($checkbox);
+                    });
+                }
+            });
         });
-    });
+    }
 
 
 

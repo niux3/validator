@@ -3,14 +3,13 @@ import Element from './Element';
 export default class Field extends Element{
     constructor(props){
         super(props);
-        this.__configuration = props;
-
+        
         let state = {
             success : false,
             error : false,
             message : null
         };
-        this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField] = state
+        this.state[this.id.fo].fields[this.id.fi] = state
         this.__switchRequireAttribute();
     }
 
@@ -24,7 +23,7 @@ export default class Field extends Element{
 
     setState(val){
         if(typeof val === "object"){
-            this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField] = val;
+            this.state[this.id.fo].fields[this.id.fi] = val;
         }
     }
 
@@ -33,14 +32,14 @@ export default class Field extends Element{
     }
 
     clean(){
-        let state = this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField];
+        let state = this.state[this.id.fo].fields[this.id.fi];
         for(let item in state){
             if(item !== "message" && state[item] === true){
                 this.resetState();
                 this.$el.classList.remove(item);
 
-                if(document.getElementById(this.id) !== null){
-                    let $stateMessage = document.getElementById(this.id);
+                if(document.getElementById(this.id.html) !== null){
+                    let $stateMessage = document.getElementById(this.id.html);
                     $stateMessage.parentNode.removeChild($stateMessage);
                 }
             }
@@ -54,8 +53,8 @@ export default class Field extends Element{
     */
     displayState(){
         let selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`,
-            state = this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField],
-            params = this.__configuration.params;
+            state = this.state[this.id.fo].fields[this.id.fi],
+            params = this.params;
         for(let item in state){
             if(item !== 'message' && state[item]){
                 this.$el.classList.add(item);
@@ -66,14 +65,14 @@ export default class Field extends Element{
                         //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                         if($target.querySelectorAll(selectorState).length > 0) return;
                         if(state.message !== ""){
-                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id ,this.$el.name, state.message ))
+                            $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id.html ,this.$el.name, state.message ))
                         }
                     });
                 }else{
                     //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                     if(this.$el.parentNode.querySelectorAll(selectorState).length > 0) return;
                     if(state.message !== ""){
-                        this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id,this.$el.name, state.message ));
+                        this.$el.insertAdjacentHTML('afterend', this.__getTemplateMessage( item, this.id.html,this.$el.name, state.message ));
                     }
                 }
             }
@@ -87,11 +86,11 @@ export default class Field extends Element{
     * @param field is a attribute of Form object
     */
     validate(){
-        let defaultRules = this.__configuration.rules.get(),
-            state = this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField],
+        let defaultRules = this.rules.get(),
+            state = this.state[this.id.fo].fields[this.id.fi],
             rulesInNode = this.__getRulesList(),
-            middleware = this.__configuration.middleware,
-            params = this.__configuration.params,
+            middleware = this.middleware,
+            params = this.params,
             fieldValue,
             checks = [];
 
@@ -139,21 +138,21 @@ export default class Field extends Element{
                 }
             }
         });
-        this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField]  = state;
+        this.state[this.id.fo].fields[this.id.fi]  = state;
         this.__checkFormSuccess();
 
         return this;
     }
 
     __checkFormSuccess(){
-        let fieldsState = this.__configuration.state[this.__configuration.indexForm].fields,
+        let fieldsState = this.state[this.id.fo].fields,
             formSuccess = true;
         fieldsState.forEach((stateField) => {
             if(stateField.error){
                 formSuccess = false;
             }
         })
-        this.__configuration.state[this.__configuration.indexForm].success = formSuccess;
+        this.state[this.id.fo].success = formSuccess;
     }
 
     /*
@@ -174,7 +173,7 @@ export default class Field extends Element{
         let notempty = false,
             rulesList = [];
 
-        for(let item in this.__configuration.params){
+        for(let item in this.params){
             item = item.trim().replace(/\s+/g, ' ');
             if(item !== "target"){
                 if(item === "notempty"){
@@ -201,8 +200,9 @@ export default class Field extends Element{
 
     __displayMessage(target, targetLen, position, state){
         if(targetLen > 0) return;
-        if(this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField].message !== ""){
-            target.insertAdjacentHTML(position, this.__getTemplateMessage( state, this.id,this.$el.name, this.__configuration.state[this.__configuration.indexForm].fields[this.__configuration.indexField].message ));
+        console.log('id >>> ', this.id);
+        if(this.state[this.id.fo].fields[this.id.fi].message !== ""){
+            target.insertAdjacentHTML(position, this.__getTemplateMessage( state, this.id.html,this.$el.name, this.state[this.id.fo].fields[this.id.fi].message ));
         }
     }
 }

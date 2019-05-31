@@ -5,7 +5,6 @@ export default class Form extends Element{
     constructor(props){
         super(props);
 
-        this.__configuration = props;
         this.__fields = [];
         this.$el.querySelectorAll(this.__getSelectorRequiresFields()).forEach(($require, k) => {
             this.addField($require);
@@ -13,21 +12,22 @@ export default class Form extends Element{
     }
 
     addField($field){
-        this.__configuration.state[this.__configuration.indexForm].fields[this.__fields.length] = {};
-
-        let index = Object.keys(this.__configuration.params).indexOf($field.name),
-            config = index !== -1 ? this.__configuration.params[ Object.keys(this.__configuration.params)[index] ] : {},
-            property = {
+        this.state[this.id.fo].fields[this.__fields.length] = {};
+        let index = Object.keys(this.params).indexOf($field.name),
+            config = index !== -1 ? this.params[ Object.keys(this.params)[index] ] : {},
+            props = {
                 element : $field,
-                id : `${this.id}_vfi${this.__fields.length}`,
+                id : {
+                    html : `${this.id.html}_vfi${this.__fields.length}`,
+                    fo : this.id.fo,
+                    fi : this.__fields.length,
+                },
                 params : config,
-                indexForm : this.__configuration.indexForm,
-                indexField : this.__fields.length,
-                state : this.__configuration.state,
-                rules : this.__configuration.rules,
-                middleware : this.__configuration.middleware                
+                state : this.state,
+                rules : this.rules,
+                middleware : this.middleware                
             };
-        this.__fields.push(new Field(property));
+        this.__fields.push(new Field(props));
     }
 
     getFields(){
