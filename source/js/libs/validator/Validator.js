@@ -1,29 +1,24 @@
 /*
-                       ..,co88oc.oo8888cc,..
-  o8o.               ..,o8889689ooo888o"88888888oooc..
-.88888             .o888896888".88888888o'?888888888889ooo....
-a888P          ..c6888969""..,"o888888888o.?8888888888"".ooo8888oo.
-088P        ..atc88889"".,oo8o.86888888888o 88988889",o888888888888.
-888t  ...coo688889"'.ooo88o88b.'86988988889 8688888'o8888896989^888o
- 888888888888"..ooo888968888888  "9o688888' "888988 8888868888'o88888
-  ""G8889""'ooo888888888888889 .d8o9889""'   "8688o."88888988"o888888o .
-           o8888'""""""""""'   o8688"          88868. 888888.68988888"o8o.
-           88888o.              "8888ooo.        '8888. 88888.8898888o"888o.
-           "888888'               "888888'          '""8o"8888.8869888oo8888o .
-      . :.:::::::::::.: .     . :.::::::::.: .   . : ::.:."8888 "888888888888o
-                                                        :..8888,. "88888888888.
-                                                        .:o888.o8o.  "866o9888o
-                                                         :888.o8888.  "88."89".
-    author : Renaud Bourdeau                            . 89  888888    "88":.
-    version : 0.5.6                                     :.     '8888o
-    email : renaudbourdeau@gmail.com                     .       "8888..
-                                                                   888888o.
-                                                                    "888889,
-                                                             . : :.:::::::.: :.
+                                  __......._    _..--._,--._
+                            _.--''  , ,:   :``-/  :.` (-`,o)``-._
+                         ,-'`::.      ::  .: ` `-._    `--' :. __\
+                      ,-':   `::  `   :: ,:;     . \  :.  _.-''  /
+                    ,'  `:.`  ::. ,   `:.::.  ,  `: `. _,' . ` ,`
+                 _,' `   `:.  `::       `::;     ,    ` __.,.-`
+ `-._         _,'  `:   .-::-.  ::  `    ,:  ,' /. )-'''
+  `  ``--.._,'`:._  `:.     ,: \ `:.___.,::..--/: / /
+      . _.-'    _.--'``--''`'`.:\'''-`------..( `(._`._____.....---
+-..___,'`:_..-''   -  _   -.  _\.`.      -     `:.`.       ,`
+    ,:. ,'---...._______  ,     \_.`. -=    `  , `..\ ,  -     .-  _
+   /  ,'    ___         ```````---`,)'-------....._).`.____,.__....---
+  :  :    ,',-.:.                                  `'`'
+  |  |   ( (   \ \  author : Renaud Bourdeau
+  ::.:    `.:, /./  email : renaudbourdeau@gmail.com
+   `. `-..__..' /   version : 0.5.6
+     `-.::__.:-'
 */
-
 import Polyfills from '../Polyfills';
-import Configuration from '../configuration/Configuration';
+import {Configuration, ConfigurationFromHTML} from '../configuration/';
 import FormsGroup from '../element/FormsGroup';
 import Rules from './Rules';
 
@@ -43,37 +38,48 @@ export default class Validator{
     constructor(options = {}){
         Polyfills.run();
 
+        let configDefaultApps = {
+            'selector' : 'form',
+            'mode' : 'html'
+        };
+
         this.middleware = {
             formOnError : null,
             formOnSuccess : null,
             fieldOnError : null,
             fieldOnSuccess : null,
         };
+        
+        let appConfig = new Configuration(options, configDefaultApps, (attr)=>{
+            if(attr.mode === "html"){
+                new ConfigurationFromHTML(attr)
+            }
+        });
 
-        this.__configuration = {
-            params : new Configuration(options),
+        this.__app = new Configuration({
+            options : appConfig ,
             rules : new Rules(),
             middleware : this.middleware,
             state : []
-        };
-        this.__FormsGroup = new FormsGroup(this.__configuration);
+        });
+        this.__FormsGroup = new FormsGroup(this.__app);
 
 
         return this;
     }
 
     /*
-    * validate some fields in forms
+    * validate some fields in forms on submit
     */
     form(){
         this.__FormsGroup.each((form, i)=>{
             form.on('submit', (event, form)=>{
-                this.__configuration.state[i].success = false;
+                this.__app.state[i].success = false;
                 form.notify((field) =>{
                     field.clean().validate().displayState();
                 });
 
-                if(!this.__configuration.state[i].success){
+                if(!this.__app.state[i].success){
                     if(this.middleware.formOnError !== null){
                         this.middleware.formOnError(event, form.$el);
                     }
@@ -152,7 +158,7 @@ export default class Validator{
     * @param rule  is a lambda function : return bollean validation (the first argument of the lambda method is the field object)
     */
     addRules(key, rule){
-        this.__configuration.rules.set(key, rule);
+        this.__app.rules.set(key, rule);
     }
 
     /*
@@ -163,7 +169,7 @@ export default class Validator{
         let state = false;
         this.__FormsGroup.each((form, i)=>{
             if(form.$el === $el){
-                state = this.__configuration.state[i].success;
+                state = this.__app.state[i].success;
             }
         });
         return state;
@@ -178,6 +184,6 @@ export default class Validator{
     * @return boolean
     */
     check(data, rulesname, configuration = {}){
-        return !this.__configuration.rules.get()[rulesname](data, configuration);
+        return !this.__app.rules.get()[rulesname](data, configuration);
     }
 }

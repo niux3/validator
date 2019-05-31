@@ -6,7 +6,8 @@ export default class FormsGroup{
         this.__index = 0;
         this.__forms = [];
 
-        document.querySelectorAll(this.__configuration.params.get().selector).forEach(($form, i) =>{
+        console.log();
+        document.querySelectorAll(this.__configuration.options.selector).forEach(($form, i) =>{
             this.addForm($form);
         });
     }
@@ -25,7 +26,7 @@ export default class FormsGroup{
             element : $form,
             id : `vfo${this.__forms.length}_`,
             indexForm : this.__forms.length,
-            params : this.__configuration.params.get()['fields'],
+            params : this.__configuration.options['fields'],
             state : this.__configuration.state,
             rules : this.__configuration.rules,
             middleware : this.__configuration.middleware

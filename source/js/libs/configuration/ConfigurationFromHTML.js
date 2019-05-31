@@ -1,5 +1,7 @@
-export default class ConfigFromHTML{
+export default class ConfigurationFromHTML{
     constructor(options){
+        
+        console.log('config >>>', options);
         return options;
 
         //super(options);
