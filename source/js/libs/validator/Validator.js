@@ -20,7 +20,7 @@
 import Polyfills from '../Polyfills';
 import {Configuration, ConfigurationFromHTML} from '../configuration/';
 import FormsGroup from '../element/FormsGroup';
-import Rules from './Rules';
+import Rules from '../rules/Rules';
 
 export default class Validator{
 
@@ -49,7 +49,7 @@ export default class Validator{
             fieldOnError : null,
             fieldOnSuccess : null,
         };
-        
+
         let appConfig = new Configuration(options, configDefaultApps, (attr)=>{
             if(attr.mode === "html"){
                 new ConfigurationFromHTML(attr)
