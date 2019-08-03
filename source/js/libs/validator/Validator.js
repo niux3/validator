@@ -14,7 +14,7 @@
   :  :    ,',-.:.                                  `'`'
   |  |   ( (   \ \  author : Renaud Bourdeau
   ::.:    `.:, /./  email : renaudbourdeau@gmail.com
-   `. `-..__..' /   version : 0.8.0
+   `. `-..__..' /   version : 0.9.0
      `-.::__.:-'
 */
 import Polyfills from '../Polyfills';
