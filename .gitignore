@@ -58,6 +58,6 @@ typings/
 .env
 
 #misc
-min.js
-min.css
+example/css/*
+example/js/*
 index.php
