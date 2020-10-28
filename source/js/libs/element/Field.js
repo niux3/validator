@@ -3,7 +3,7 @@ import Element from './Element';
 export default class Field extends Element{
     constructor(props){
         super(props);
-        
+
         let state = {
             success : false,
             error : false,
@@ -65,6 +65,7 @@ export default class Field extends Element{
                         //return this.__displayMessage($target, $target.querySelectorAll(selectorState).length, 'beforeend', item);
                         if($target.querySelectorAll(selectorState).length > 0) return;
                         if(state.message !== ""){
+                            $target.innerHTML = "";
                             $target.insertAdjacentHTML('beforeend', this.__getTemplateMessage( item, this.id.html ,this.$el.name, state.message ))
                         }
                     });
@@ -189,7 +190,7 @@ export default class Field extends Element{
         }
 
         return rulesList;
-    }  
+    }
 
     __switchRequireAttribute(){
         if(this.$el.hasAttribute('required')){
