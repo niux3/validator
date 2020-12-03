@@ -3,13 +3,12 @@ import Element from './Element';
 export default class Field extends Element{
     constructor(props){
         super(props);
-
         let state = {
             success : false,
             error : false,
             message : null
         };
-        this.state[this.id.fo].fields[this.id.fi] = state
+        this.state[this.id.fo].fields[this.id.fi] = state;
         this.__switchRequireAttribute();
     }
 
@@ -200,7 +199,7 @@ export default class Field extends Element{
 
     __displayMessage(target, targetLen, position, state){
         if(targetLen > 0) return;
-        console.log('id >>> ', this.id);
+        // console.log('id >>> ', this.id);
         if(this.state[this.id.fo].fields[this.id.fi].message !== ""){
             target.insertAdjacentHTML(position, this.__getTemplateMessage( state, this.id.html,this.$el.name, this.state[this.id.fo].fields[this.id.fi].message ));
         }

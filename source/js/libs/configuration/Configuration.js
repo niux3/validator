@@ -1,13 +1,6 @@
 export default class Configuration{
     constructor(params, _default = null, callback = null){
-        this.__attrs = _default && typeof _default === 'object' && _default.constructor === Object ? this.__replace(_default, params) : params;
-        if(callback !== null){
-            callback(this.__attrs);
-        }
-        // if(this.__attrs.mode === 'html'){
-        //     this.__attrs = new ConfigFromHTML(this.__attrs);
-        // }
-        return this.__attrs;
+        return  _default && typeof _default === 'object' && _default.constructor === Object ? this.__replace(_default, params) : params;
     }
 
     __replace(arr){
@@ -56,5 +49,5 @@ export default class Configuration{
         return this.__attrs;
     }
 
-    
+
 }

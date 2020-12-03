@@ -14,7 +14,7 @@ export default class FormsGroup{
     * subscription at the form property
     * @param form $el object
     */
-    addForm($form){ 
+    addForm($form){
         this.__configuration.state[ this.__forms.length ] = {
             success : false,
             fields : []
@@ -29,8 +29,10 @@ export default class FormsGroup{
             params : this.__configuration.options['fields'],
             state : this.__configuration.state,
             rules : this.__configuration.rules,
-            middleware : this.__configuration.middleware
+            middleware : this.__configuration.middleware,
+            mode : this.__configuration.options.mode
         };
+
         this.__forms.push(new Form(props));
     }
 

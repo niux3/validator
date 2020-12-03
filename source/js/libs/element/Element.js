@@ -18,6 +18,7 @@ export default class Element{
         this.state = properties.state;
         this.rules = properties.rules;
         this.middleware = properties.middleware;
+        this.mode = properties.mode;
         // this.id.fo = properties.id.fo;
         // console.log(this);
     }

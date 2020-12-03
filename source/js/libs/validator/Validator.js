@@ -14,7 +14,7 @@
   :  :    ,',-.:.                                  `'`'
   |  |   ( (   \ \  author : Renaud Bourdeau
   ::.:    `.:, /./  email : renaudbourdeau@gmail.com
-   `. `-..__..' /   version : 0.9.3
+   `. `-..__..' /   version : 0.10.1
      `-.::__.:-'
 */
 import Polyfills from '../Polyfills';
@@ -40,7 +40,8 @@ export default class Validator{
 
         let configDefaultApps = {
             'selector' : 'form',
-            'mode' : 'html'
+            'mode' : 'object',
+            'fields' : {}
         };
 
         this.middleware = {
@@ -50,11 +51,7 @@ export default class Validator{
             fieldOnSuccess : null,
         };
 
-        let appConfig = new Configuration(options, configDefaultApps, (attr)=>{
-            if(attr.mode === "html"){
-                new ConfigurationFromHTML(attr)
-            }
-        });
+        let appConfig = new Configuration(options, configDefaultApps);
 
         this.__app = new Configuration({
             options : appConfig ,
@@ -63,8 +60,6 @@ export default class Validator{
             state : []
         });
         this.__FormsGroup = new FormsGroup(this.__app);
-
-
         return this;
     }
 
@@ -90,6 +85,31 @@ export default class Validator{
                     }
                 }
             });
+        });
+    }
+
+    /*
+    * validate some fields in specific form
+    */
+    checkForm($el, event){
+        this.__FormsGroup.each((form, i)=>{
+            if($el === form.$el){
+                this.__app.state[i].success = false;
+                form.notify((field) =>{
+                    field.clean().validate().displayState();
+                });
+
+                if(!this.__app.state[i].success){
+                    if(this.middleware.formOnError !== null){
+                        this.middleware.formOnError(event, form.$el);
+                    }
+                    event.preventDefault();
+                }else{
+                    if(this.middleware.formOnSuccess !== null){
+                        this.middleware.formOnSuccess(event, form.$el);
+                    }
+                }
+            }
         });
     }
 
@@ -141,7 +161,15 @@ export default class Validator{
     * @param $el is a form (node) : element in the dom
     */
     addRequireForm($el){
-        this.__FormsGroup.addForm($el);
+        let inFormGroup = false;
+        this.__FormsGroup.each(form =>{
+            if(form.$el === $el){
+                inFormGroup = true;
+            }
+        });
+        if(!inFormGroup){
+            this.__FormsGroup.addForm($el);
+        }
     }
 
     /*
