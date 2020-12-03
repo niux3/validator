@@ -18,7 +18,7 @@
      `-.::__.:-'
 */
 import Polyfills from '../Polyfills';
-import {Configuration, ConfigurationFromHTML} from '../configuration/';
+import Configuration from '../configuration/Configuration';
 import FormsGroup from '../element/FormsGroup';
 import Rules from '../rules/Rules';
 
