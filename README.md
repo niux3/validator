@@ -9,6 +9,7 @@ Vous avez besoin de différentes façons de spécifier les règles de validation
 ## Configurer, est ce difficile ?
 
 Non pas du tout. Vous avez 2 manières de configurer vos validations de formulaire :
+
 - objet static (dans un fichier js)
 - html (dans le dom)
 
@@ -53,6 +54,7 @@ validate.form();
 
 ## middleware
 Une fois un événement effectué, vous avez la possibilité d'avoir la main à différents endroits du script. Vous avez un 4 méthodes de callback : lorsque :
+
 - le formulaire a des erreurs de saisie
 - les champs sont correctement saisie et que le formulaire est prêt pour l'envoie des données au serveur
 - un champ est en erreur

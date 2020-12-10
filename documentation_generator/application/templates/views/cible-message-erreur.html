@@ -1,0 +1,51 @@
+{% extends './partials/content_layout.html' %}
+
+
+{% block cssplus %}
+label{
+    position:relative;
+}
+[id^=success]{
+    position: absolute;
+    top: 33px;
+    right: 10px;
+    color: green;
+}
+input.error, select.error, textarea.error{
+    margin-bottom: 16px;
+}
+
+{% endblock %}
+
+{% block personnal_script %}
+<script id="script_example">
+    window.addEventListener('DOMContentLoaded', function(){
+        let options = {
+            fields : {
+                'firstname': {
+                    "target":{
+                        "error": "#errorBlock",
+                        "success": "#successFirstname"
+                    },
+                    "notempty" : {
+                        "error" : "le champs 'prénom' ne doit pas être vide",
+                        "success": "&#10003;"
+                    }
+                },
+                'lastname': {
+                    "target":{
+                        "error": "#errorBlock",
+                        "success": "#successLastname"
+                    },
+                    "notempty" : {
+                        "error" : "le champs 'nom' ne doit pas être vide",
+                        "success": "&#10003;"
+                    }
+                },
+            }
+        };
+        let validate = new Validator(options);
+        validate.form();
+    })
+</script>
+{% endblock personnal_script %}

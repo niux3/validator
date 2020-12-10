@@ -15,7 +15,7 @@ let pluginsLists = [
     }),
     terser(),
     scss({
-        output:'../example/css/min.css',
+        output:'../examples/static/css/min.css',
         failOnError: true,
         watch: './scss/',
         outputStyle: "compressed",
@@ -26,7 +26,7 @@ export default [{
         input: './js/index.js',
         output: {
             format: 'iife',
-            file: '../example/js/validator.min.js',
+            file: '../examples/static/js/validator.min.js',
             name: 'validator'
         },
         plugins: pluginsLists
@@ -35,7 +35,7 @@ export default [{
         input: './js/example.js',
         output: {
             format: 'iife',
-            file: '../example/js/example.min.js',
+            file: '../examples/static/js/example.min.js',
             name: 'example'
         },
         plugins: pluginsLists

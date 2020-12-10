@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validation basique</title>
+    <link rel="stylesheet" href="../static/css/foundation.min.css">
+    <style media="screen">
+        code{
+            display: block;
+        }
+        input.error, select.error, textarea.error{
+            margin-bottom: 0;
+        }
+        span.error{
+            color: #cc4b37;
+            margin-bottom: 16px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="menu">
+      <li class="menu-text">exemples</li>
+      
+      <li><a href="./element">element</a></li>
+      
+      <li><a href="./basique">basique</a></li>
+      
+    </ul>
+  </div>
+  <div class="top-bar-right"></div>
+</div>
+    </header>
+    <main class="grid-container">
+        <h1>validation basique</h1>
+        
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+    <li class="accordion-item" data-accordion-item>
+        <a href="#" class="accordion-title">html</a>
+        <div class="accordion-content" data-tab-content>
+            <pre>
+                <code>
+            
+&lt;form action=&#34;http://google.com&#34; method=&#34;post&#34;&gt;
+    &lt;div class=&#34;grid-x grid-padding-x&#34;&gt;
+        &lt;div class=&#34;large-12 cell&#34;&gt;
+            &lt;label&gt;
+                &lt;span&gt;civilités&lt;/span&gt;
+                &lt;select required&gt;
+                    &lt;option value=&#34;&#34;&gt;faire un choix&lt;/option&gt;
+                    &lt;option value=&#34;mlle&#34;&gt;mademoiselle&lt;/option&gt;
+                    &lt;option value=&#34;mme&#34;&gt;madame&lt;/option&gt;
+                    &lt;option value=&#34;m&#34;&gt;monsieur&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;grid-x grid-padding-x&#34;&gt;
+        &lt;div class=&#34;large-6 medium-6 cell&#34;&gt;
+            &lt;label&gt;
+                &lt;span&gt;prénom&lt;/span&gt;
+                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; value=&#34;&#34; class=&#34;require&#34;&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;large-6 medium-6 cell&#34;&gt;
+            &lt;label&gt;
+                &lt;span&gt;nom&lt;/span&gt;
+                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; value=&#34;&#34; class=&#34;require&#34;&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;grid-x grid-padding-x&#34;&gt;
+        &lt;div class=&#34;large-6 cell&#34;&gt;
+            &lt;button type=&#34;submit&#34; class=&#34;button&#34;&gt;envoyer&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+
+            
+                </code>
+            </pre>
+        </div>
+    </li>
+    <li class="accordion-item" data-accordion-item>
+        <a href="#deeplink2" class="accordion-title">javascript</a>
+        <div class="accordion-content" data-tab-content id="deeplink2">
+            <pre>
+                <code>
+            
+let options = {
+    fields : {
+        'firstname': {
+            "notempty" : {
+                "error" : "ce champs ne doit pas être vide"
+            }
+        },
+        'lastname': {
+            "notempty" : {
+                "error" : "ce champs ne doit pas être vide"
+            }
+        },
+    }
+};
+let validate = new Validator(options);
+validate.form();
+
+                </code>
+            </pre>
+        </div>
+    </li>
+    <li class="accordion-item is-active" data-accordion-item>
+        <a href="#deeplink3" class="accordion-title">rendu</a>
+        <div class="accordion-content" data-tab-content id="deeplink3">
+            <form action="http://google.com" method="post">
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+            <label>
+                <span>civilités</span>
+                <select required>
+                    <option value="">faire un choix</option>
+                    <option value="mlle">mademoiselle</option>
+                    <option value="mme">madame</option>
+                    <option value="m">monsieur</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>prénom</span>
+                <input type="text" name="firstname" value="" class="require">
+            </label>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>nom</span>
+                <input type="text" name="firstname" value="" class="require">
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">envoyer</button>
+        </div>
+    </div>
+</form>
+        </div>
+    </li>
+</ul>
+
+    </main>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/foundation.min.js"></script>
+    <script type="text/javascript">$(document).foundation()</script>
+    <script src="../static/js/validator.min.js"></script>
+    
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+        let options = {
+            fields : {
+                'firstname': {
+                    "notempty" : {
+                        "error" : "ce champs ne doit pas être vide"
+                    }
+                },
+                'lastname': {
+                    "notempty" : {
+                        "error" : "ce champs ne doit pas être vide"
+                    }
+                },
+            }
+        };
+        let validate = new Validator(options);
+        validate.form();
+    })
+</script>
+
+</body>
+</html>
