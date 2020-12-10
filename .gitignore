@@ -54,8 +54,33 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+.DS_Store
 .env
+.flaskenv
+*.pyc
+*.pyo
+env/
+venv/
+env*
+dist/
+build/
+__pycache__
+*.egg
+*.egg-info/
+_mailinglist
+.tox/
+.cache/
+.pytest_cache/
+.idea/
+docs/_build/
+.vscode
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+*,cover
+
 
 #misc
 index.php
