@@ -1,0 +1,13 @@
+{% extends './partials/content_layout.html' %}
+
+{% block personnal_script %}
+<script id="script_example">
+    window.addEventListener('DOMContentLoaded', function(){
+        let options = {
+            mode : 'html'
+        };
+        let validate = new Validator(options);
+        validate.form();
+    })
+</script>
+{% endblock personnal_script %}
