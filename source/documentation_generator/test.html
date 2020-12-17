@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>accueil</title>
+    <link rel="stylesheet" href="/static/css/foundation.min.css">
+    <style media="screen">
+        code{
+            display: block;
+        }
+        input.error, select.error, textarea.error{
+            margin-bottom: 0;
+            border-color: #cc4b37;
+        }
+        input.success, select.success, textarea.success{
+            border-color: green;
+        }
+        span.error{
+            color: #cc4b37;
+            margin-bottom: 16px;
+            display: block;
+        }
+    </style>
+    <style media="screen"></style>
+</head>
+<body>
+    <header>
+        <div class="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="responsive-menu"></button>
+  <div class="title-bar-title">Menu</div>
+</div>
+
+<div class="top-bar" id="responsive-menu">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">DOCUMENTATION</li>
+      <li>
+          <a href="">configuration</a>
+          <ul class="dropdown menu" data-dropdown-menu>
+              <li>
+                  <a href="">objet</a>
+                  <ul class="menu">
+                      
+                      <li><a href="/examples-configuration/objet/element.html">element</a></li>
+                      
+                      <li><a href="/examples-configuration/objet/ajout-regle-et-champ.html">ajout regle et champ</a></li>
+                      
+                      <li><a href="/examples-configuration/objet/basique.html">basique</a></li>
+                      
+                      <li><a href="/examples-configuration/objet/ajax.html">ajax</a></li>
+                      
+                      <li><a href="/examples-configuration/objet/cible-message-erreur.html">cible message erreur</a></li>
+                      
+                  </ul>
+              </li>
+              <li>
+                  <a href="">html</a>
+                  <ul class="menu">
+                      
+                      <li><a href="/examples-configuration/html/element.html">element</a></li>
+                      
+                      <li><a href="/examples-configuration/html/ajout-regle-et-champ.html">ajout regle et champ</a></li>
+                      
+                      <li><a href="/examples-configuration/html/basique.html">basique</a></li>
+                      
+                      <li><a href="/examples-configuration/html/ajax.html">ajax</a></li>
+                      
+                      <li><a href="/examples-configuration/html/cible-message-erreur.html">cible message erreur</a></li>
+                      
+                  </ul>
+              </li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="top-bar-right"></div>
+</div>
+    </header>
+    <main class="grid-container">
+        <h1></h1>
+        
+<div class="content-index">
+    <h1>Validator</h1>
+<h2>Pourquoi ?</h2>
+<p>Vous avez besoin d'une bibliothèque standard de méthodes de validation (telles que les courriels, les URL, les numéros de carte de crédit, etc.). Lorsque vous émettez un événement tel que la soumission d'un formulaire ou lorsque vous saisissez un champs texte ou lorsque vous supprimez le focus d'un champ ou etc., vous devez placer des messages d'erreur dans le DOM et les afficher ou les masquer.</p>
+<p>Vous avez besoin de différentes façons de spécifier les règles de validation en fonction de l'environnement côté serveur que vous utilisez sur différents projets. Et après tout, vous ne voulez pas le refaire à chaque fois, n'est-ce pas ?</p>
+<h2>Configurer, est ce difficile ?</h2>
+<p>Non pas du tout. Vous avez 2 manières de configurer vos validations de formulaire :</p>
+<ul>
+<li>objet static (dans un fichier js)</li>
+<li>html (dans le dom)</li>
+</ul>
+<h3>Pourquoi une configuration HTML ?</h3>
+<p>Ça permet de mutualiser les messages erreurs avec le serveur. Aussi, les formulaires multi-langues sont plus simples à gérer puisque c'est l'application serveur qui gère ça.</p>
+<h2>Comment configurer ?</h2>
+<h3>object</h3>
+<h3>html</h3>
+<h2>les méthodes</h2>
+<h3>form</h3>
+<p>La méthode form permet de valider les formulaires soumis suivant le sélecteur définit dans l'objet de configuration. Par default, le selector est "form".</p>
+<pre><code>var configuration = {
+    'selector' : '.my_forms',
+    // etc.
+};
+
+var validate = new Validator(configuration);
+validate.form();
+</code></pre>
+<h3>checkForm</h3>
+<h3>element</h3>
+<h3>addRequireField</h3>
+<h3>removeRequireField</h3>
+<h3>addRequireForm</h3>
+<h3>removeRequireForm</h3>
+<h3>addRules</h3>
+<h3>formIsValid</h3>
+<h3>check</h3>
+<h2>middleware</h2>
+<p>Une fois un événement effectué, vous avez la possibilité d'avoir la main à différents endroits du script. Vous avez un 4 méthodes de callback : lorsque :</p>
+<ul>
+<li>le formulaire a des erreurs de saisie</li>
+<li>les champs sont correctement saisie et que le formulaire est prêt pour l'envoie des données au serveur</li>
+<li>un champ est en erreur</li>
+<li>la donnée d'un champs est correct</li>
+</ul>
+<h3>formOnError</h3>
+<h3>formOnSuccess</h3>
+<h3>fieldOnError</h3>
+<h3>fieldOnSuccess</h3>
+</div>
+
+    </main>
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/foundation.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).foundation()
+            $('.accordion-content:eq(1) code').html( $('#script_example').html() );
+        });
+    </script>
+    <script src="/static/js/validator.min.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,21 @@
+<form action="http://google.com" method="get">
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 cell">
+            <label>être contacté par téléphone ?</label>
+            <input type="radio" name="validatePhone" value="true" id="validatePhoneYes" required><label for="validatePhoneYes">Oui</label>
+            <input type="radio" name="validatePhone" value="false" id="validatePhoneNo" required><label for="validatePhoneNo">Non</label>
+            <div id="messagePhoneChoice"></div>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>Votre numéro de téléphone</span>
+                <input type="text" name="phone" id="phone" value>
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">envoyer</button>
+        </div>
+    </div>
+</form>
