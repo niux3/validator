@@ -12,6 +12,10 @@
         }
         input.error, select.error, textarea.error{
             margin-bottom: 0;
+            border-color: #cc4b37;
+        }
+        input.success, select.success, textarea.success{
+            border-color: green;
         }
         span.error{
             color: #cc4b37;
@@ -19,23 +23,10 @@
             display: block;
         }
     </style>
+    <style media="screen"></style>
 </head>
 <body>
-    <header>
-        <div class="top-bar">
-  <div class="top-bar-left">
-    <ul class="menu">
-      <li class="menu-text">exemples</li>
-      
-      <li><a href="./element">element</a></li>
-      
-      <li><a href="./basique">basique</a></li>
-      
-    </ul>
-  </div>
-  <div class="top-bar-right"></div>
-</div>
-    </header>
+    
     <main class="grid-container">
         <h1>validation element</h1>
         
@@ -51,7 +42,7 @@
         &lt;div class=&#34;large-12 medium-12 cell&#34;&gt;
             &lt;label&gt;
                 &lt;span&gt;rechercher&lt;/span&gt;
-                &lt;input type=&#34;text&#34; name=&#34;query&#34; value=&#34;&#34; required&gt;
+                &lt;input type=&#34;text&#34; name=&#34;q&#34; value=&#34;&#34; required data-validationrules=&#34;notempty maxlength&#34; data-errornotempty=&#34;ce champs ne doit pas être vide&#34; data-errormaxlength=&#34;maximum 3 caractères&#34; data-validationmaxlengthargs=&#34;3&#34;&gt;
             &lt;/label&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -73,34 +64,6 @@
             <pre>
                 <code>
             
-let options = {
-    fields : {
-        'query': {
-            "notempty" : {
-                "error" : "ce champs doit contenir un terme de recherche"
-            }
-        }
-    }
-};
-let validate = new Validator(options);
-validate.form();
-
-let listRequireField = [
-    'input[type=text]',
-    'input[type=date]',
-    'input[type=password]',
-    'input[type=radio]',
-    'input[type=checkbox]',
-    'select',
-    'textarea',
-];
-document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
-    $field.addEventListener('blur', (e)=>{
-        validate.element(e.target);
-    });
-});
-
-
                 </code>
             </pre>
         </div>
@@ -113,7 +76,7 @@ document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
         <div class="large-12 medium-12 cell">
             <label>
                 <span>rechercher</span>
-                <input type="text" name="query" value="" required>
+                <input type="text" name="q" value="" required data-validationrules="notempty maxlength" data-errornotempty="ce champs ne doit pas être vide" data-errormaxlength="maximum 3 caractères" data-validationmaxlengthargs="3">
             </label>
         </div>
     </div>
@@ -130,19 +93,18 @@ document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
     </main>
     <script src="../static/js/jquery.js"></script>
     <script src="../static/js/foundation.min.js"></script>
-    <script type="text/javascript">$(document).foundation()</script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).foundation()
+            $('.accordion-content:eq(1) code').html( $('#script_example').html() );
+        });
+    </script>
     <script src="../static/js/validator.min.js"></script>
     
-<script>
+<script id="script_example">
     window.addEventListener('DOMContentLoaded', function(){
         let options = {
-            fields : {
-                'query': {
-                    "notempty" : {
-                        "error" : "ce champs doit contenir un terme de recherche"
-                    }
-                }
-            }
+            mode : 'html'
         };
         let validate = new Validator(options);
         validate.form();

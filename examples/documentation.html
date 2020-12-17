@@ -44,28 +44,24 @@
 <h3>Pourquoi une configuration HTML ?</h3>
 <p>Ça permet de mutualiser les messages erreurs avec le serveur. Aussi, les formulaires multi-langues sont plus simples à gérer puisque c'est l'application serveur qui gère ça.</p>
 <h2>Comment configurer ?</h2>
-<h3>object</h3>
-<h3>html</h3>
+<p>Dans les dossiers configuration-en-objet et configuration-en-html, vous trouverez des exemples pertinents afin de mieux vous servir de cet outil</p>
 <h2>les méthodes</h2>
 <h3>form</h3>
 <p>La méthode form permet de valider les formulaires soumis suivant le sélecteur définit dans l'objet de configuration. Par default, le selector est "form".</p>
-<pre><code>var configuration = {
-    'selector' : '.my_forms',
-    // etc.
-};
-
-var validate = new Validator(configuration);
-validate.form();
-</code></pre>
+<p>/examples/configuration-en-objet/basique.html</p>
 <h3>checkForm</h3>
+<p>Cette méthode permet de vérifier un formulaire alors qu'il n'était pas dans le html lors du lancement du validateur. Cette méthode est très utile lorsque vous souhaitez faire une requête ajax.</p>
+<p>/examples/configuration-en-objet/ajax.html</p>
 <h3>element</h3>
-<h3>addRequireField</h3>
-<h3>removeRequireField</h3>
-<h3>addRequireForm</h3>
-<h3>removeRequireForm</h3>
+<p>permet de savoir si un élément est valide suivant les règles qui lui sont associées.</p>
+<h3>addRequireField &amp; removeRequireField</h3>
+<p>permet en cours de route d'associer ou de retirer une validation du champ.</p>
+<h3>addRequireForm &amp; removeRequireForm</h3>
+<p>permet en cours de route d'associer ou de retirer une validation du formulaire en question.  </p>
 <h3>addRules</h3>
-<h3>formIsValid</h3>
-<h3>check</h3>
+<p>ajout d'une règle qui n'est pas comprise dans le set du validateur de données.  </p>
+<h3>formIsValid &amp; check</h3>
+<p>Ces méthodes vont retourner un boolean. FormIsValid permet de savoir si le formulaire en question est valid. La méthode check permet de savoir si une valeur est valide suivant la règle de validation passée en paramètres</p>
 <h2>middleware</h2>
 <p>Une fois un événement effectué, vous avez la possibilité d'avoir la main à différents endroits du script. Vous avez un 4 méthodes de callback : lorsque :</p>
 <ul>

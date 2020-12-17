@@ -19,38 +19,36 @@ Non pas du tout. Vous avez 2 manières de configurer vos validations de formulai
 
 ## Comment configurer ?
 
-### object
-
-
-
-### html
+Dans les dossiers configuration-en-objet et configuration-en-html, vous trouverez des exemples pertinents afin de mieux vous servir de cet outil
 
 ## les méthodes
 
 ### form
 La méthode form permet de valider les formulaires soumis suivant le sélecteur définit dans l'objet de configuration. Par default, le selector est "form".
-```
-var configuration = {
-    'selector' : '.my_forms',
-    // etc.
-};
 
-var validate = new Validator(configuration);
-validate.form();
-```
+/examples/configuration-en-objet/basique.html
 
 ### checkForm
+Cette méthode permet de vérifier un formulaire alors qu'il n'était pas dans le html lors du lancement du validateur. Cette méthode est très utile lorsque vous souhaitez faire une requête ajax.
 
+/examples/configuration-en-objet/ajax.html
 
 
 ### element
-### addRequireField
-### removeRequireField
-### addRequireForm
-### removeRequireForm
+permet de savoir si un élément est valide suivant les règles qui lui sont associées.
+
+### addRequireField & removeRequireField
+permet en cours de route d'associer ou de retirer une validation du champ.
+
+### addRequireForm & removeRequireForm
+permet en cours de route d'associer ou de retirer une validation du formulaire en question.  
+
 ### addRules
-### formIsValid
-### check
+ajout d'une règle qui n'est pas comprise dans le set du validateur de données.  
+
+### formIsValid & check
+Ces méthodes vont retourner un boolean. FormIsValid permet de savoir si le formulaire en question est valid. La méthode check permet de savoir si une valeur est valide suivant la règle de validation passée en paramètres
+
 
 ## middleware
 Une fois un événement effectué, vous avez la possibilité d'avoir la main à différents endroits du script. Vous avez un 4 méthodes de callback : lorsque :

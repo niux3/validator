@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validation cible message erreur</title>
+    <link rel="stylesheet" href="../static/css/foundation.min.css">
+    <style media="screen">
+        code{
+            display: block;
+        }
+        input.error, select.error, textarea.error{
+            margin-bottom: 0;
+            border-color: #cc4b37;
+        }
+        input.success, select.success, textarea.success{
+            border-color: green;
+        }
+        span.error{
+            color: #cc4b37;
+            margin-bottom: 16px;
+            display: block;
+        }
+    </style>
+    <style media="screen">
+label{
+    position:relative;
+}
+[id^=success]{
+    position: absolute;
+    top: 33px;
+    right: 10px;
+    color: green;
+}
+input.error, select.error, textarea.error{
+    margin-bottom: 16px;
+}
+
+</style>
+</head>
+<body>
+    
+    <main class="grid-container">
+        <h1>validation cible message erreur</h1>
+        
+<ul class="accordion" data-accordion data-allow-all-closed="true">
+    <li class="accordion-item" data-accordion-item>
+        <a href="#" class="accordion-title">html</a>
+        <div class="accordion-content" data-tab-content>
+            <pre>
+                <code>
+            
+&lt;form action=&#34;http://google.com&#34; method=&#34;post&#34;&gt;
+    &lt;div class=&#34;grid-x grid-padding-x&#34;&gt;
+        &lt;div class=&#34;large-12 cell callout alert&#34; id=&#34;errorBlock&#34;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;grid-x grid-padding-x&#34;&gt;
+        &lt;div class=&#34;large-6 medium-6 cell&#34;&gt;
+            &lt;label&gt;
+                &lt;span&gt;prénom&lt;/span&gt;
+                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; value=&#34;&#34; class=&#34;require&#34;&gt;
+                &lt;span id=&#34;successFirstname&#34;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;large-6 medium-6 cell&#34;&gt;
+            &lt;label&gt;
+                &lt;span&gt;nom&lt;/span&gt;
+                &lt;input type=&#34;text&#34; name=&#34;lastname&#34; value=&#34;&#34; class=&#34;require&#34;&gt;
+                &lt;span id=&#34;successLastname&#34;&gt;&lt;/span&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;grid-x grid-padding-x&#34;&gt;
+        &lt;div class=&#34;large-6 cell&#34;&gt;
+            &lt;button type=&#34;submit&#34; class=&#34;button&#34;&gt;envoyer&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+
+            
+                </code>
+            </pre>
+        </div>
+    </li>
+    <li class="accordion-item" data-accordion-item>
+        <a href="#deeplink2" class="accordion-title">javascript</a>
+        <div class="accordion-content" data-tab-content id="deeplink2">
+            <pre>
+                <code>
+            
+                </code>
+            </pre>
+        </div>
+    </li>
+    <li class="accordion-item is-active" data-accordion-item>
+        <a href="#deeplink3" class="accordion-title">rendu</a>
+        <div class="accordion-content" data-tab-content id="deeplink3">
+            <form action="http://google.com" method="post">
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 cell callout alert" id="errorBlock">
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>prénom</span>
+                <input type="text" name="firstname" value="" class="require">
+                <span id="successFirstname"></span>
+            </label>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>nom</span>
+                <input type="text" name="lastname" value="" class="require">
+                <span id="successLastname"></span>
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">envoyer</button>
+        </div>
+    </div>
+</form>
+        </div>
+    </li>
+</ul>
+
+    </main>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/foundation.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).foundation()
+            $('.accordion-content:eq(1) code').html( $('#script_example').html() );
+        });
+    </script>
+    <script src="../static/js/validator.min.js"></script>
+    
+<script id="script_example">
+    window.addEventListener('DOMContentLoaded', function(){
+        let options = {
+            fields : {
+                'firstname': {
+                    "target":{
+                        "error": "#errorBlock",
+                        "success": "#successFirstname"
+                    },
+                    "notempty" : {
+                        "error" : "le champs 'prénom' ne doit pas être vide",
+                        "success": "&#10003;"
+                    }
+                },
+                'lastname': {
+                    "target":{
+                        "error": "#errorBlock",
+                        "success": "#successLastname"
+                    },
+                    "notempty" : {
+                        "error" : "le champs 'nom' ne doit pas être vide",
+                        "success": "&#10003;"
+                    }
+                },
+            }
+        };
+        let validate = new Validator(options);
+        validate.form();
+    })
+</script>
+
+</body>
+</html>

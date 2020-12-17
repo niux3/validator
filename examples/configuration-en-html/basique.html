@@ -12,6 +12,10 @@
         }
         input.error, select.error, textarea.error{
             margin-bottom: 0;
+            border-color: #cc4b37;
+        }
+        input.success, select.success, textarea.success{
+            border-color: green;
         }
         span.error{
             color: #cc4b37;
@@ -19,23 +23,10 @@
             display: block;
         }
     </style>
+    <style media="screen"></style>
 </head>
 <body>
-    <header>
-        <div class="top-bar">
-  <div class="top-bar-left">
-    <ul class="menu">
-      <li class="menu-text">exemples</li>
-      
-      <li><a href="./element">element</a></li>
-      
-      <li><a href="./basique">basique</a></li>
-      
-    </ul>
-  </div>
-  <div class="top-bar-right"></div>
-</div>
-    </header>
+    
     <main class="grid-container">
         <h1>validation basique</h1>
         
@@ -51,7 +42,7 @@
         &lt;div class=&#34;large-12 cell&#34;&gt;
             &lt;label&gt;
                 &lt;span&gt;civilités&lt;/span&gt;
-                &lt;select required&gt;
+                &lt;select&gt;
                     &lt;option value=&#34;&#34;&gt;faire un choix&lt;/option&gt;
                     &lt;option value=&#34;mlle&#34;&gt;mademoiselle&lt;/option&gt;
                     &lt;option value=&#34;mme&#34;&gt;madame&lt;/option&gt;
@@ -64,13 +55,13 @@
         &lt;div class=&#34;large-6 medium-6 cell&#34;&gt;
             &lt;label&gt;
                 &lt;span&gt;prénom&lt;/span&gt;
-                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; value=&#34;&#34; class=&#34;require&#34;&gt;
+                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; value=&#34;&#34; required data-validationrules=&#34;notempty minlength&#34; data-errornotempty=&#34;ce champs ne doit pas être vide&#34; data-errorminlength=&#34;minimum 3 caractères&#34; data-validationminlengthargs=&#34;3&#34;&gt;
             &lt;/label&gt;
         &lt;/div&gt;
         &lt;div class=&#34;large-6 medium-6 cell&#34;&gt;
             &lt;label&gt;
                 &lt;span&gt;nom&lt;/span&gt;
-                &lt;input type=&#34;text&#34; name=&#34;firstname&#34; value=&#34;&#34; class=&#34;require&#34;&gt;
+                &lt;input type=&#34;text&#34; name=&#34;lastname&#34; value=&#34;&#34; required data-validationrules=&#34;notempty minlength&#34; data-errornotempty=&#34;ce champs ne doit pas être vide&#34; data-errorminlength=&#34;minimum 3 caractères&#34; data-validationminlengthargs=&#34;3&#34;&gt;
             &lt;/label&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -92,23 +83,6 @@
             <pre>
                 <code>
             
-let options = {
-    fields : {
-        'firstname': {
-            "notempty" : {
-                "error" : "ce champs ne doit pas être vide"
-            }
-        },
-        'lastname': {
-            "notempty" : {
-                "error" : "ce champs ne doit pas être vide"
-            }
-        },
-    }
-};
-let validate = new Validator(options);
-validate.form();
-
                 </code>
             </pre>
         </div>
@@ -121,7 +95,7 @@ validate.form();
         <div class="large-12 cell">
             <label>
                 <span>civilités</span>
-                <select required>
+                <select>
                     <option value="">faire un choix</option>
                     <option value="mlle">mademoiselle</option>
                     <option value="mme">madame</option>
@@ -134,13 +108,13 @@ validate.form();
         <div class="large-6 medium-6 cell">
             <label>
                 <span>prénom</span>
-                <input type="text" name="firstname" value="" class="require">
+                <input type="text" name="firstname" value="" required data-validationrules="notempty minlength" data-errornotempty="ce champs ne doit pas être vide" data-errorminlength="minimum 3 caractères" data-validationminlengthargs="3">
             </label>
         </div>
         <div class="large-6 medium-6 cell">
             <label>
                 <span>nom</span>
-                <input type="text" name="firstname" value="" class="require">
+                <input type="text" name="lastname" value="" required data-validationrules="notempty minlength" data-errornotempty="ce champs ne doit pas être vide" data-errorminlength="minimum 3 caractères" data-validationminlengthargs="3">
             </label>
         </div>
     </div>
@@ -157,24 +131,18 @@ validate.form();
     </main>
     <script src="../static/js/jquery.js"></script>
     <script src="../static/js/foundation.min.js"></script>
-    <script type="text/javascript">$(document).foundation()</script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).foundation()
+            $('.accordion-content:eq(1) code').html( $('#script_example').html() );
+        });
+    </script>
     <script src="../static/js/validator.min.js"></script>
     
-<script>
+<script id="script_example">
     window.addEventListener('DOMContentLoaded', function(){
         let options = {
-            fields : {
-                'firstname': {
-                    "notempty" : {
-                        "error" : "ce champs ne doit pas être vide"
-                    }
-                },
-                'lastname': {
-                    "notempty" : {
-                        "error" : "ce champs ne doit pas être vide"
-                    }
-                },
-            }
+            mode : 'html'
         };
         let validate = new Validator(options);
         validate.form();
