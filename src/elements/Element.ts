@@ -1,7 +1,12 @@
 import { ElementProperties } from "./Element.type"
+import { ElementState } from './ElementState.interface'
+import { ErrorState } from "./ErrorState"
+import { SuccessState } from "./SuccessState"
+import { NeutralState } from './NeutralState'
 
 
 export class Element {
+    protected state: ElementState
     protected $el: HTMLElement
     protected id: {
         html: String
@@ -26,8 +31,18 @@ export class Element {
         this.rules = properties.rules
         this.middleware = properties.middleware
         this.mode = properties.mode
+        this.state = new NeutralState(this)
 
         console.log(this)
+    }
+
+    setState(state: ElementState): void {
+        this.state = state
+        this.state.handle()
+    }
+
+    resetState(): void {
+        this.setState(new NeutralState(this))
     }
 
     // Gestionnaire d'événements amélioré

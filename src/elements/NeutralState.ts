@@ -1,14 +1,14 @@
-import { FieldState } from './FieldState.interface'
+import { ElementState } from './ElementState.interface'
 
-export class NeutralState implements FieldState {
-    constructor(private field: Field) {}
+export class NeutralState implements ElementState {
+    constructor(private element: Element) {}
 
     handle(): void {
-        if(this.field.$el.classList.contains('error')){
-            this.field.$el.classList.remove('error')
+        if(this.element.$el.classList.contains('error')){
+            this.element.$el.classList.remove('error')
         }
-        if(this.field.$el.classList.contains('success')){
-            this.field.$el.classList.remove('success')
+        if(this.element.$el.classList.contains('success')){
+            this.element.$el.classList.remove('success')
         }
     }
 }
