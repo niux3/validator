@@ -15,13 +15,18 @@
 .success{
     border: 1px solid #3adb76;
 }
+.grid-container{
+    max-width: 40rem;
+}
         </style>
     </head>
 
     <body>
         <div class="grid-container" id="app">
-            <h1>hello</h1>
-            <label><span>un champ</span><input required type="text" id="field"></label>
+            <form class="margin-vertical-3">
+                <label><span>un champ</span><input type="date" id="field"></label>
+                <div><button class="button" type="submit">envoyer</button></div>
+            </form>
         </div>
         <script type="module" src="/src/main.ts"></script>
     </body>
