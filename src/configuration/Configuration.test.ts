@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { Configuration } from './Configuration'
 
+
 describe("Configuration", () => {
     it("should merge settings with default configuration", () => {
         const defaultConfig = { mode: "dark", debug: false }

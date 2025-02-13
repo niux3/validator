@@ -1,10 +1,10 @@
-import { FieldState } from './FieldState.interface';
+import { ElementState } from './ElementState.interface'
 
-export class ErrorState implements FieldState {
-    constructor(private field: Field) {}
+export class ErrorState implements ElementState {
+    constructor(private element: Element) {}
 
     handle(): void {
-        this.field.$el.classList.add('error')
-        this.field.$el.classList.remove('success')
+        this.element.$el.classList.add('error')
+        this.element.$el.classList.remove('success')
     }
 }
