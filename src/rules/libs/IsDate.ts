@@ -1,5 +1,5 @@
-export default (...args) => {
-    if (args[0] === '' || args[0] === null) {
+export default (...args:any[]) => {
+    if (['', null, undefined].some(e => e === args[0])) {
         return false
     }
 
