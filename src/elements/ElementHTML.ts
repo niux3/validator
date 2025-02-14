@@ -1,19 +1,19 @@
-import { ElementProperties } from "./Element.type"
-import { ElementState } from './ElementState.interface'
-import { ErrorState } from "./ErrorState"
-import { SuccessState } from "./SuccessState"
-import { NeutralState } from './NeutralState'
+import { ElementHTMLProperties } from './ElementHTML.type'
+import { ElementHTMLState } from './ElementHTMLState.interface'
+import {
+    NeutralState,
+} from './state'
 
 
 /**
  * Represents an interactive element with a state and events.
  */
-export class Element {
+export class ElementHTML {
     /** The current state of the element */
-    protected state: ElementState
+    protected state: ElementHTMLState
 
     /** The associated HTML element */
-    protected $el: HTMLElement
+    public $el: HTMLInputElement
 
     /** Identifiers associated with the element */
     protected id: {
@@ -39,7 +39,7 @@ export class Element {
      * Creates an instance of `Element`.
      * @param {ElementProperties} properties - The properties of the element.
     */
-    constructor(properties: ElementProperties) {
+    constructor(properties: ElementHTMLProperties) {
         this.$el = properties.element
         this.id = {
             html: properties.id.html,
@@ -47,7 +47,8 @@ export class Element {
             fi: properties.id.fi,
         }
         this.params = properties.params
-        this.state = properties.state // TODO (double state ???)
+        // TODO (double state ???)
+        //this.state = properties.state 
         this.rules = properties.rules
         this.middleware = properties.middleware
         this.mode = properties.mode
@@ -60,7 +61,7 @@ export class Element {
      * Sets a new state for the element.
      * @param {ElementState} state - The new state to apply.
     */
-    setState(state: ElementState): void {
+    setState(state: ElementHTMLState): void {
         this.state = state
         this.state.handle()
     }
