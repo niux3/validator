@@ -1,0 +1,7 @@
+{
+    "exclude": ["**/*.test.ts"],
+    "out": "docs/api",
+    "excludeExternals": true,
+    "hideGenerator": true,
+    "tsconfig": "tsconfig.json"
+}
