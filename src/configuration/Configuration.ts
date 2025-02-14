@@ -1,5 +1,5 @@
 export class Configuration {
-    private attrs: object = {}
+    private attrs: { [key: string]: any }
 
     constructor(params:object, _default:object|null = null) {
         this.attrs = this.isObject(_default)? {..._default, ...params} : params

@@ -1,7 +1,8 @@
-import { ElementState } from './ElementState.interface'
+import { ElementHTMLState } from '../ElementHTMLState.interface'
+import { ElementHTML } from '../ElementHTML'
 
-export class NeutralState implements ElementState {
-    constructor(private element: Element) {}
+export class NeutralState implements ElementHTMLState {
+    constructor(private element: ElementHTML) {}
 
     handle(): void {
         if(this.element.$el.classList.contains('error')){

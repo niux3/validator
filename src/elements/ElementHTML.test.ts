@@ -1,29 +1,33 @@
-import { describe, it, expect, vi, beforeEach } from "vitest"
-import { Element } from "./Element"
-import { ElementProperties } from "./Element.type"
-import { ErrorState } from "./ErrorState"
-import { SuccessState } from "./SuccessState"
-import { NeutralState } from './NeutralState'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { ElementHTML } from './ElementHTML'
+import { ElementHTMLProperties } from './ElementHTML.type'
+import {
+    NeutralState,
+    SuccessState,
+    ErrorState
+} from './state'
 
 
-describe("Element Class", () => {
-    let mockElement: HTMLElement
-    let elementInstance: Element
+describe('Element Class', () => {
+    let mockElement: HTMLInputElement
+    let elementInstance: ElementHTML
 
     beforeEach(() => {
-        mockElement = document.createElement("div")
+        mockElement = document.createElement("input")
 
-        const properties: ElementProperties = {
+        const properties: ElementHTMLProperties = {
             element: mockElement,
             id: { html: "testHtml", fo: "testFo", fi: "testFi" },
             params: "paramValue",
-            state: "active",
+            state: new NeutralState(null as any), // État temporaire
             rules: "someRule",
             middleware: "middlewareFunction",
             mode: "testMode",
         }
 
-        elementInstance = new Element(properties)
+        elementInstance = new ElementHTML(properties)
+        // Mettre à jour l'état avec l'instance correcte
+        elementInstance.setState(new NeutralState(elementInstance))
     })
 
     it("must correctly initialize properties", () => {

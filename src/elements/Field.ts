@@ -1,10 +1,14 @@
-import { Element } from "./Element"
-import { ElementProperties } from "./Element.type"
+import { ElementHTML } from './ElementHTML'
+import { ElementHTMLProperties } from './ElementHTML.type'
+import {
+    SuccessState,
+    ErrorState
+} from './state'
 
 
-export class Field extends Element{
+export class Field extends ElementHTML{
 
-    constructor(props:ElementProperties){
+    constructor(props:ElementHTMLProperties){
         super(props)
         this.switchRequireAttribute()
     }
