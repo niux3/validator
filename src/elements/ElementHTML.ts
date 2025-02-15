@@ -2,6 +2,8 @@ import { ElementHTMLProperties } from './ElementHTML.type'
 import { ElementHTMLState } from './ElementHTMLState.interface'
 import {
     NeutralState,
+    SuccessState,
+    ErrorState
 } from './state'
 
 
@@ -64,6 +66,20 @@ export class ElementHTML {
     setState(state: ElementHTMLState): void {
         this.state = state
         this.state.handle()
+    }
+
+    /**
+     * error the element's state to `ErrorState`.
+    */
+    errorState(): void {
+        this.setState(new ErrorState(this))
+    }
+
+    /**
+     * Success the element's state to `SuccessState`.
+    */
+    successState(): void {
+        this.setState(new SuccessState(this))
     }
 
     /**
