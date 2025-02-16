@@ -3,6 +3,7 @@ import {
     SuccessState,
     ErrorState
 } from './state'
+import { Rules } from '../rules/Rules'
 
 export type ElementHTMLProperties = {
     element:HTMLInputElement,
@@ -11,9 +12,9 @@ export type ElementHTMLProperties = {
         fo:String,
         fi:String
     },
-    params:String,
-    state: NeutralState|SuccessState|ErrorState,
-    rules:String,
+    params:any,
+    state:NeutralState|SuccessState|ErrorState|null,
+    rules:Rules|null,
     middleware:String,
     mode:String
 }
