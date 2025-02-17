@@ -8,7 +8,6 @@ import {
 
 
 export class Field extends ElementHTML{
-
     constructor(props:ElementHTMLProperties){
         super(props)
         this.switchRequireAttribute()
@@ -18,20 +17,32 @@ export class Field extends ElementHTML{
         let defaultRules = this.rules?.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
-            isValid:boolean[] = []
+            resultValid:object[] = []
 
         for(let ruleInNode of this.getRulesList()){
             for(let key in defaultRules){
                 if(key === ruleInNode){
-                    isValid.push(defaultRules[key](fieldValue, this.params[this.$el.name][key]))
+                    let isValid = defaultRules[key](fieldValue, this.params[this.$el.name][key]),
+                        row:{status:boolean, message:string} = {
+                            status: isValid,
+                            message: this.params[this.$el.name][key][isValid? 'success' : 'error']
+                        }
+                    resultValid.push(row)
                 }
             }
         }
-        if (isValid.every(e => e === true)) {
+
+        if (resultValid.every(e => e.status === true)) {
             this.successState()
+            this.state.message = resultValid.findLast(e => e.status).message || ''
         } else {
             this.errorState()
+            this.state.message = resultValid.findLast(e => !e.status).message || ''
         }
+    }
+
+    displayState(){
+
     }
 
     clean(){
