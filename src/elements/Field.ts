@@ -15,19 +15,18 @@ export class Field extends ElementHTML{
     }
 
     validate(): void {
-        let rulesInNode = this.getRulesList(),
-            defaultRules = this.rules?.get(),
+        let defaultRules = this.rules?.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
             isValid:boolean[] = []
 
-        rulesInNode?.forEach(ruleInNode =>{
+        for(let ruleInNode of this.getRulesList()){
             for(let key in defaultRules){
                 if(key === ruleInNode){
                     isValid.push(defaultRules[key](fieldValue, this.params[this.$el.name][key]))
                 }
             }
-        })
+        }
         if (isValid.every(e => e === true)) {
             this.setState(new SuccessState(this))
         } else {
