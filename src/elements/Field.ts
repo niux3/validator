@@ -28,9 +28,17 @@ export class Field extends ElementHTML{
             }
         }
         if (isValid.every(e => e === true)) {
-            this.setState(new SuccessState(this))
+            this.successState()
         } else {
-            this.setState(new ErrorState(this))
+            this.errorState()
+        }
+    }
+
+    clean(){
+        this.resetState()
+        if(document.getElementById(this.id.html) !== null){
+            let $stateMessage = document.getElementById(this.id.html)
+            $stateMessage.parentNode.removeChild($stateMessage)
         }
     }
     
