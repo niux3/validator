@@ -70,11 +70,11 @@ const fieldProps: ElementHTMLProperties = {
                 "error" : "doit être rempli",
                 "success" : "donnée valide",
             },
-            //"minlength":{
-                //'params': 3,
-                //"error" : "<span>Ce champ doit avoir minimum 3 caractères</span>",
-                //"success" : "<span>donnée valide</span>"
-            //}
+            "isminlength":{
+                'params': 3,
+                "error" : "<span>Ce champ doit avoir minimum 3 caractères</span>",
+                "success" : "<span>donnée valide</span>"
+            }
         },
     },
     state: null,

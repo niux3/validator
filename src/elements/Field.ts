@@ -16,17 +16,19 @@ export class Field extends ElementHTML{
 
     validate(): void {
         let rulesInNode = this.getRulesList(),
-            defaultRules = this.rules.get(),
+            defaultRules = this.rules?.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
-            fieldValue = extractor.extractValue(this.$el)
+            fieldValue = extractor.extractValue(this.$el),
+            isValid:boolean[] = []
 
         rulesInNode?.forEach(ruleInNode =>{
             for(let key in defaultRules){
-                console.log(">>", key, ruleInNode)
+                if(key === ruleInNode){
+                    isValid.push(defaultRules[key](fieldValue, this.params?[this.$el.name][key]))
+                }
             }
         })
-        const isValid = this.$el.value.trim() !== ""
-        if (isValid) {
+        if (isValid.every(e => e === true)) {
             this.setState(new SuccessState(this))
         } else {
             this.setState(new ErrorState(this))
@@ -60,7 +62,6 @@ export class Field extends ElementHTML{
             if(hasEmpty){
                 rulesList = [...rulesList, 'isempty']
             }
-            console.log('rules >', rulesList)
             return rulesList
         }catch(e){
             console.error(e)
