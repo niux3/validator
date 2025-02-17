@@ -13,7 +13,7 @@ export class Field extends ElementHTML{
         this.switchRequireAttribute()
     }
 
-    validate(): void {
+    validate(): Field {
         let defaultRules = this.rules?.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
@@ -39,28 +39,30 @@ export class Field extends ElementHTML{
             this.errorState()
             this.state.message = resultValid.findLast(e => !e.status).message || ''
         }
+        return this
     }
 
-    displayState(){
+    displayState(): void{
 
     }
 
-    clean(){
+    clean(): Field{
         this.resetState()
         if(document.getElementById(this.id.html) !== null){
             let $stateMessage = document.getElementById(this.id.html)
             $stateMessage.parentNode.removeChild($stateMessage)
         }
+        return this
     }
     
-    private switchRequireAttribute(){
+    private switchRequireAttribute(): void{
         if(this.$el.hasAttribute('required')){
             this.$el.removeAttribute('required')
             this.$el.classList.add('require')
         }
     }
 
-    private getRulesList(){
+    private getRulesList(): string[]|void{
         try{
             if(this.params === undefined){
                 throw new Error('this.params is undefined')
@@ -84,5 +86,9 @@ export class Field extends ElementHTML{
         }catch(e){
             console.error(e)
         }
+    }
+
+    private getTemplate(cls:string, id:string, dataname:string, msg:string):string{
+        return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`;
     }
 }

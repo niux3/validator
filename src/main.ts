@@ -86,7 +86,7 @@ const fieldProps: ElementHTMLProperties = {
 const field = new Field(fieldProps)
 
 field.on('blur', (e, field)=>{
-    field.validate()
+    field.clean().validate().displayState()
 })
 
  //field.resetState() // Passe à l'état neutre
