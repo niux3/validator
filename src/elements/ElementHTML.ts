@@ -55,8 +55,6 @@ export class ElementHTML {
         this.middleware = properties.middleware
         this.mode = properties.mode
         this.state = new NeutralState(this)
-
-        console.log(this)
     }
 
     /**
