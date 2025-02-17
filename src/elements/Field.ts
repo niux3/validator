@@ -43,7 +43,16 @@ export class Field extends ElementHTML{
     }
 
     displayState(): void{
+        let id = `_${new Date().getTime()}`,
+            cls = this.state.toString(),
+            dataname = this.$el.name,
+            msg = this.state.message
+        
+        //if(this.params[this.$el].hasOwnProperty('target')){
 
+        //}
+        console.log(this.params)
+        console.log(this.getTemplate(cls, id, dataname, msg))
     }
 
     clean(): Field{
