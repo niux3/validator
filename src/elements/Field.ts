@@ -34,10 +34,10 @@ export class Field extends ElementHTML{
 
         if (resultValid.every(e => e.status === true)) {
             this.successState()
-            this.state.message = resultValid.findLast(e => e.status).message || ''
+            this.state.message = this.findLast(resultValid, e => e.status).message || ''
         } else {
             this.errorState()
-            this.state.message = resultValid.findLast(e => !e.status).message || ''
+            this.state.message = this.findLast(resultValid, e => !e.status).message || ''
         }
         return this
     }
@@ -90,5 +90,10 @@ export class Field extends ElementHTML{
 
     private getTemplate(cls:string, id:string, dataname:string, msg:string):string{
         return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`;
+    }
+
+    private findLast(array:any[], callback:any){
+        let data = array.filter(callback)
+        return data[data.length - 1]
     }
 }
