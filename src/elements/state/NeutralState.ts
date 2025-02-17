@@ -2,6 +2,7 @@ import { ElementHTMLState } from '../ElementHTMLState.interface'
 import { ElementHTML } from '../ElementHTML'
 
 export class NeutralState implements ElementHTMLState {
+    message:string = ''
     constructor(private element: ElementHTML) {}
 
     handle(): void {
@@ -11,5 +12,9 @@ export class NeutralState implements ElementHTMLState {
         if(this.element.$el.classList.contains('success')){
             this.element.$el.classList.remove('success')
         }
+    }
+
+    toString(){
+        return 'neutral'
     }
 }
