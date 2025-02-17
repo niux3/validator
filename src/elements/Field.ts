@@ -24,7 +24,7 @@ export class Field extends ElementHTML{
         rulesInNode?.forEach(ruleInNode =>{
             for(let key in defaultRules){
                 if(key === ruleInNode){
-                    isValid.push(defaultRules[key](fieldValue, this.params?[this.$el.name][key]))
+                    isValid.push(defaultRules[key](fieldValue, this.params[this.$el.name][key]))
                 }
             }
         })
