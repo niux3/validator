@@ -1,3 +1,4 @@
+import '../helpers'
 import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { FieldValueFactory } from './fieldValue/FieldValueFactory'
@@ -34,27 +35,30 @@ export class Field extends ElementHTML{
 
         if (resultValid.every(e => e.status === true)) {
             this.successState()
-            this.state.message = this.findLast(resultValid, e => e.status).message || ''
+            //this.state.message = this.findLast(resultValid, e => e.status).message || ''
+            this.state.message = resultValid.rfind(e => e.status)?.message || ''
         } else {
             this.errorState()
-            this.state.message = this.findLast(resultValid, e => !e.status).message || ''
+            this.state.message = resultValid.rfind(e => !e.status)?.message || ''
         }
         return this
     }
 
     displayState(): void{
-        let id = this.id.html,
+        let id = this.id.html!,
             cls = this.state.toString(),
             dataname = this.$el.name,
             msg = this.state.message,
-            paramsTarget:{target:HTMLElement|null, mode:string|null} = {target:null, mode:null}
+            paramsTarget:{target:HTMLElement|null, mode:InsertPosition} = {target:null, mode:'beforeend'}
 
         if(this.params[this.$el.name].hasOwnProperty('target')){
             paramsTarget = {target: document.querySelector(this.params[this.$el.name]['target'][this.state.toString()]), mode: 'beforeend'}
         }else{
             paramsTarget = {target: this.$el, mode: 'afterend'}
         }
-        paramsTarget.target.insertAdjacentHTML(paramsTarget.mode, this.getTemplate(cls, id, dataname, msg))
+        if(this.id.html){
+            paramsTarget.target?.insertAdjacentHTML(paramsTarget.mode, this.getTemplate(cls, id, dataname, msg))
+        }
     }
 
     clean(): Field{
@@ -100,10 +104,5 @@ export class Field extends ElementHTML{
 
     private getTemplate(cls:string, id:string, dataname:string, msg:string):string{
         return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`;
-    }
-
-    private findLast(array:any[], callback:any){
-        let data = array.filter(callback)
-        return data[data.length - 1]
     }
 }

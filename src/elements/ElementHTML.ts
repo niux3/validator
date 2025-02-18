@@ -20,7 +20,7 @@ export class ElementHTML {
 
     /** Identifiers associated with the element */
     protected id: {
-        html?: String
+        html?: string
         fo: Number
         fi: Number
     }
