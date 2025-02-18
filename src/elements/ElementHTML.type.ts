@@ -8,9 +8,9 @@ import { Rules } from '../rules/Rules'
 export type ElementHTMLProperties = {
     element:HTMLInputElement,
     id: {
-        html:String,
-        fo:String,
-        fi:String
+        html:string,
+        fo:number,
+        fi:number
     },
     params:any,
     state:NeutralState|SuccessState|ErrorState|null,

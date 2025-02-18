@@ -6,6 +6,7 @@ import { FieldValueFactory } from './fieldValue/FieldValueFactory'
 export class Field extends ElementHTML{
     constructor(props:ElementHTMLProperties){
         super(props)
+        this.id.html = `vfo${this.id.fo}__vfi${this.id.fi}`
         this.switchRequireAttribute()
     }
 
@@ -39,23 +40,25 @@ export class Field extends ElementHTML{
     }
 
     displayState(): void{
-        let id = `_${new Date().getTime()}`,
+        let id = this.id.html,
             cls = this.state.toString(),
             dataname = this.$el.name,
-            msg = this.state.message
-        
-        //if(this.params[this.$el].hasOwnProperty('target')){
+            msg = this.state.message,
+            paramsTarget:{target:HTMLElement, mode:string} = {}
 
-        //}
-        console.log(this.params)
+        if(this.params[this.$el.name].hasOwnProperty('target')){
+            paramsTarget = {target: document.querySelector(this.params[this.$el.name]['target'][this.state.toString()]), mode: 'beforeend'}
+        }else{
+            paramsTarget = {target: this.$el, mode: 'afterend'}
+        }
+        paramsTarget.target.insertAdjacentHTML(paramsTarget.mode, this.getTemplate(cls, id, dataname, msg))
         console.log(this.getTemplate(cls, id, dataname, msg))
     }
 
     clean(): Field{
         this.resetState()
         if(document.getElementById(this.id.html) !== null){
-            let $stateMessage = document.getElementById(this.id.html)
-            $stateMessage.parentNode.removeChild($stateMessage)
+            document.getElementById(this.id.html).remove()
         }
         return this
     }

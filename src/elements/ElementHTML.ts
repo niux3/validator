@@ -20,13 +20,13 @@ export class ElementHTML {
 
     /** Identifiers associated with the element */
     protected id: {
-        html: String
-        fo: String
-        fi: String
+        html?: String
+        fo: Number
+        fi: Number
     }
 
     /** Additional parameters */
-    protected params?: String
+    protected params: any
     // protected state?: String
 
     /** Rules associated with the element */
