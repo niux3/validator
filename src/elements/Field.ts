@@ -52,7 +52,6 @@ export class Field extends ElementHTML{
             paramsTarget = {target: this.$el, mode: 'afterend'}
         }
         paramsTarget.target.insertAdjacentHTML(paramsTarget.mode, this.getTemplate(cls, id, dataname, msg))
-        console.log(this.getTemplate(cls, id, dataname, msg))
     }
 
     clean(): Field{
