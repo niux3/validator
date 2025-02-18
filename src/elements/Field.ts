@@ -14,17 +14,20 @@ export class Field extends ElementHTML{
         let defaultRules = this.rules.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
-            resultValid:object[] = []
+            resultValid:{ status: boolean; message: string }[] = [],
+            rulesList = this.getRulesList()
 
-        for(let ruleInNode of this.getRulesList()){
-            for(let key in defaultRules){
-                if(key === ruleInNode){
-                    let isValid = defaultRules[key](fieldValue, this.params[this.$el.name][key]),
-                        row:{status:boolean, message:string} = {
-                            status: isValid,
-                            message: this.params[this.$el.name][key][isValid? 'success' : 'error']
-                        }
-                    resultValid.push(row)
+        if(rulesList){
+            for(let ruleInNode of rulesList){
+                for(let key in defaultRules){
+                    if(key === ruleInNode){
+                        let isValid = defaultRules[key](fieldValue, this.params[this.$el.name][key]),
+                            row = {
+                                status: isValid,
+                                message: this.params[this.$el.name][key][isValid? 'success' : 'error']
+                            }
+                        resultValid.push(row)
+                    }
                 }
             }
         }
@@ -44,7 +47,7 @@ export class Field extends ElementHTML{
             cls = this.state.toString(),
             dataname = this.$el.name,
             msg = this.state.message,
-            paramsTarget:{target:HTMLElement, mode:string} = {}
+            paramsTarget:{target:HTMLElement|null, mode:string|null} = {target:null, mode:null}
 
         if(this.params[this.$el.name].hasOwnProperty('target')){
             paramsTarget = {target: document.querySelector(this.params[this.$el.name]['target'][this.state.toString()]), mode: 'beforeend'}
