@@ -59,7 +59,7 @@ import { Configuration } from "./configuration/Configuration"
 let fieldElement = document.querySelector('input[name="subject"]')
 const fieldProps: ElementHTMLProperties = {
     element: fieldElement,
-    id: { html: "html-id", fo: "fo-id", fi: "fi-id" },
+    id: { html: "html-id", fo: 0, fi: 0},
     params: {
         "subject" : {
             "target" : {
