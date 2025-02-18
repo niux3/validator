@@ -1,5 +1,6 @@
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { ElementHTMLState } from './ElementHTMLState.interface'
+import { Rules } from '../rules/Rules'
 import {
     NeutralState,
     SuccessState,
@@ -29,7 +30,7 @@ export class ElementHTML {
     // protected state?: String
 
     /** Rules associated with the element */
-    protected rules?: String
+    protected rules: Rules
 
     /** Optional middleware */
     protected middleware?: String

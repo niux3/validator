@@ -1,10 +1,6 @@
 import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { FieldValueFactory } from './fieldValue/FieldValueFactory'
-import {
-    SuccessState,
-    ErrorState
-} from './state'
 
 
 export class Field extends ElementHTML{
@@ -14,7 +10,7 @@ export class Field extends ElementHTML{
     }
 
     validate(): Field {
-        let defaultRules = this.rules?.get(),
+        let defaultRules = this.rules.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
             resultValid:object[] = []
