@@ -1,4 +1,4 @@
-import { ElementHTMLState } from '../ElementHTMLState.interface'
+import { ElementHTMLState } from './ElementHTMLState.interface'
 import { ElementHTML } from '../ElementHTML'
 
 export class ErrorState implements ElementHTMLState {
