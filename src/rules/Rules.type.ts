@@ -1,1 +1,1 @@
-export type ValidationRule = (value: any) => boolean
+export type ValidationRule = (value: any, ...args: any[]) => boolean
