@@ -8,17 +8,7 @@
         <link rel="stylesheet" href="/static/css/foundation-float.min.css">
         <link rel="stylesheet" href="/static/css/foundation-prototype.min.css">
         <link rel="stylesheet" href="/static/css/foundation-rtl.min.css">
-        <style>
-.error{
-    border: 1px solid #cc4b37;
-}
-.success{
-    border: 1px solid #3adb76;
-}
-.grid-container{
-    max-width: 40rem;
-}
-        </style>
+        <link rel="stylesheet" href="/static/css/styles.css">
     </head>
 
     <body>
@@ -27,6 +17,8 @@
                 <label><span>un champ</span><input type="text" required name="subject" id="subject"></label>
                 <div><button class="button" type="submit">envoyer</button></div>
             </form>
+            <div id="errorSubject"></div>
+            <div id="successSubject"></div>
         </div>
         <script type="module" src="/src/main.ts"></script>
     </body>
