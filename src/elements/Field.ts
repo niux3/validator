@@ -3,14 +3,24 @@ import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { FieldValueFactory } from './fieldValue/FieldValueFactory'
 
-
+/**
+ * Represents a form field extending ElementHTML.
+*/
 export class Field extends ElementHTML{
+    /**
+     * Creates an instance of Field.
+     * @param {ElementHTMLProperties} props - The properties of the field element.
+    */
     constructor(props:ElementHTMLProperties){
         super(props)
         this.id.html = `vfo${this.id.fo}__vfi${this.id.fi}`
         this.switchRequireAttribute()
     }
 
+    /**
+     * Validates the field value based on predefined rules.
+     * @returns {Field} The current instance of the field.
+    */
     validate(): Field {
         let defaultRules = this.rules.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
@@ -43,6 +53,9 @@ export class Field extends ElementHTML{
         return this
     }
 
+    /**
+     * Displays the validation state message.
+    */
     displayState(): void{
         let id = this.id.html!,
             cls = this.state.toString(),
@@ -60,6 +73,10 @@ export class Field extends ElementHTML{
         }
     }
 
+    /**
+     * Cleans the field by resetting its state and removing any existing message.
+     * @returns {Field} The current instance of the field.
+    */
     clean(): Field{
         this.resetState()
         if(document.getElementById(this.id.html!) !== null){
@@ -68,6 +85,11 @@ export class Field extends ElementHTML{
         return this
     }
     
+    /**
+     * Toggles the required attribute on the field element.
+     * If required, it removes the attribute and adds a 'require' class.
+     * @private
+    */
     private switchRequireAttribute(): void{
         if(this.$el.hasAttribute('required')){
             this.$el.removeAttribute('required')
@@ -75,6 +97,11 @@ export class Field extends ElementHTML{
         }
     }
 
+    /**
+     * Retrieves the list of validation rules applied to the field.
+     * @private
+     * @returns {string[] | void} An array of rule names or undefined in case of an error.
+    */
     private getRulesList(): string[]|void{
         try{
             if(this.params === undefined){
@@ -101,6 +128,15 @@ export class Field extends ElementHTML{
         }
     }
 
+    /**
+     * Generates an HTML template for displaying validation messages.
+     * @private
+     * @param {string} cls - The CSS class for the message container.
+     * @param {string} id - The unique identifier for the message element.
+     * @param {string} dataname - The name of the associated field.
+     * @param {string} msg - The validation message to display.
+     * @returns {string} The HTML string representing the validation message.
+    */
     private getTemplate(cls:string, id:string, dataname:string, msg:string):string{
         return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`;
     }
