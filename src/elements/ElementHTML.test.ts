@@ -28,6 +28,7 @@ describe('Element Class', () => {
 
         elementInstance = new ElementHTML(properties)
         // Mettre à jour l'état avec l'instance correcte
+        // @ts-ignore
         elementInstance.setState(new NeutralState(elementInstance))
     })
 
@@ -40,6 +41,7 @@ describe('Element Class', () => {
 
     it("must correctly set a new state", () => {
         const successState = new SuccessState(elementInstance)
+        // @ts-ignore
         elementInstance.setState(successState)
 
         expect(elementInstance["state"]).toBeInstanceOf(SuccessState)
@@ -47,6 +49,7 @@ describe('Element Class', () => {
         expect(mockElement.classList.contains("error")).toBe(false)
 
         const errorState = new ErrorState(elementInstance)
+        // @ts-ignore
         elementInstance.setState(errorState)
 
         expect(elementInstance["state"]).toBeInstanceOf(ErrorState)
@@ -56,10 +59,12 @@ describe('Element Class', () => {
 
     it("must reset state to NeutralState", () => {
         const errorState = new ErrorState(elementInstance)
+        // @ts-ignore
         elementInstance.setState(errorState)
 
         expect(elementInstance["state"]).toBeInstanceOf(ErrorState)
 
+        // @ts-ignore
         elementInstance.resetState()
 
         expect(elementInstance["state"]).toBeInstanceOf(NeutralState)
