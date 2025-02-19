@@ -35,7 +35,6 @@ export class Field extends ElementHTML{
 
         if (resultValid.every(e => e.status === true)) {
             this.successState()
-            //this.state.message = this.findLast(resultValid, e => e.status).message || ''
             this.state.message = resultValid.rfind(e => e.status)?.message || ''
         } else {
             this.errorState()
@@ -63,8 +62,8 @@ export class Field extends ElementHTML{
 
     clean(): Field{
         this.resetState()
-        if(document.getElementById(this.id.html) !== null){
-            document.getElementById(this.id.html).remove()
+        if(document.getElementById(this.id.html!) !== null){
+            document.getElementById(this.id.html!)?.remove()
         }
         return this
     }
