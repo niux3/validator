@@ -62,7 +62,7 @@ export class ElementHTML {
      * Sets a new state for the element.
      * @param {ElementState} state - The new state to apply.
     */
-    setState(state: ElementHTMLState): void {
+    protected setState(state: ElementHTMLState): void {
         this.state = state
         this.state.handle()
     }
@@ -70,21 +70,21 @@ export class ElementHTML {
     /**
      * error the element's state to `ErrorState`.
     */
-    errorState(): void {
+    protected errorState(): void {
         this.setState(new ErrorState(this))
     }
 
     /**
      * Success the element's state to `SuccessState`.
     */
-    successState(): void {
+    protected successState(): void {
         this.setState(new SuccessState(this))
     }
 
     /**
      * Resets the element's state to `NeutralState`.
     */
-    resetState(): void {
+    protected resetState(): void {
         this.setState(new NeutralState(this))
     }
 
