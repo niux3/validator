@@ -1,5 +1,5 @@
 export interface ElementHTMLState {
-    message:string = ''
+    message:string
     handle(): void
     toString(): string
 }

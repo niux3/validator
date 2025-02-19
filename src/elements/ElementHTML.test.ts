@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
+import { Rules } from '../rules/Rules'
 import {
     NeutralState,
     SuccessState,
@@ -17,10 +18,10 @@ describe('Element Class', () => {
 
         const properties: ElementHTMLProperties = {
             element: mockElement,
-            id: { html: "testHtml", fo: "testFo", fi: "testFi" },
+            id: { html:"vfo0__vfi0", fo:0, fi:0},
             params: "paramValue",
             state: new NeutralState(null as any), // État temporaire
-            rules: "someRule",
+            rules: new Rules(),
             middleware: "middlewareFunction",
             mode: "testMode",
         }
@@ -32,7 +33,7 @@ describe('Element Class', () => {
 
     it("must correctly initialize properties", () => {
         expect(elementInstance).toBeDefined()
-        expect(elementInstance["id"].html).toBe("testHtml")
+        expect(elementInstance["id"].html).toBe("vfo0__vfi0")
         expect(elementInstance["params"]).toBe("paramValue")
         expect(elementInstance["state"]).toBeInstanceOf(NeutralState)
     })

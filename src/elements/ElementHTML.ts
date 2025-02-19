@@ -1,5 +1,5 @@
 import { ElementHTMLProperties } from './ElementHTML.type'
-import { ElementHTMLState } from './ElementHTMLState.interface'
+import { ElementHTMLState } from './state/ElementHTMLState.interface'
 import { Rules } from '../rules/Rules'
 import {
     NeutralState,
