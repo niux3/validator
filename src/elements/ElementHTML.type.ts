@@ -8,13 +8,13 @@ import { Rules } from '../rules/Rules'
 export type ElementHTMLProperties = {
     element:HTMLInputElement,
     id: {
-        html:string,
+        html?:string,
         fo:number,
         fi:number
     },
     params:any,
     state:NeutralState|SuccessState|ErrorState|null,
-    rules:Rules|null,
+    rules:Rules,
     middleware:String,
     mode:String
 }

@@ -50,16 +50,17 @@
 //console.log('>>', appConfig)
 //console.log('>>', app)
 
+// @ts-nocheck
 import { Rules } from "./rules/Rules"
 import { Field } from "./elements/Field"
 import { ElementHTMLProperties } from "./elements/ElementHTML.type"
-import { Configuration } from "./configuration/Configuration"
+import { Configuration } from './configuration/Configuration'
 
 
 let fieldElement = document.querySelector('input[name="subject"]')
 const fieldProps: ElementHTMLProperties = {
     element: fieldElement,
-    id: { html: "html-id", fo: 0, fi: 0},
+    id: { html: "", fo: 0, fi: 0},
     params: {
         "subject" : {
             "target" : {
