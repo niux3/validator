@@ -15,6 +15,4 @@ export type ElementHTMLProperties = {
     params:any,
     state:NeutralState|SuccessState|ErrorState|null,
     rules:Rules,
-    middleware:String,
-    mode:String
 }

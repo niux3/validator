@@ -32,12 +32,6 @@ export class ElementHTML {
     /** Rules associated with the element */
     protected rules: Rules
 
-    /** Optional middleware */
-    protected middleware?: String
-
-    /** Mode of operation */
-    protected mode?: String
-
     /**
      * Creates an instance of `Element`.
      * @param {ElementProperties} properties - The properties of the element.
@@ -51,8 +45,6 @@ export class ElementHTML {
         }
         this.params = properties.params
         this.rules = properties.rules
-        this.middleware = properties.middleware
-        this.mode = properties.mode
         this.state = new NeutralState(this)
     }
 
