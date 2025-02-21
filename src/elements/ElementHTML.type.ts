@@ -6,7 +6,7 @@ import {
 import { Rules } from '../rules/Rules'
 
 export type ElementHTMLProperties = {
-    element:HTMLInputElement,
+    element:HTMLInputElement|HTMLFormElement|HTMLSelectElement|HTMLTextAreaElement,
     id: {
         html?:string,
         fo:number,
