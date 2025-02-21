@@ -1,12 +1,13 @@
 import '../helpers'
 import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
+import { FieldObserver } from './FieldObserver.interface'
 import { FieldValueFactory } from './fieldValue/FieldValueFactory'
 
 /**
  * Represents a form field extending ElementHTML.
 */
-export class Field extends ElementHTML{
+export class Field extends ElementHTML implements FieldObserver{
     /**
      * Creates an instance of Field.
      * @param {ElementHTMLProperties} props - The properties of the field element.
@@ -15,6 +16,10 @@ export class Field extends ElementHTML{
         super(props)
         this.id.html = `vfo${this.id.fo}__vfi${this.id.fi}`
         this.switchRequireAttribute()
+    }
+
+    update(field:Field, i:number, callback:Function){
+        console.log('update')
     }
 
     /**
