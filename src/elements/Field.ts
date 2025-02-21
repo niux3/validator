@@ -18,8 +18,11 @@ export class Field extends ElementHTML implements FieldObserver{
         this.switchRequireAttribute()
     }
 
-    update(field:Field, i:number, callback:Function){
-        console.log('update')
+    update(field:Field, i?:number, callback:Function|undefined=undefined){
+        field.clean().validate().displayState()
+        if(callback !== undefined){
+            callback(field, i)
+        }
     }
 
     /**

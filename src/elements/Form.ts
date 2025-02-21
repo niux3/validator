@@ -24,7 +24,9 @@ export class Form extends ElementHTML implements FormSubject{
             id:{
                 fo:this.id.fo,
                 fi: indexField
-            }
+            },
+            rules: this.rules,
+            params: this.params
         }
         this.fields = [...this.fields, new Field(params)]
     }
@@ -37,6 +39,8 @@ export class Form extends ElementHTML implements FormSubject{
         this.fields.forEach((field, i) =>{
             field.update(field, i, callback)
         })
+        let method = this.fields.every(f => f.state.toString() === 'success')? 'success' : 'error'
+        this[`${method}State`]()
     }
 
 
