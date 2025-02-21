@@ -16,7 +16,7 @@ export class ElementHTML {
     protected state: ElementHTMLState
 
     /** The associated HTML element */
-    public $el: HTMLInputElement
+    public $el: HTMLInputElement|HTMLFormElement|HTMLSelectElement|HTMLTextAreaElement
 
     /** Identifiers associated with the element */
     protected id: {
@@ -50,8 +50,6 @@ export class ElementHTML {
             fi: properties.id.fi,
         }
         this.params = properties.params
-        // TODO (double state ???)
-        //this.state = properties.state 
         this.rules = properties.rules
         this.middleware = properties.middleware
         this.mode = properties.mode
