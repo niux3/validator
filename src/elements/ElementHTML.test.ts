@@ -22,8 +22,6 @@ describe('Element Class', () => {
             params: "paramValue",
             state: new NeutralState(null as any), // État temporaire
             rules: new Rules(),
-            middleware: "middlewareFunction",
-            mode: "testMode",
         }
 
         elementInstance = new ElementHTML(properties)

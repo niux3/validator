@@ -38,6 +38,7 @@ describe('Form', () => {
             element: formElement,
             id: { fo: 1, fi: 0 },
             params: {},
+            state: null,
             rules: {} as any,
         }
 
@@ -66,6 +67,7 @@ describe('Form', () => {
 
     it('should update form state to error if any field is invalid', () => {
         // Simule qu'au moins un champ est invalide
+        // @ts-ignore
         form.getFields()[0].state.toString = vi.fn().mockReturnValue('error')
 
         const mockCallback = vi.fn()
