@@ -4,6 +4,7 @@ import { ElementHTMLProperties } from './ElementHTML.type'
 import { FieldObserver } from './FieldObserver.interface'
 import { FieldValueFactory } from './fieldValue/FieldValueFactory'
 
+
 /**
  * Represents a form field extending ElementHTML.
 */
@@ -16,6 +17,38 @@ export class Field extends ElementHTML implements FieldObserver{
         super(props)
         this.id.html = `vfo${this.id.fo}__vfi${this.id.fi}`
         this.switchRequireAttribute()
+
+        if([undefined, null].some(e => this.params === e)){
+            let config = {},
+                nullableValues = [undefined, null],
+                rulesInNode = this.$el.dataset.validateRules?.trim().replace(/\s+/g, ' ').split(' ')
+
+            if(rulesInNode === undefined){
+                throw new Error(`this.params is empty (field name : ${this.$el.name})`)
+            }
+
+            rulesInNode.forEach(rule =>{
+                let targetMessage:{error?: string, success?: string} = {}
+
+                config[rule] = {}
+
+                console.log('>', this.$el.dataset.validateTargetError)
+                if(nullableValues.some(e => this.$el.dataset.validateTargetError !== e)){
+                    targetMessage['error'] = this.$el.dataset.validateTargetError
+                }
+
+                if(nullableValues.some(e => this.$el.dataset.validateTargetSuccess !== e)){
+                    targetMessage['success'] = this.$el.dataset.validateTargetSuccess
+                }
+
+                if(['success', 'error'].some(e => targetMessage.hasOwnProperty(e))){
+                    config['target'] = targetMessage
+                }
+
+
+            })
+            console.log('=-->', config)
+        }
     }
 
     /**

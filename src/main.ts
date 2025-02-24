@@ -11,21 +11,6 @@ let formElement = document.querySelector('form'),
         element: formElement,
         id: { html: "", fo: 0, fi: 0},
         params: {
-            "firstname" : {
-                //"target" : {
-                    //"error" : "#errorSubject", // emplacement message document.getElementById('errorSubject')
-                    //"success" : "#successSubject", // emplacement message document.getElementById('successSubject')
-                //},
-                "isempty" : {
-                    "error" : "firstname doit être rempli",
-                    "success" : "firstname donnée valide",
-                },
-                "isminlength":{
-                    'params': 3,
-                    "error" : "<span>Ce champ doit avoir minimum 3 caractères</span>",
-                    "success" : "<span>donnée valide</span>"
-                }
-            },
             "lastname" : {
                 //"target" : {
                     //"error" : "#errorSubject", // emplacement message document.getElementById('errorSubject')
