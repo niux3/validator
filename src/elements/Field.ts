@@ -18,6 +18,24 @@ export class Field extends ElementHTML implements FieldObserver{
         this.switchRequireAttribute()
     }
 
+    /**
+     * Updates a field by cleaning it, validating it, and displaying its state.
+     * If a callback function is provided, it is executed after the update.
+     *
+     * @param {Field} field - The field to be updated.
+     * @param {number} [i] - An optional index that can be passed to the callback function.
+     * @param {Function} [callback] - An optional callback function to execute after the update.
+     *                                It receives the updated field and the index (if provided) as parameters.
+     *
+     * @example
+     * // Example usage without a callback
+     * update(myField);
+     *
+     * // Example usage with a callback
+     * update(myField, 1, (field, index) => {
+     *   console.log(`Field ${index} updated:`, field);
+     * });
+    */
     update(field:Field, i?:number, callback:Function|undefined=undefined){
         field.clean().validate().displayState()
         if(callback !== undefined){
