@@ -35,10 +35,13 @@ export class Form extends ElementHTML implements FormSubject{
      * @param {Element | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} $field - The DOM element representing the field.
      */
     register(indexField:number, $field:Element|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement):void{
+        // @ts-ignore
         let params = Object.keys(this.params).includes($field.name)? this.params[$field.name] : null,
             options:ElementHTMLProperties = {
-                element:$field,
+                // @ts-ignore
+                element:$field, 
                 id:{
+                    // @ts-ignore
                     fo:this.id.fo,
                     fi: indexField
                 },
@@ -65,7 +68,9 @@ export class Form extends ElementHTML implements FormSubject{
         this.fields.forEach((field, i) =>{
             field.update(field, i, callback)
         })
+        // @ts-ignore
         let method = this.fields.every(f => f.state.toString() === 'success')? 'success' : 'error'
+        // @ts-ignore
         this[`${method}State`]()
     }
 
