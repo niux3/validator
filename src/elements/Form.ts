@@ -19,16 +19,18 @@ export class Form extends ElementHTML implements FormSubject{
     }
 
     register(indexField:number, $field:Element|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement):void{
-        let params = {
-            element:$field,
-            id:{
-                fo:this.id.fo,
-                fi: indexField
-            },
-            rules: this.rules,
-            params: this.params
-        }
-        this.fields = [...this.fields, new Field(params)]
+        let params = Object.keys(this.params).includes($field.name)? this.params[$field.name] : null,
+            options:ElementHTMLProperties = {
+                element:$field,
+                id:{
+                    fo:this.id.fo,
+                    fi: indexField
+                },
+                rules: this.rules,
+                params: params
+            }
+        console.log(params)
+        this.fields = [...this.fields, new Field(options)]
     }
 
     unregister(field:Field):void{

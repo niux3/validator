@@ -40,10 +40,10 @@ export class Field extends ElementHTML implements FieldObserver{
             for(let ruleInNode of rulesList){
                 for(let key in defaultRules){
                     if(key === ruleInNode){
-                        let isValid = defaultRules[key](fieldValue, this.params[this.$el.name][key]),
+                        let isValid = defaultRules[key](fieldValue, this.params[key]),
                             row = {
                                 status: isValid,
-                                message: this.params[this.$el.name][key][isValid? 'success' : 'error']
+                                message: this.params[key][isValid? 'success' : 'error']
                             }
                         resultValid.push(row)
                     }
@@ -71,8 +71,8 @@ export class Field extends ElementHTML implements FieldObserver{
             msg = this.state.message,
             paramsTarget:{target:HTMLElement|null, mode:InsertPosition} = {target:null, mode:'beforeend'}
 
-        if(this.params[this.$el.name].hasOwnProperty('target')){
-            paramsTarget = {target: document.querySelector(this.params[this.$el.name]['target'][this.state.toString()]), mode: 'beforeend'}
+        if(this.params.hasOwnProperty('target')){
+            paramsTarget = {target: document.querySelector(this.params['target'][this.state.toString()]), mode: 'beforeend'}
         }else{
             paramsTarget = {target: this.$el, mode: 'afterend'}
         }
@@ -112,12 +112,12 @@ export class Field extends ElementHTML implements FieldObserver{
     */
     private getRulesList(): string[]|void{
         try{
-            if(this.params === undefined){
-                throw new Error('this.params is undefined')
+            if([undefined, null].some(e => this.params === e)){
+                throw new Error(`this.params is empty (field name : ${this.$el.name})`)
             }
             let rulesList:string[] = [],
                 hasEmpty = false
-            for(let rule of Object.keys(this.params[this.$el.name])){
+            for(let rule of Object.keys(this.params)){
                 let trimRule = rule.trim().replace(/\s+/g, ' ')
                 if(trimRule !== 'target'){
                     if(rule === 'isempty'){

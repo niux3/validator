@@ -22,7 +22,7 @@ describe('Field', () => {
             element: fieldElement,
             id: { html: "", fo: 0, fi: 0 },
             params: {
-                "subject": {
+                
                     "target": {
                         "error": "#errorSubject",
                         "success": "#successSubject",
@@ -36,7 +36,6 @@ describe('Field', () => {
                         "error": "Ce champ doit avoir minimum 3 caractères",
                         "success": "donnée valide"
                     }
-                },
             },
             state: null,
             rules: new Rules(),
@@ -53,8 +52,6 @@ describe('Field', () => {
         expect(field.id.fo).toBe(0)
         // @ts-ignore
         expect(field.id.fi).toBe(0)
-        // @ts-ignore
-        expect(field.params).toHaveProperty("subject")
     })
 
     it('should display an error message if the field is empty', () => {
