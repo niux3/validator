@@ -39,8 +39,6 @@ describe('Field', () => {
             },
             state: null,
             rules: new Rules(),
-            middleware: "some-middleware",
-            mode: "some-mode"
         }
 
         field = new Field(fieldProps)
