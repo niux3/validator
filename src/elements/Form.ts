@@ -29,7 +29,6 @@ export class Form extends ElementHTML implements FormSubject{
                 rules: this.rules,
                 params: params
             }
-        console.log(params)
         this.fields = [...this.fields, new Field(options)]
     }
 
