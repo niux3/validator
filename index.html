@@ -16,7 +16,18 @@
             <form class="margin-vertical-3">
                 <label>
                     <span>Prénom</span>
-                    <input type="text" required name="firstname" id="firstname" data-validate-rules="isempty isminlength" data-validate-target-error="#unNode" data-validate-target-success="#unNode">
+                    <input 
+                        type="text" 
+                        required 
+                        name="firstname" 
+                        id="firstname" 
+                        data-validate-rules="isempty isminlength" 
+                        data-validate-isminlength-args="3" 
+                        data-error-isempty="ne doit pas être vide"  
+                        data-error-isminlength="doit contenir au moins 3 cars."  
+                        data-success-isempty=" !!! "  
+                        data-success-isminlength=" !!! "  
+                    />
                 </label>
                 <label><span>Nom</span><input type="text" required name="lastname" id="lastname"></label>
                 <div><button class="button" type="submit">envoyer</button></div>
