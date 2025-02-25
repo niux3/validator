@@ -19,35 +19,7 @@ export class Field extends ElementHTML implements FieldObserver{
         this.switchRequireAttribute()
 
         if([undefined, null].some(e => this.params === e)){
-            let config = {},
-                nullableValues = [undefined, null],
-                rulesInNode = this.$el.dataset.validateRules?.trim().replace(/\s+/g, ' ').split(' ')
-
-            if(rulesInNode === undefined){
-                throw new Error(`this.params is empty (field name : ${this.$el.name})`)
-            }
-
-            rulesInNode.forEach(rule =>{
-                let targetMessage:{error?: string, success?: string} = {}
-
-                config[rule] = {}
-
-                console.log('>', this.$el.dataset.validateTargetError)
-                if(nullableValues.some(e => this.$el.dataset.validateTargetError !== e)){
-                    targetMessage['error'] = this.$el.dataset.validateTargetError
-                }
-
-                if(nullableValues.some(e => this.$el.dataset.validateTargetSuccess !== e)){
-                    targetMessage['success'] = this.$el.dataset.validateTargetSuccess
-                }
-
-                if(['success', 'error'].some(e => targetMessage.hasOwnProperty(e))){
-                    config['target'] = targetMessage
-                }
-
-
-            })
-            console.log('=-->', config)
+            this.getParamsFromHTML()
         }
     }
 
@@ -142,6 +114,54 @@ export class Field extends ElementHTML implements FieldObserver{
             document.getElementById(this.id.html!)?.remove()
         }
         return this
+    }
+
+    private getParamsFromHTML():void{
+        let config = {},
+            nullableValues = [undefined, null],
+            rulesInNode = this.$el.dataset.validateRules?.trim().replace(/\s+/g, ' ').split(' ')
+
+        if(rulesInNode === undefined){
+            throw new Error(`this.params is empty (field name : ${this.$el.name})`)
+        }
+
+        rulesInNode.forEach(rule =>{
+            let targetMessage:{error?: string, success?: string} = {},
+                optionsRules:{error: string, params?: string, success?:string} = {error: ''}
+
+            config[rule] = {}
+
+            if(nullableValues.every(e => this.$el.dataset.validateTargetError !== e)){
+                targetMessage['error'] = this.$el.dataset.validateTargetError
+            }
+
+            if(nullableValues.every(e => this.$el.dataset.validateTargetSuccess !== e)){
+                targetMessage['success'] = this.$el.dataset.validateTargetSuccess
+            }
+
+            if(['success', 'error'].some(e => targetMessage.hasOwnProperty(e))){
+                config['target'] = targetMessage
+            }
+
+            if(this.$el.getAttribute(`data-validate-${rule}-args`) !== null){
+                // @ts-ignore
+                optionsRules['params'] = this.$el.getAttribute(`data-validate-${rule}-args`).trim()
+            }
+
+            if(this.$el.getAttribute(`data-success-${rule}`) !== null){
+                // @ts-ignore
+                optionsRules["success"] = this.$el.getAttribute(`data-success-${rule}`).trim()
+            }
+
+            if(this.$el.getAttribute(`data-error-${rule}`) === null){
+                throw new Error(`field ${this.$el.name} doesn't have error message for this rule : ${rule}`)
+            }
+            // @ts-ignore
+            optionsRules["error"] = this.$el.getAttribute(`data-error-${rule}`).trim()
+
+            config[ rule ] = optionsRules;
+        })
+        this.params = config
     }
     
     /**
