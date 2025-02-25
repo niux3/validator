@@ -116,8 +116,40 @@ export class Field extends ElementHTML implements FieldObserver{
         return this
     }
 
+    /**
+     * Extracts validation rules and associated messages from HTML data attributes and constructs a configuration object.
+     *
+     * This method reads the `data-validate-rules` attribute from the element (`this.$el`) to determine which validation rules
+     * are applicable. It then looks for additional attributes like `data-validate-target-error`, `data-validate-target-success`,
+     * and rule-specific attributes (`data-validate-<rule>-args`, `data-success-<rule>`, `data-error-<rule>`) to build a configuration
+     * object that includes error messages, success messages, and any additional parameters required for the validation rules.
+     *
+     * The resulting configuration object is stored in `this.params` for later use.
+     *
+     * @throws {Error} If the `data-validate-rules` attribute is missing or empty, an error is thrown indicating that the field name is missing validation rules.
+     * @throws {Error} If a rule does not have an associated error message (i.e., `data-error-<rule>` is missing), an error is thrown indicating the missing error message.
+     *
+     * @example
+     * // Assuming the HTML element has the following attributes:
+     * // data-validate-rules="isempty isminlength"
+     * // data-validate-target-error="#id"
+     * // data-validate-target-success="#id"
+     * // data-error-isempty="This field is required"
+     * // data-error-isminlength="this field must be have 3 cars."
+     * // data-success-isempty="done"
+     * // data-validate-isminlength-args="3"
+     *
+     * // The resulting `this.params` object would look like:
+     * // {
+     * //   isempty: { error: "This field is required" },
+     * //   isminlength: { error: "this field must be have 3 cars.", success: "done", params: "3" },
+     * //   target: { error: "#id", success: "#id" }
+     * // }
+     *
+     * @returns {void}
+     */
     private getParamsFromHTML():void{
-        let config = {},
+        let config:Record<string, any> = {},
             nullableValues = [undefined, null],
             rulesInNode = this.$el.dataset.validateRules?.trim().replace(/\s+/g, ' ').split(' ')
 
