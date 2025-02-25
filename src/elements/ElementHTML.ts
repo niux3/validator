@@ -22,7 +22,7 @@ export class ElementHTML {
     protected id: {
         html?: string
         fo: Number
-        fi: Number
+        fi: Number|null
     }
 
     /** Additional parameters */
