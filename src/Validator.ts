@@ -86,7 +86,7 @@ export default class Validator{
     * @param $el is a input (node) : element in the dom
     */
     removeRequireField($el:HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement){
-        this.formsGroup.get().forEach((form)=>{
+        this.formsGroup.get().forEach((form:Form)=>{
             form.notify((field)=>{
                 if(field.$el === $el){
                     field.$el.classList.remove('require')
@@ -102,7 +102,7 @@ export default class Validator{
     */
     addRequireForm($el:HTMLFormElement){
         let inFormGroup = false
-        this.formsGroup.get().forEach(form:Form =>{
+        this.formsGroup.get().forEach((form:Form) =>{
             if(form.$el === $el){
                 inFormGroup = true
             }
