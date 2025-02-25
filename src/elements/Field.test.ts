@@ -89,7 +89,7 @@ describe('Field', () => {
             // @ts-ignore - Accès forcé à la méthode privée
             field.getParamsFromHTML()
 
-            // Vérifie que this.params est correctement défini
+            // @ts-ignore Vérifie que this.params est correctement défini
             expect(field.params).toEqual({
                 isempty: {
                     error: 'doit être rempli',
