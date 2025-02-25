@@ -10,7 +10,7 @@ export type ElementHTMLProperties = {
     id: {
         html?:string,
         fo:number,
-        fi:number
+        fi:number|null
     },
     params:any,
     state:NeutralState|SuccessState|ErrorState|null,
