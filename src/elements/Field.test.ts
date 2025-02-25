@@ -73,4 +73,63 @@ describe('Field', () => {
         // @ts-ignore
         expect(document.getElementById(field.id.html!)).toBeNull()
     })
+
+    describe('getParamsFromHTML', () => {
+        it('should extract validation rules and messages from HTML attributes', () => {
+            // Configure les attributs HTML pour le test
+            fieldElement.dataset.validateRules = 'isempty isminlength'
+            fieldElement.dataset.validateTargetError = '#errorSubject'
+            fieldElement.dataset.validateTargetSuccess = '#successSubject'
+            fieldElement.setAttribute('data-error-isempty', 'doit être rempli')
+            fieldElement.setAttribute('data-success-isempty', 'donnée valide')
+            fieldElement.setAttribute('data-error-isminlength', 'Ce champ doit avoir minimum 3 caractères')
+            fieldElement.setAttribute('data-success-isminlength', 'donnée valide')
+            fieldElement.setAttribute('data-validate-isminlength-args', '3')
+
+            // @ts-ignore - Accès forcé à la méthode privée
+            field.getParamsFromHTML()
+
+            // Vérifie que this.params est correctement défini
+            expect(field.params).toEqual({
+                isempty: {
+                    error: 'doit être rempli',
+                    success: 'donnée valide',
+                },
+                isminlength: {
+                    error: 'Ce champ doit avoir minimum 3 caractères',
+                    success: 'donnée valide',
+                    params: '3',
+                },
+                target: {
+                    error: '#errorSubject',
+                    success: '#successSubject',
+                },
+            })
+        })
+
+        it('should throw an error if data-validate-rules is missing', () => {
+            // Supprime l'attribut data-validate-rules pour simuler l'erreur
+            fieldElement.removeAttribute('data-validate-rules')
+
+            // @ts-ignore - Accès forcé à la méthode privée
+            expect(() => field.getParamsFromHTML()).toThrowError(
+                'this.params is empty (field name : subject)'
+            )
+        })
+
+        it('should throw an error if a rule is missing an error message', () => {
+            // Configure les attributs HTML pour le test
+            fieldElement.dataset.validateRules = 'isempty isminlength'
+            fieldElement.dataset.validateTargetError = '#errorSubject'
+            fieldElement.dataset.validateTargetSuccess = '#successSubject'
+            fieldElement.setAttribute('data-error-isempty', 'doit être rempli')
+            fieldElement.setAttribute('data-success-isempty', 'donnée valide')
+            // Ne pas définir data-error-isminlength pour simuler l'erreur
+
+            // @ts-ignore - Accès forcé à la méthode privée
+            expect(() => field.getParamsFromHTML()).toThrowError(
+                'field subject doesn\'t have error message for this rule : isminlength'
+            )
+        })
+    })
 })
