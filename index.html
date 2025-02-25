@@ -13,7 +13,7 @@
 
     <body>
         <div class="grid-container" id="app">
-            <form class="margin-vertical-3">
+            <form class="margin-vertical-3" id="myForm" method="post" action="https://alsacreations.com">
                 <label>
                     <span>Prénom</span>
                     <input 
@@ -29,7 +29,21 @@
                         data-success-isminlength=" !!! "  
                     />
                 </label>
-                <label><span>Nom</span><input type="text" required name="lastname" id="lastname"></label>
+                <label>
+                    <span>Nom</span>
+                    <input 
+                        type="text" 
+                        required 
+                        name="lastname" 
+                        id="lastname" 
+                        data-validate-rules="isempty isminlength" 
+                        data-validate-isminlength-args="3" 
+                        data-error-isempty="ne doit pas être vide"  
+                        data-error-isminlength="doit contenir au moins 3 cars."  
+                        data-success-isempty=" !!! "  
+                        data-success-isminlength=" !!! "  
+                    />
+                </label>
                 <div><button class="button" type="submit">envoyer</button></div>
             </form>
             <div id="errorSubject"></div>

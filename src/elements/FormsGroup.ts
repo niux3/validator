@@ -9,9 +9,10 @@ export class FormsGroup{
     
     constructor(configuration:Configuration){
         this.configuration = configuration
+        console.log('formsGroup >', document.querySelectorAll(this.configuration.options.get().selector))
         
-        if(document.querySelectorAll(this.configuration.options.selector) !== null){
-            document.querySelectorAll(this.configuration.options.selector).forEach($form =>{
+        if(document.querySelectorAll(this.configuration.options.get().selector).length){
+            document.querySelectorAll(this.configuration.options.get().selector).forEach($form =>{
                 this.addForm($form)
             })
         }
@@ -26,9 +27,9 @@ export class FormsGroup{
                 fi : null
             },
             state: null,
-            params : this.configuration.options['fields'],
+            params : this.configuration.options.get()['fields'],
             rules : this.configuration.rules,
-        };
+        }
 
         this.forms = [...this.forms, new Form(props)]
     }
@@ -41,7 +42,7 @@ export class FormsGroup{
         })
     }
 
-    getForms(){
+    get(){
         return this.forms
     }
 }
