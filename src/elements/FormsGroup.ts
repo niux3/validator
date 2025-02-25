@@ -1,11 +1,11 @@
 import { Configuration } from '../configuration/Configuration'
 import { Form } from './Form'
-import { ElementHTMLProperties } from './ElementHTML.type' }
+import { ElementHTMLProperties } from './ElementHTML.type'
 
 
 export class FormsGroup{
     private forms:Form[] = []
-    private configuration:Configuration = {}
+    private configuration = {}
     
     constructor(configuration:Configuration){
         this.configuration = configuration
@@ -25,6 +25,7 @@ export class FormsGroup{
                 fo : this.forms.length,
                 fi : null
             },
+            state: null,
             params : this.configuration.options['fields'],
             rules : this.configuration.rules,
         };
