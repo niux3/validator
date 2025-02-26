@@ -64,14 +64,15 @@ export class Form extends ElementHTML implements FormSubject{
      * After notifying all fields, it updates the form's state based on the fields' validation results.
      * @param {Function} callback - The callback function to execute for each field.
      */
-    notify(callback:Function):void{
+    notify(callback:(field: Field) => void):void{
         this.fields.forEach((field, i) =>{
             field.update(field, i, callback)
         })
+
         // @ts-ignore
-        let method = this.fields.every(f => f.state.toString() === 'success')? 'success' : 'error'
+        let method = this.fields.every(f => f.state.toString() === 'success')? 'success' : 'error' // bug Typescript ! getState() is not method ???
         // @ts-ignore
-        this[`${method}State`]()
+        this[`${method}State`]() // bug Typescript ! 
     }
 
     /**

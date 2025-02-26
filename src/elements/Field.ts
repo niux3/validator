@@ -41,8 +41,8 @@ export class Field extends ElementHTML implements FieldObserver{
      *   console.log(`Field ${index} updated:`, field);
      * });
     */
-    update(field:Field, i:number, callback:Function){
-        return callback(field, i)
+    update(field:Field, i:number, callback:(field: Field) => void){
+        return callback(field)
     }
 
     /**

@@ -30,9 +30,9 @@ export default class Validator{
     form(){
         this.formsGroup.get().forEach((form:Form)=>{
             form.on('submit', (event, form)=>{
-                form.notify(field => field.clean().validate().displayState())
+                form.notify((field: Field) => field.clean().validate().displayState())
                 
-                if(form.state.toString() === 'error'){
+                if(form.getState().toString() === 'error'){
                     event.preventDefault()
                 }
             })
@@ -45,9 +45,9 @@ export default class Validator{
     checkForm($el:HTMLFormElement, event:Event){
         this.formsGroup.get().forEach((form:Form)=>{
             if($el === form.$el){
-                form.notify(field => field.clean().validate().displayState())
+                form.notify((field:Field) => field.clean().validate().displayState())
                 
-                if(form.state.toString() === 'error'){
+                if(form.getState().toString() === 'error'){
                     event.preventDefault()
                 }
             }
@@ -60,7 +60,7 @@ export default class Validator{
     */
     element($el:HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement){
         this.formsGroup.get().forEach((form:Form)=>{
-            form.notify((field) =>{
+            form.notify((field:Field) =>{
                 if(field.$el === $el){
                     field.clean().validate().displayState()
                 }
@@ -87,7 +87,7 @@ export default class Validator{
     */
     removeRequireField($el:HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement){
         this.formsGroup.get().forEach((form:Form)=>{
-            form.notify((field)=>{
+            form.notify((field:Field)=>{
                 if(field.$el === $el){
                     field.$el.classList.remove('require')
                     form.unregister(field)
