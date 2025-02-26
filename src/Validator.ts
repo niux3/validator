@@ -6,7 +6,7 @@ import { FormsGroup } from './elements/FormsGroup'
 
 
 export default class Validator{
-    private app:any
+    private app:Configuration
     private formsGroup:FormsGroup
 
     constructor(options:{selector?: string, fields?:any} = {}){
@@ -21,7 +21,7 @@ export default class Validator{
             rules: new Rules()
         })
 
-        this.formsGroup = new FormsGroup(this.app.get())
+        this.formsGroup = new FormsGroup(this.app)
     }
 
     /*
