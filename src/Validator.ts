@@ -126,7 +126,7 @@ export default class Validator{
     * @param rule  is a lambda function : return bollean validation (the first argument of the lambda method is the field object)
     */
     addRules(key:string, rule:Function){
-        this.app.rules.set(key, rule)
+        this.app.get().rules.set(key, rule)
     }
 
     /*
@@ -137,6 +137,7 @@ export default class Validator{
     * @return boolean
     */
     check(data:any, rulesname:string, configuration = {}){
+        console.log(">>", this.app.get().rules)
         return !this.app.get().rules.get()[rulesname](data, configuration)
     }
 }
