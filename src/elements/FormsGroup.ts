@@ -7,7 +7,7 @@ import { ElementHTMLProperties } from './ElementHTML.type'
 /**
  * Represents a group of forms managed by the application.
  * This class handles the creation, removal, and retrieval of forms.
- */
+*/
 export class FormsGroup{
     private forms:Form[] = []
     private configuration:AppConfiguration

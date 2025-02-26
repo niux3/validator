@@ -1,7 +1,20 @@
 // @ts-nocheck
 import Validator from './Validator'
 
-let validator = new Validator()
+let options = {
+    'fields': {
+        'firstname': {
+            'isempty': {
+                'error': 'ne doit pas être vide (params)',
+            },
+            'isminlength': {
+                'params': 3,
+                'error': 'doit contenir au moins 3 caractères'
+            }
+        }
+    }
+}
+let validator = new Validator(options)
 let $myForm = document.getElementById('myForm')
 let $lastname = document.getElementById('lastname')
 
