@@ -51,11 +51,7 @@ export class FormsGroup{
      * @param {HTMLFormElement} $form - The HTML form element to remove.
     */
     rmForm($form:HTMLFormElement): void{
-        this.forms.forEach((form, i)=>{
-            if(form.$el === $form){
-                delete this.forms[i]
-            }
-        })
+        this.forms = [...this.forms.filter(f => f.$el !== $form)]
     }
 
     /**

@@ -13,7 +13,7 @@
 
     <body>
         <div class="grid-container" id="app">
-            <form class="margin-vertical-3" id="myForm" method="post" action="https://alsacreations.com">
+            <form class="margin-vertical-3 testForm" method="post" action="https://alsacreations.com">
                 <label>
                     <span>Prénom</span>
                     <input 
@@ -46,8 +46,11 @@
                 </label>
                 <div><button class="button" type="submit">envoyer</button></div>
             </form>
-            <div id="errorSubject"></div>
-            <div id="successSubject"></div>
+            <form id="myForm" method="post">
+                <label><span>firstname</span><input type="text" required name="firstname"></label>
+                <div><button class="button" type="submit">envoyer</button></div>
+            </form>
+            <p><button class="button rmForm" type="button">rm form</button></p>
         </div>
         <script type="module" src="/src/main.ts"></script>
     </body>

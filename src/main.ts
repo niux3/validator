@@ -2,6 +2,7 @@
 import Validator from './Validator'
 
 let options = {
+    'selector': '.testForm',
     'fields': {
         'firstname': {
             'isempty': {
@@ -20,6 +21,15 @@ let $lastname = document.getElementById('lastname')
 
 //$myForm?.addEventListener('submit', e => validator.checkForm($myForm, e))
 validator.form()
+let myForm = document.getElementById('myForm')
+validator.addRequireForm(myForm)
+validator.form()
+
+document.querySelector('.rmForm')?.addEventListener('click', e =>{
+    validator.removeRequireForm(myForm)
+    myForm.remove()
+})
+
 
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
