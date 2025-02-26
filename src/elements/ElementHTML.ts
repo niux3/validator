@@ -27,7 +27,6 @@ export class ElementHTML {
 
     /** Additional parameters */
     protected params: any
-    // protected state?: String
 
     /** Rules associated with the element */
     protected rules: Rules
@@ -76,6 +75,10 @@ export class ElementHTML {
     */
     protected resetState(): void {
         this.setState(new NeutralState(this))
+    }
+
+    getState(){
+        return this.state
     }
 
     /**
