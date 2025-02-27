@@ -30,6 +30,15 @@ document.querySelector('.rmForm')?.addEventListener('click', e =>{
     myForm.remove()
 })
 
+document.querySelector('.addField')?.addEventListener('click', e =>{
+    let tpl = document.getElementById('fieldUsername'),
+        contentTpl = tpl.content.cloneNode(true).firstElementChild
+    console.log(tpl.content.cloneNode(true).firstElementChild)
+    document.querySelector('.testForm')?.insertAdjacentElement('afterbegin', contentTpl)
+    validator.addRequireField(contentTpl.querySelector('input'))
+
+})
+
 
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 

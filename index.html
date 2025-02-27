@@ -51,7 +51,22 @@
                 <div><button class="button" type="submit">envoyer</button></div>
             </form>
             <p><button class="button rmForm" type="button">rm form</button></p>
+            <p><button class="button addField" type="button">add field</button></p>
         </div>
+        <template id="fieldUsername">
+            <label>
+                <span>pseudo</span>
+                <input
+                    type="text"
+                    required
+                    name="username"
+                    id="username"
+                    data-validate-rules="isempty"
+                    data-error-isempty="ne doit pas être vide !!!!!"
+                    data-success-isempty=" !!! "
+                />
+            </label>
+        </template>
         <script type="module" src="/src/main.ts"></script>
     </body>
 

@@ -13,6 +13,7 @@ vi.mock('./Rules') // Mockez la classe Rules
 describe('FormsGroup', () => {
     let mockConfiguration: Configuration
     let mockAppConfig: AppConfiguration
+    // @ts-ignore
     let mockForm: Form
     let mockRules: Rules
 
