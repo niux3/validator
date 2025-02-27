@@ -20,6 +20,9 @@ let $myForm = document.getElementById('myForm')
 let $lastname = document.getElementById('lastname')
 
 //$myForm?.addEventListener('submit', e => validator.checkForm($myForm, e))
+
+validator.addRules('isimmatriculation', value => /^\d{3,4}[a-z]{2,3}\d{2}[a-z]?$/i.test(value.trim()))
+
 validator.form()
 let myForm = document.getElementById('myForm')
 validator.addRequireForm(myForm)
@@ -37,6 +40,12 @@ document.querySelector('.addField')?.addEventListener('click', e =>{
     document.querySelector('.testForm')?.insertAdjacentElement('afterbegin', contentTpl)
     validator.addRequireField(contentTpl.querySelector('input'))
 
+})
+
+document.querySelector('.rmField')?.addEventListener('click', e =>{
+    let username = document.querySelector('#username')
+    validator.removeRequireField(username)
+    username.closest('label').remove()
 })
 
 
