@@ -1,5 +1,29 @@
-export default (...args: any[]) => {
-    let value = args[0]
+/**
+ * Validates a credit card number using the Luhn algorithm and checks for specific card type formats.
+ *
+ * This function validates a credit card number by:
+ * 1. Trimming the input string.
+ * 2. Checking for non-numeric characters (excluding spaces and hyphens).
+ * 3. Cleaning the string by removing spaces and hyphens.
+ * 4. Verifying the length of the cleaned string (must be between 13 and 19 digits).
+ * 5. Applying the Luhn algorithm to ensure the number is valid.
+ * 6. Checking the card type (Visa, Mastercard, Amex, Diners Club, Discover) based on the starting digits and length.
+ *
+ * @param {string} value - The credit card number to validate.
+ * @returns {boolean} - Returns `true` if the credit card number is valid, otherwise `false`.
+ *
+ * @example
+ * // Example 1: Valid Visa card
+ * const isValid1 = isValidCreditCard("4111 1111 1111 1111");
+ * console.log(isValid1); // true
+ *
+ * @example
+ * // Example 2: Valid Mastercard
+ * const isValid2 = isValidCreditCard("5555 5555 5555 4444");
+ * console.log(isValid2); // true
+ */
+export default (value:string) => {
+    value = value.trim()
 
     // Vérifie si la valeur contient des caractères non numériques
     if (/[^0-9\- ]+/.test(value)) {
