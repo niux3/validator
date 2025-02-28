@@ -12,7 +12,9 @@ describe("IsBoolean validation function", () => {
 
     it("should return false if the value is false or 0", () => {
         expect(IsBoolean("123")).toBe(false)
+        // @ts-ignore
         expect(IsBoolean({"a": 1})).toBe(false)
+        // @ts-ignore
         expect(IsBoolean([])).toBe(false)
         expect(IsBoolean(NaN)).toBe(false)
         expect(IsBoolean(Infinity)).toBe(false)
