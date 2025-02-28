@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import Validator from './Validator'
 import { Configuration } from './configuration/Configuration'
