@@ -52,4 +52,4 @@ document.querySelector('.rmField')?.addEventListener('click', e =>{
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
 
-console.log('>>', validator.check('', 'isempty'))
+console.log('>>', validator.check('', 'isempty', '1;10'))
