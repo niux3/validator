@@ -211,6 +211,6 @@ describe('Validator', () => {
 
         const isValid = validator.check('dom+dom@dom.com', 'isemail')
 
-        expect(isValid).toBe(false) // La règle retourne true, donc la validation passe
+        expect(isValid).toBe(true) // La règle retourne true, donc la validation passe
     })
 })

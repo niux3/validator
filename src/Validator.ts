@@ -260,6 +260,6 @@ export default class Validator{
     */
     check(data:any, rulesname:string, configuration = {}){
         //@ts-ignore
-        return !this.app.get().rules.get()[rulesname](data, configuration)
+        return this.app.get().rules.get()[rulesname](data, configuration)
     }
 }
