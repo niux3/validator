@@ -36,9 +36,12 @@
  * console.log(isLengthInRange5); // Throws an error
 */
 export default (value: string, params: string) => {
-    let [min, max] = params.split(";")
-    if (!min || !max) {
-        throw new Error("Invalid range format. Expected 'minmax'.")
+    if(typeof params !== 'string'){
+        throw new Error("Invalid range format. Expected 'minmax' (isbetweenlength).")
     }
+    if(!params.includes(';')){
+        throw new Error("arguments must be separated by a semicolon example: 2;3 (isbetweenlength).")
+    }
+    let [min, max] = params.split(";")
     return value.length > parseInt(min, 10) && value.length < parseInt(max, 10)
 }
