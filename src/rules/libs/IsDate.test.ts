@@ -21,7 +21,9 @@ describe("IsDate", () => {
 
     it("should return false for empty or null values", () => {
         expect(IsDate("")).toBe(false)
+        // @ts-ignore
         expect(IsDate(null)).toBe(false)
+        // @ts-ignore
         expect(IsDate(undefined)).toBe(false)
     })
 })
