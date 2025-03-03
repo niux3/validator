@@ -27,9 +27,9 @@
  *   console.error(e.message); // "The params of method 'is min length' must be a number"
  * }
  */
-export default (value:string, args:{params:string|number}):boolean => {
-    if (!/^\d+$/.test(args.params.toString())) {
+export default (value:string, args:string|number):boolean => {
+    if (!/^\d+$/.test(args.toString())) {
         throw new Error('The params of method "is min length" must be a number')
     }
-    return value.length > parseInt(args.params.toString(), 10)
+    return value.length > parseInt(args.toString(), 10)
 }

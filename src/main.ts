@@ -7,10 +7,12 @@ let options = {
         'firstname': {
             'isempty': {
                 'error': 'ne doit pas être vide (params)',
+                'success': '!!',
             },
             'isminlength': {
-                'params': 3,
-                'error': 'doit contenir au moins 3 caractères'
+                'params': 2,
+                'error': 'doit contenir au moins 3 caractères',
+                'success': 'isminlength ok !'
             }
         }
     }
@@ -52,4 +54,4 @@ document.querySelector('.rmField')?.addEventListener('click', e =>{
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
 
-console.log('>>', validator.check('', 'isempty', '1;10'))
+console.log('>>', validator.check('a123', 'isbetweenlength', '2;10'))
