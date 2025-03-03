@@ -61,7 +61,7 @@ export class Field extends ElementHTML implements FieldObserver{
             for(let ruleInNode of rulesList){
                 for(let key in defaultRules){
                     if(key === ruleInNode){
-                        let isValid = defaultRules[key](fieldValue, this.params[key]),
+                        let isValid = defaultRules[key](fieldValue, this.params[key].params),
                             row = {
                                 status: isValid,
                                 message: this.params[key][isValid? 'success' : 'error']
