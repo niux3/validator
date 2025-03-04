@@ -9,9 +9,9 @@ let options = {
                 'error': 'ne doit pas être vide (params)',
                 'success': '!!',
             },
-            'ismobilephone': {
-                'params': 'fr-FR',
-                'error': 'phone',
+            'isminlength': {
+                'params': 2,
+                'error': 'minlength',
                 'success': 'isminlength ok !'
             }
         }
@@ -54,4 +54,4 @@ document.querySelector('.rmField')?.addEventListener('click', e =>{
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
 
-console.log('>>', validator.check('123', 'isnumeric'))
+console.log('>>', validator.check('123', 'isminlength', 5))
