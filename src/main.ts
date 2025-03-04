@@ -9,9 +9,9 @@ let options = {
                 'error': 'ne doit pas être vide (params)',
                 'success': '!!',
             },
-            'ispostalcode': {
-                'params': 'FR',
-                'error': 'cp',
+            'ismobilephone': {
+                'params': 'fr-FR',
+                'error': 'phone',
                 'success': 'isminlength ok !'
             }
         }
