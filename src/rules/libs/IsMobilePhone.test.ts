@@ -37,6 +37,7 @@ describe('IsMobilePhone', () => {
     it('should handle edge cases', () => {
         expect(IsMobilePhone("", "fr-FR")).toBe(false) // Chaîne vide
         expect(IsMobilePhone("0612345678", "")).toBe(false) // Pays vide
+        // @ts-ignore
         expect(IsMobilePhone(612345678, "fr-FR")).toBe(false) // Type incorrect (nombre au lieu de chaîne)
     })
 })

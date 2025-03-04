@@ -25,9 +25,13 @@ describe('isNumeric', () => {
     })
 
     it('should return false for non-string and non-number inputs', () => {
+        // @ts-ignore
         expect(isNumeric({})).toBe(false)
+        // @ts-ignore
         expect(isNumeric([])).toBe(false)
+        // @ts-ignore
         expect(isNumeric(null)).toBe(false)
+        // @ts-ignore
         expect(isNumeric(undefined)).toBe(false)
     })
 })
