@@ -17,6 +17,6 @@
  * const isValid2 = isAlphanumeric("Hello@123");
  * console.log(isValid2); // false
 */
-export default (value:string)=>{
+export default (value:string):boolean =>{
     return new RegExp('^[a-z0-9]+$', 'i').test(value.trim())
 }

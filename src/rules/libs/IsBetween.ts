@@ -20,7 +20,7 @@
  * const isInRange2 = isInRange("5", "1");
  * console.log(isInRange2); // Throws an error
  */
-export default (value: string | number, params: string) => {
+export default (value: string | number, params: string):boolean => {
     let [min, max] = params.split(";")
     if (!min || !max) {
         throw new Error("Invalid range format. Expected 'minmax'.")

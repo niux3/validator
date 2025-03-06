@@ -35,7 +35,7 @@
  * const isLengthInRange5 = isLengthInRange("Hello", "1");
  * console.log(isLengthInRange5); // Throws an error
 */
-export default (value: string, params: string) => {
+export default (value: string, params: string):boolean => {
     if(typeof params !== 'string'){
         throw new Error("Invalid range format. Expected 'minmax' (isbetweenlength).")
     }
