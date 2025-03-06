@@ -1,4 +1,3 @@
-import '../helpers'
 import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { FieldObserver } from './FieldObserver.interface'
@@ -74,10 +73,10 @@ export class Field extends ElementHTML implements FieldObserver{
 
         if (resultValid.every(e => e.status === true)) {
             this.successState()
-            this.state.message = resultValid.rfind(e => e.status)?.message || ''
+            this.state.message = resultValid.find(e => e.status)?.message || ''
         } else {
             this.errorState()
-            this.state.message = resultValid.rfind(e => !e.status)?.message || ''
+            this.state.message = resultValid.find(e => !e.status)?.message || ''
         }
         return this
     }
