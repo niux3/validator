@@ -5,10 +5,6 @@ let options = {
     'selector': '.testForm',
     'fields': {
         'firstname': {
-            'target': {
-                'error': '#firstnameError',
-                'success': '#firstnameSuccess',
-            },
             'isnotempty': {
                 'error': 'ne doit pas être vide (params)',
                 'success': '!!',
@@ -16,6 +12,10 @@ let options = {
             'isminlength': {
                 'params': 2,
                 'error': 'minlength',
+            },
+            "isequalto":{
+                "params": "#lastname",
+                "error": 'equalTo'
             }
         }
     }
