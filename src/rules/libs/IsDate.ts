@@ -19,7 +19,7 @@
  * const isValid2 = isValidDate("1899-02-30");
  * console.log(isValid2); // false
 */
-export default (value:string) => {
+export default (value:string):boolean => {
     if (['', null, undefined].some(e => e === value)) {
         return false
     }

@@ -22,7 +22,7 @@
  * const isValid2 = isValidCreditCard("5555 5555 5555 4444");
  * console.log(isValid2); // true
  */
-export default (value:string) => {
+export default (value:string):boolean => {
     value = value.trim()
 
     // Vérifie si la valeur contient des caractères non numériques

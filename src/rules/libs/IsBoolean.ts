@@ -34,6 +34,6 @@
  * const isValid6 = isBooleanLike(null);
  * console.log(isValid6); // false
  */
-export default (value:string|boolean|number)=>{
+export default (value:string|boolean|number):boolean =>{
     return [true, false, 0, 1, "0", "1", "true", "false"].some(e => e === value)
 }

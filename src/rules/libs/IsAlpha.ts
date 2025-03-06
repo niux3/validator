@@ -27,6 +27,6 @@
  * const isValid4 = isAlphaOnly("  HelloWorld  ");
  * console.log(isValid4); // true
  */
-export default (value:string)=>{
+export default (value:string):boolean =>{
     return new RegExp('^[a-zA-Z]+$').test(value.trim())
 }
