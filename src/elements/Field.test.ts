@@ -27,7 +27,7 @@ describe('Field', () => {
                         "error": "#errorSubject",
                         "success": "#successSubject",
                     },
-                    "isempty": {
+                    "isnotempty": {
                         "error": "doit être rempli",
                         "success": "donnée valide",
                     },
@@ -54,7 +54,7 @@ describe('Field', () => {
 
     it('should display an error message if the field is empty', () => {
         fieldElement.value = '' // Simule un champ vide
-        field.validate().displayState()
+        field.clean().validate().displayState()
 
         const errorDiv = document.querySelector('#errorSubject') as HTMLElement
         expect(errorDiv.innerHTML).toContain("doit être rempli")
