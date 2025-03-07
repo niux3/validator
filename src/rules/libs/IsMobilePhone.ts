@@ -1,9 +1,9 @@
 /**
  * Validates a phone number based on the specified country and optional strict mode.
  *
- * @param value - The phone number to validate. Must be a string.
- * @param country - The country code (e.g., "en-US" for the United States, "fr-FR" for France).
- * @returns `true` if the phone number is valid for the specified country, otherwise `false`.
+ * @param {string} value - The phone number to validate. Must be a string.
+ * @param {string} country - The country code (e.g., "en-US" for the United States, "fr-FR" for France).
+ * @returns {boolean} - return `true` if the phone number is valid for the specified country, otherwise `false`.
  *
  * @example
  * ```typescript
