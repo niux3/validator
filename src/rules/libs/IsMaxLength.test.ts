@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import IsMaxLength from "./IsMaxLength"
 
+
 describe("isMaxLength", () => {
     // Test 1: Longueur inférieure au maximum
     it("should return true if the length is less than the max", () => {
