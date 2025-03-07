@@ -1,11 +1,9 @@
 /**
  * Checks if the length of the provided string value is greater than a specified minimum length.
  *
- * @param value - The string to be checked.
- * @param args - An object containing the parameters for the validation.
- *
+ * @param {string} value - The string to be checked.
+ * @param {string|number} args - An object containing the parameters for the validation.
  * @returns {boolean} - Returns `true` if the length of `value` is greater than the specified minimum length, otherwise `false`.
- *
  * @throws {Error} - Throws an error if `args.params` is not a valid number.
  *
  * @example
