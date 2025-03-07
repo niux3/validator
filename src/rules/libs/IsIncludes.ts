@@ -1,8 +1,8 @@
 /**
  * Checks if the provided value (string or number) is included in the `valueCheck` array or string.
  *
- * @param value - The value to check for inclusion. Can be a string or a number.
- * @param valueCheck - The list of values or string to check against. Can be a string, an array of strings, or an array of numbers.
+ * @param {string|number} value - The value to check for inclusion. Can be a string or a number.
+ * @param {string|string[]|numbers[]}valueCheck - The list of values or string to check against. Can be a string, an array of strings, or an array of numbers.
  *
  * @returns {boolean} - Returns `true` if `value` is included in `valueCheck`, otherwise `false`.
  *

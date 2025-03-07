@@ -1,8 +1,8 @@
 /**
- * Vérifie si une valeur donnée est composée uniquement de chiffres.
+ * Checks if a given value consists only of digits.
  *
- * @param value - La valeur à tester. Peut être une chaîne de caractères (string) ou un nombre (number).
- * @returns `true` si la valeur est composée uniquement de chiffres, sinon `false`.
+ * @param {string|number} value - The value to test. Can be a string or a number.
+ * @returns {boolean} - return `true` if the value is composed only of digits, otherwise `false`.
  *
  * @example
  * ```typescript
