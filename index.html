@@ -23,11 +23,12 @@
                         <label>
                             <span>Civilité</span>
                             <select name="civility" id="civility" class="require">
-                                <option value="">choisir</option>
+                                <option value="">Choisir</option>
                                 <option value="1">Mademoiselle</option>
                                 <option value="2">Madame</option>
                                 <option value="3">Monsieur</option>
                             </select>
+                            <span id="messageCivility"></span>
                         </label>
                         <div class="grid-x grid-margin-x">
                             <label class="cell medium-6">
@@ -189,77 +190,6 @@
                     </form>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <form class="margin-vertical-3 testForm" method="post" action="https://alsacreations.com">
-                <label>
-                    <span>Prénom</span>
-                    <input 
-                        type="text" 
-                        required 
-                        name="firstname" 
-                        id="firstname" 
-                        data-validate-rules="isempty isminlength" 
-                        data-validate-isminlength-args="3" 
-                        data-error-isempty="ne doit pas être vide"  
-                        data-error-isminlength="doit contenir au moins 3 cars."  
-                        data-success-isempty=" !!! "  
-                        data-success-isminlength=" !!! "  
-                    />
-                </label>
-                <label>
-                    <span>Nom</span>
-                    <input 
-                        type="text" 
-                        required 
-                        name="lastname" 
-                        id="lastname" 
-                        data-validate-rules="isnotempty isminlength" 
-                        data-validate-isminlength-args="2" 
-                        data-error-isnotempty="ne doit pas être vide"  
-                        data-error-isminlength="doit contenir au moins 3 cars."  
-                        data-success-isnotempty=" !!! "  
-                    />
-                </label>
-                <div><button class="button" type="submit">envoyer</button></div>
-                <div id="firstnameError"></div>
-                <div id="firstnameSuccess"></div>
-            </form>
-            <form id="myForm" method="post">
-                <label><span>firstname</span><input type="text" required name="firstname"></label>
-                <div><button class="button" type="submit">envoyer</button></div>
-            </form>
-            <p><button class="button rmForm" type="button">rm form</button></p>
-            <p><button class="button addField" type="button">add field</button></p>
-            <p><button class="button rmField" type="button">rm field</button></p>
-        </div>
-        <template id="fieldUsername">
-            <label>
-                <span>pseudo</span>
-                <input
-                    type="text"
-                    required
-                    name="username"
-                    id="username"
-                    data-validate-rules="isempty isimmatriculation"
-                    data-error-isempty="ne doit pas être vide !!!!!"
-                    data-error-isimmatriculation="doit être au format d'une plaque d'immatriculation"  
-                />
-            </label>
-        </template>
         <script type="module" src="/src/main.ts"></script>
     </body>
 

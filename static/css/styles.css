@@ -5,13 +5,13 @@
 html, body{
     font-size: 16px;
 }
-input{
+input, select, textarea{
     margin: 0 !important;
 }
-input.error{
+input.error, select.error, textarea.error{
     border: 1px solid var(--color-error);
 }
-input.success{
+input.success, select.success, textarea.success{
     border: 1px solid var(--color-success);
 }
 span.error{
