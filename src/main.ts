@@ -1,5 +1,6 @@
 // @ts-nocheck
 import Validator from './Validator'
+import { IsEqualTo } from './rules/libs'
 
 let options = {
     'selector': '.testForm',
@@ -8,10 +9,6 @@ let options = {
             'isnotempty': {
                 'error': 'ne doit pas être vide (params)',
                 'success': '!!',
-            },
-            'isminlength': {
-                'params': 2,
-                'error': 'minlength',
             },
             "isequalto":{
                 "params": "#lastname",
@@ -57,4 +54,5 @@ document.querySelector('.rmField')?.addEventListener('click', e =>{
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
 
-console.log('>>', validator.check('123', 'isminlength', 5))
+//console.log('>>', validator.check(124 , 'isequalto', 123))
+//console.log("->", IsEqualTo('Hello', '_input'))

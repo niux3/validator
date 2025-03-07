@@ -22,19 +22,14 @@
  * console.log(result3); // Output: false
  */
 export default (value:string, params:string):boolean =>{
-    let result = true
-    if(document.querySelector(params) !== null){
+    if(!/^\d+/.test(params) && params.length > 0 && document.querySelectorAll(params) !== null){
         // @ts-ignore
-        if(value !== document.querySelector(params)?.value.trim()){
-            result = false
-        }
+        return value === document.querySelector(params)?.value.trim()
     }else{
-        if(/[^0-9]/.test(params) && params !== value){
-            result = false
-        }
-        if(/\d+/.test(params) && parseInt(params,10) !== parseInt(value, 10)){
-            result = false
+        if(/^\d+$/.test(params)){
+            return parseInt(params,10) === parseInt(value, 10)
+        }else{
+            return params === value
         }
     }
-    return result
 }
