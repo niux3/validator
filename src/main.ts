@@ -1,6 +1,6 @@
 // @ts-nocheck
 import Validator from './Validator'
-import { IsEqualTo } from './rules/libs'
+import { IsMaxLength } from './rules/libs'
 
 let options = {
     'selector': '.testForm',
@@ -10,9 +10,9 @@ let options = {
                 'error': 'ne doit pas être vide (params)',
                 'success': '!!',
             },
-            "isequalto":{
-                "params": "#lastname",
-                "error": 'equalTo'
+            "ismaxlength":{
+                "params": "5",
+                "error": 'max'
             }
         }
     }
@@ -54,5 +54,5 @@ document.querySelector('.rmField')?.addEventListener('click', e =>{
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
 
-//console.log('>>', validator.check(124 , 'isequalto', 123))
-//console.log("->", IsEqualTo('Hello', '_input'))
+console.log('>>', validator.check('bla' , 'ismaxlength', 2))
+console.log("->", IsMaxLength('Hello', '4'))
