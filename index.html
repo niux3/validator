@@ -13,6 +13,197 @@
 
     <body>
         <div class="grid-container" id="app">
+            <div class="grid-x grid-margin-x margin-vertical-3">
+                <div class="cell medium-6">
+                    <form id="monForm" action="contact" method="post" class="formToValidate">
+                        <label>
+                            <span>pas de test sur ce champ</span>
+                            <input type="text" name="noTest1" id="noTest1">
+                        </label>
+                        <label>
+                            <span>Civilité</span>
+                            <select name="civility" id="civility" class="require">
+                                <option value="">choisir</option>
+                                <option value="1">Mademoiselle</option>
+                                <option value="2">Madame</option>
+                                <option value="3">Monsieur</option>
+                            </select>
+                        </label>
+                        <div class="grid-x grid-margin-x">
+                            <label class="cell medium-6">
+                                <span>prénom</span>
+                                <input type="text" name="firstname" id="firstname" class="require">
+                                <span class="messageFirstname"></span>
+                            </label>
+                            <label class="cell medium-6">
+                                <span>nom</span>
+                                <input type="text" name="lastname" id="lastname" class="require">
+                                <span class="messageLastname"></span>
+                            </label>
+                            <label class="cell medium-6">
+                                <span>email</span>
+                                <input type="text" name="email" id="email" class="require">
+                                <span id="messageEmail"></span>
+                            </label>
+                            <label class="cell medium-6">
+                                <span>sujet</span>
+                                <input type="text" name="subject" id="subject" class="require">
+                                <span id="messageSubject"></span>
+                            </label>
+                        </div>
+                        <fieldset class="margin-vertical-2">
+                            <legend>Vous contactez par téléphone : </legend>
+                            <div class="grid-x grid-margin-x">
+                                <label class="cell medium-6 text-center">
+                                    <input type="radio" required name="validatePhone" class="radio" id="validatePhoneYes" value="1">
+                                    <span>oui</span>
+                                </label>
+                                <label class="cell medium-6 text-center">
+                                    <input type="radio" required name="validatePhone" class="radio" id="validatePhoneNo" value="2">
+                                    <span>non</span>
+                                </label>
+                            </div>
+                            <label>
+                                <span>phone</span>
+                                <input type="text" name="phone" id="phone">
+                                <span id="messagePhone"></span>
+                            </label>
+                            <span id="messagePhoneChoice"></span>
+                        </fieldset>
+                        <label>
+                            <span>Disponibilité pour un rendez-vous ? </span>
+                            <input type="date" id="dateAppointement" class="require" name="dateAppointement" value="" min="2018-01-01" max="2019-12-31">
+                            <span id="messageDate"></span>
+                        </label>
+                        <label>
+                            <span>Message</span>
+                            <textarea name="message" id="message" required></textarea>
+                            <span id="messageMessage"></span>
+                        </label>
+                        <label>
+                            <span>un champ choix multiples</span>
+                            <select name="selectMultiple[]" id="selectMultiple" multiple="true" class="require">
+                                <option value="">rien</option>
+                                <option value="1">lorem</option>
+                                <option value="2">ipsum</option>
+                                <option value="3">bla bla</option>
+                                <option value="4">lo lo</option>
+                            </select>
+                            <span id="messageSelectMultiple"></span>
+                        </label>
+                        <div class="submit input">
+                            <input type="submit" class="button expanded" name="send" value="envoyer">
+                        </div>
+                    </form>
+                </div>
+                <div class="cell medium-6">
+                    <form action="about" method="post" class="formToValidate">
+                        <label>
+                            <span>pas de test sur ce champ</span>
+                            <input type="text" name="noTest2" id="noTest2">
+                        </label>
+                        <div class="grid-x grid-margin-x">
+                            <label class="cell medium-6">
+                                <span>prénom</span>
+                                <input type="text" name="firstname" required id="firstnamebis">
+                                <span class="messageFirstname"></span>
+                            </label>
+                            <label class="cell medium-6">
+                                <span>nom</span>
+                                <input type="text" name="lastname" id="lastnamebis" class="require">
+                                <span class="messageLastname"></span>
+                            </label>
+                        </div>
+                        <fieldset>
+                            <legend>Vos loisirs ?</legend>
+                            <div class="grid-x grid-margin-x">
+                                <label class="cell medium-6 text-center">
+                                    <input type="radio" id="hobbiesYes" name="hobbiesChoice" value="1" class="radio require">
+                                    <span>oui</span>
+                                </label>
+                                <label class="cell medium-6 text-center">
+                                    <input type="radio" id="hobbiesNo" name="hobbiesChoice" value="0" class="radio require">
+                                    <span>non</span>
+                                </label>
+                            </div>
+                            <div id="hobies-container">
+                                <div class="grid-x grid-margin-x">
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesMovies" name="hobbies[]" value="Cinéma" class="require checkbox">
+                                        <span>Cinéma</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesMusic" name="hobbies[]" value="Musique" class="require checkbox">
+                                        <span>Musique</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiestravel" name="hobbies[]" value="Voyage" class="require checkbox">
+                                        <span>Voyage</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesRead" name="hobbies[]" value="Lecture" class="require checkbox">
+                                        <span>Lecture</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesDraw" name="hobbies[]" value="Peindre" class="require checkbox">
+                                        <span>Peindre</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesPhoto" name="hobbies[]" value="Photographie" class="require checkbox">
+                                        <span>Photographie</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesDanse" name="hobbies[]" value="Danser" class="require checkbox">
+                                        <span>Danser</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesA" name="hobbies[]" value="Couture" class="require checkbox">
+                                        <span>Couture</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesB" name="hobbies[]" value="Tricot" class="require checkbox">
+                                        <span>Tricot</span>
+                                    </label>
+                                    <label class="cell medium-3">
+                                        <input type="checkbox" id="hobbiesTheater" name="hobbies[]" value="Théatre" class="require checkbox">
+                                        <span>Théatre</span>
+                                    </label>
+                                </div>
+                                <span class="hobbiesMessage"></span>
+                            </div>
+                            <span class="choiceHobbiesMessage"></span>
+                        </fieldset>
+                        <div class="grid-x grid-margin-x">
+                            <label class="cell medium-6">
+                                <span>Mot de passe</span>
+                                <input type="password" name="password" id="password" class="require">
+                            </label>
+                            <label class="cell medium-6">
+                                <span>Mot de passe identique</span>
+                                <input type="password" name="checkpassword" id="check-password" class="require">
+                            </label>
+                        </div>
+                        <div class="submit input">
+                            <input type="submit" class="button expanded" name="send" value="envoyer">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <form class="margin-vertical-3 testForm" method="post" action="https://alsacreations.com">
                 <label>
                     <span>Prénom</span>
@@ -36,12 +227,11 @@
                         required 
                         name="lastname" 
                         id="lastname" 
-                        data-validate-rules="isempty isminlength" 
-                        data-validate-isminlength-args="3" 
-                        data-error-isempty="ne doit pas être vide"  
+                        data-validate-rules="isnotempty isminlength" 
+                        data-validate-isminlength-args="2" 
+                        data-error-isnotempty="ne doit pas être vide"  
                         data-error-isminlength="doit contenir au moins 3 cars."  
-                        data-success-isempty=" !!! "  
-                        data-success-isminlength=" !!! "  
+                        data-success-isnotempty=" !!! "  
                     />
                 </label>
                 <div><button class="button" type="submit">envoyer</button></div>

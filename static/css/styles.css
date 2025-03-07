@@ -2,6 +2,9 @@
     --color-error:#cc4b37;
     --color-success:#3adb76;
 }
+html, body{
+    font-size: 16px;
+}
 input{
     margin: 0 !important;
 }
@@ -19,8 +22,12 @@ span.success{
 }
 label{
     margin-bottom: 1em;
+    font-size: 16px;
 }
-.grid-container{
-    max-width: 40rem;
+label::first-letter{
+    text-transform: uppercase;
 }
-        
+textarea{
+    min-height: 100px;
+    resize: vertical;
+}
