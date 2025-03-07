@@ -53,7 +53,7 @@ export class Field extends ElementHTML implements FieldObserver{
         let defaultRules = this.rules.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
-            resultValid:{ status: boolean; message: string }[] = [],
+            resultValid:{ status: boolean, message: string }[] = [],
             rulesList = this.getRulesList()
 
         if(rulesList){
