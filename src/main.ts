@@ -1,6 +1,6 @@
 // @ts-nocheck
 import Validator from './Validator'
-import { IsMaxLength } from './rules/libs'
+import { IsUrl } from './rules/libs'
 
 let options = {
     'selector': '.testForm',
@@ -10,9 +10,8 @@ let options = {
                 'error': 'ne doit pas être vide (params)',
                 'success': '!!',
             },
-            "ismaxlength":{
-                "params": "5",
-                "error": 'max'
+            "isurl":{
+                "error": 'url'
             }
         }
     }
@@ -54,5 +53,5 @@ document.querySelector('.rmField')?.addEventListener('click', e =>{
 $lastname?.addEventListener('blur', e => validator.element($lastname))
 
 
-console.log('>>', validator.check('bla' , 'ismaxlength', 2))
-console.log("->", IsMaxLength('Hello', '4'))
+console.log('>>', validator.check('bla' , 'isurl'))
+console.log("->", IsUrl('www.renaud.com'))
