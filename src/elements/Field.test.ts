@@ -10,9 +10,11 @@ describe('Field', () => {
     beforeEach(() => {
         // Reset le DOM
         document.body.innerHTML = `
-            <input type="text" name="subject" />
-            <div id="errorSubject"></div>
-            <div id="successSubject"></div>
+            <form>
+                <input type="text" name="subject" />
+                <div id="errorSubject"></div>
+                <div id="successSubject"></div>
+            </form>
         `
 
         fieldElement = document.querySelector('input[name="subject"]') as HTMLInputElement
