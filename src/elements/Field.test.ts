@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { Field } from './Field'
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { Rules } from '../rules/Rules'
+import { Middleware } from './Middleware.type'
 
 describe('Field', () => {
     let fieldElement: HTMLInputElement
@@ -18,7 +19,17 @@ describe('Field', () => {
         `
 
         fieldElement = document.querySelector('input[name="subject"]') as HTMLInputElement
-
+        
+        let middleware:Middleware = {
+            // @ts-ignore
+            formOnError(e, $el){},
+            // @ts-ignore
+            formOnSuccess(e, $el){},
+            // @ts-ignore
+            fieldOnError($el){},
+            // @ts-ignore
+            fieldOnSuccess($e){},
+        }
         // Créer les propriétés du champ
         const fieldProps: ElementHTMLProperties = {
             element: fieldElement,
@@ -41,6 +52,7 @@ describe('Field', () => {
             },
             state: null,
             rules: new Rules(),
+            middleware: middleware
         }
 
         field = new Field(fieldProps)

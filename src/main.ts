@@ -163,6 +163,27 @@ let defaultErrorMessage = "Ce champ ne doit pas être vide",
 validate.addRules('checkphone', (value)=>{
     return !/^0[1-8][ .-]?(\d{2}[ .-]?){4}$/.test(value);
 })
+
+validate.middleware.formOnError = (e, $el) =>{
+    console.log('formOnError', e, $el)
+}
+
+validate.middleware.formOnSuccess = (e, $el) =>{
+    console.log('formOnSuccess', e, $el)
+}
+
+validate.middleware.fieldOnSuccess = ($el) =>{
+    if(document.querySelector('#firstname') === $el){
+        console.log('fieldOnSuccess', $el);
+    }
+}
+
+validate.middleware.fieldOnError = ($el) =>{
+    if(document.querySelector('#firstname') === $el){
+        console.log('fieldOnError', $el);
+    }
+}
+
 //check form when it's submitted
 validate.form()
 

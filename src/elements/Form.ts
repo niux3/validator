@@ -2,6 +2,7 @@ import { ElementHTML } from './ElementHTML'
 import { ElementHTMLProperties } from './ElementHTML.type'
 import { FormSubject } from './FormSubject.interface'
 import { Field } from './Field'
+import {Middleware} from './Middleware.type'
 
 
 /**
@@ -22,10 +23,11 @@ export class Form extends ElementHTML implements FormSubject{
      */
     constructor(props:ElementHTMLProperties){
         super(props)
+        console.log('props form >', props)
 
         // Register all required fields found in the form element
         for(let [indexField, $field] of Object.entries(this.$el.querySelectorAll(this.getSelectorRequiresFields()))){
-            this.register(parseInt(indexField, 10), $field)
+            this.register(parseInt(indexField, 10), $field, props.middleware)
         }
     }
 
@@ -33,8 +35,9 @@ export class Form extends ElementHTML implements FormSubject{
      * Registers a new field in the form.
      * @param {number} indexField - The index of the field.
      * @param {Element | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement} $field - The DOM element representing the field.
-     */
-    register(indexField:number, $field:Element|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement):void{
+     * @param {Middleware} middleware - inject middleware
+    */
+    register(indexField:number, $field:Element|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement, middleware:Middleware):void{
         // @ts-ignore
         let params = Object.keys(this.params).includes($field.name)? this.params[$field.name] : null,
             options:ElementHTMLProperties = {
@@ -46,7 +49,8 @@ export class Form extends ElementHTML implements FormSubject{
                     fi: indexField
                 },
                 rules: this.rules,
-                params: params
+                params: params,
+                middleware: middleware
             }
         this.fields = [...this.fields, new Field(options)]
     }

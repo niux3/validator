@@ -6,6 +6,7 @@ import {
     SuccessState,
     ErrorState
 } from './state'
+import {Middleware} from './Middleware.type'
 
 
 /**
@@ -16,7 +17,7 @@ export class ElementHTML {
     protected state: ElementHTMLState
 
     /** The associated HTML element */
-    public $el: HTMLInputElement|HTMLFormElement|HTMLSelectElement|HTMLTextAreaElement
+    public $el: HTMLFormElement|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement
 
     /** Identifiers associated with the element */
     protected id: {
@@ -30,6 +31,9 @@ export class ElementHTML {
 
     /** Rules associated with the element */
     protected rules: Rules
+
+    /** Rules associated with the element */
+    public middleware:Middleware
 
     /**
      * Creates an instance of `Element`.
@@ -45,6 +49,7 @@ export class ElementHTML {
         this.params = properties.params
         this.rules = properties.rules
         this.state = new NeutralState(this)
+        this.middleware = properties.middleware
     }
 
     /**

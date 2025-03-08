@@ -18,6 +18,7 @@ export class FormsGroup{
     */
     constructor(configuration:Configuration){
         this.configuration = configuration.get() as AppConfiguration
+        console.log('>>', configuration.get())
         
         if(document.querySelectorAll(this.configuration.options.get().selector).length){
             document.querySelectorAll(this.configuration.options.get().selector).forEach($form =>{
@@ -41,6 +42,8 @@ export class FormsGroup{
             state: null,
             params : this.configuration.options.get()['fields'],
             rules : this.configuration.rules,
+            // @ts-ignore
+            middleware: this.configuration.middleware, 
         }
 
         this.forms = [...this.forms, new Form(props)]
