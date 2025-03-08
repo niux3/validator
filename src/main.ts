@@ -178,6 +178,14 @@ let listRequireField = [
 
 //check each element(input/select/textarea) when it's in focus and has lost focus
 document.querySelectorAll(listRequireField.join(',')).forEach(($field)=>{
+    let event = $field.nodeName.toLowerCase() === 'select'? 'change' : 'focus';
+    $field.addEventListener(event, (e)=>{
+        e.target.classList.remove('error')
+        if(e.target.closest('form').querySelector(`[data-name="field_${e.target.name}"]`)){
+            let $message = e.target.closest('form').querySelector(`[data-name="field_${e.target.name}"]`);
+            $message.parentNode.removeChild($message)
+        }
+    })
     $field.addEventListener('blur', (e)=>{
         validate.element(e.target)
     })
