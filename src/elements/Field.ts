@@ -89,11 +89,23 @@ export class Field extends ElementHTML implements FieldObserver{
             cls = this.state.toString(),
             dataname = this.$el.name,
             msg = this.state.message,
+            selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`,
             paramsTarget:{target:HTMLElement|null, mode:InsertPosition} = {target:null, mode:'beforeend'}
 
         if(this.params.hasOwnProperty('target')){
-            paramsTarget = {target: document.querySelector(this.params['target'][this.state.toString()]), mode: 'beforeend'}
+            for(let k in this.params.target){
+                let $currentForm = this.$el.closest('form')
+                $currentForm?.querySelectorAll(this.params.target[k])?.forEach($target =>{
+                    if($target.querySelectorAll(selectorState).length > 0){
+                        return
+                    }
+                    if(msg !== ''){
+                        paramsTarget = {target: $currentForm.querySelector(this.params.target[this.state.toString()]), mode: 'beforeend'}
+                    }
+                })
+            }
         }else{
+            if(this.$el.parentNode?.querySelectorAll(selectorState)?.length > 0) return
             paramsTarget = {target: this.$el, mode: 'afterend'}
         }
         if(this.id.html){
