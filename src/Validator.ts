@@ -3,6 +3,8 @@ import { Field } from './elements/Field'
 import { Form } from './elements/Form'
 import { Rules } from './rules/Rules'
 import { FormsGroup } from './elements/FormsGroup'
+import { Middleware } from './elements/Middleware.type'
+
 
 
 /**
@@ -61,6 +63,17 @@ export default class Validator{
     */
     private formsGroup:FormsGroup
 
+    public middleware:Middleware = {
+        // @ts-ignore
+        formOnError(e, $el){},
+        // @ts-ignore
+        formOnSuccess(e, $el){},
+        // @ts-ignore
+        fieldOnError($el){},
+        // @ts-ignore
+        fieldOnSuccess($e){},
+    }
+
     /**
      * Creates an instance of the `Validator` class.
      * @param {Object} options - The configuration options for the validator.
@@ -76,7 +89,8 @@ export default class Validator{
         let appConfig = new Configuration(options, configDefaultApps)
         this.app = new Configuration({
             options: appConfig,
-            rules: new Rules()
+            rules: new Rules(),
+            middleware: this.middleware
         })
 
         this.formsGroup = new FormsGroup(this.app)
@@ -98,6 +112,12 @@ export default class Validator{
                 
                 if(form.getState().toString() === 'error'){
                     event.preventDefault()
+                    // @ts-ignore
+                    this.middleware.formOnError(event, form.$el)
+                }
+                if(form.getState().toString() === 'success'){
+                    // @ts-ignore
+                    this.middleware.formOnSuccess(event, form.$el)
                 }
             })
         })
@@ -163,7 +183,7 @@ export default class Validator{
         this.formsGroup.get().forEach((form:Form)=>{
             if(form.$el === $el.closest('form')){
                 $el.classList.add('require')
-                form.register(this.formsGroup.get().length, $el)
+                form.register(this.formsGroup.get().length, $el, this.middleware)
             }
         })
     }

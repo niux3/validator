@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Form } from './Form'
 import { ElementHTMLProperties } from './ElementHTML.type'
+import { Middleware } from './Middleware.type'
 
 
 // Mocks pour les dépendances
@@ -33,6 +34,16 @@ describe('Form', () => {
             <select name="field4" required></select>
         `
 
+        let middleware:Middleware = {
+            // @ts-ignore
+            formOnError(e, $el){},
+            // @ts-ignore
+            formOnSuccess(e, $el){},
+            // @ts-ignore
+            fieldOnError($el){},
+            // @ts-ignore
+            fieldOnSuccess($e){},
+        }
         // Initialise les propriétés du formulaire
         formProps = {
             element: formElement,
@@ -40,6 +51,7 @@ describe('Form', () => {
             params: {},
             state: null,
             rules: {} as any,
+            middleware: middleware
         }
 
         // Crée une instance de Form pour les tests

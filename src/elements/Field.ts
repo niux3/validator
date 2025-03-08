@@ -73,9 +73,13 @@ export class Field extends ElementHTML implements FieldObserver{
 
         if (resultValid.every(e => e.status === true)) {
             this.successState()
+            // @ts-ignore
+            this.middleware.fieldOnSuccess(this.$el)
             this.state.message = resultValid.find(e => e.status)?.message || ''
         } else {
             this.errorState()
+            // @ts-ignore
+            this.middleware.fieldOnError(this.$el)
             this.state.message = resultValid.find(e => !e.status)?.message || ''
         }
         return this
