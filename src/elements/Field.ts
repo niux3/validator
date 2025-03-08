@@ -108,7 +108,7 @@ export class Field extends ElementHTML implements FieldObserver{
             if(this.$el.parentNode?.querySelectorAll(selectorState)?.length > 0) return
             paramsTarget = {target: this.$el, mode: 'afterend'}
         }
-        if(this.id.html){
+        if(id){
             paramsTarget.target?.insertAdjacentHTML(paramsTarget.mode, this.getTemplate(cls, id, dataname, msg))
         }
     }
