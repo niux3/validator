@@ -1,7 +1,7 @@
 /**
  * Checks if a given value is a non-empty string.
  *
- * @param {string} value - The value to be checked.
+ * @param {string|string[]|number[]} value - The value to be checked.
  * @returns {boolean} - Returns `true` if the value is a non-empty string, otherwise returns `false`.
  *
  * @example
@@ -19,9 +19,6 @@
  * const result3 = isNonEmptyString(123);
  * console.log(result3); // Output: false
 */
-export default (value:string):boolean =>{
-    if(typeof value !== "string" ){
-        return false
-    }
-    return value.trim().length !== 0
+export default (value:string|string[]|number[]):boolean =>{
+    return value.length !== 0
 }
