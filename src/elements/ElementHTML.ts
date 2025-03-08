@@ -77,7 +77,10 @@ export class ElementHTML {
         this.setState(new NeutralState(this))
     }
 
-    getState(){
+    /**
+     * get state of this HTMLElement
+    */
+    getState():ElementHTMLState{
         return this.state
     }
 
