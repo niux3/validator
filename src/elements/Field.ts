@@ -89,12 +89,15 @@ export class Field extends ElementHTML implements FieldObserver{
             cls = this.state.toString(),
             dataname = this.$el.name,
             msg = this.state.message,
+            $currentForm = this.$el.closest('form') as HTMLFormElement,
             selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`,
             paramsTarget:{target:HTMLElement|null, mode:InsertPosition} = {target:null, mode:'beforeend'}
 
+        if($currentForm === null){
+            throw new Error(`this field (${this.$el.name}) must be in HTMLFormElement`)
+        }
         if(this.params.hasOwnProperty('target')){
             for(let k in this.params.target){
-                let $currentForm = this.$el.closest('form')
                 $currentForm?.querySelectorAll(this.params.target[k])?.forEach($target =>{
                     if($target.querySelectorAll(selectorState).length > 0){
                         return
@@ -105,6 +108,7 @@ export class Field extends ElementHTML implements FieldObserver{
                 })
             }
         }else{
+            // @ts-ignore
             if(this.$el.parentNode?.querySelectorAll(selectorState)?.length > 0) return
             paramsTarget = {target: this.$el, mode: 'afterend'}
         }
@@ -258,6 +262,6 @@ export class Field extends ElementHTML implements FieldObserver{
      * @returns {string} The HTML string representing the validation message.
     */
     private getTemplate(cls:string, id:string, dataname:string, msg:string):string{
-        return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`;
+        return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`
     }
 }
