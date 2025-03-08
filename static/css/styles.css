@@ -31,3 +31,6 @@ textarea{
     min-height: 100px;
     resize: vertical;
 }
+#hobies-container{
+    display: none;
+}
