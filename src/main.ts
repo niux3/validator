@@ -101,7 +101,7 @@ let defaultErrorMessage = "Ce champ ne doit pas être vide",
                     "error" : defaultErrorMessage
                 }
             },
-            "hobbies[]":{
+            "hobbies":{
                 "target" : {
                     "error" : ".hobbiesMessage",
                 },
@@ -200,24 +200,24 @@ if(document.getElementById('phone')){
     })
 }
 //add require fields if you answer 'yes'
-if(document.getElementsByName('hobbies[]')){
-    let $hobbies = document.getElementsByName('hobbies[]'),
-        $hobbiesContainer = document.getElementById('hobies-container');
+if(document.getElementsByName('hobbies')){
+    let $hobbies = document.getElementsByName('hobbies'),
+        $hobbiesContainer = document.getElementById('hobies-container')
     document.getElementsByName('hobbiesChoice').forEach(($radio) =>{
         $radio.addEventListener('change', (e)=>{
             if(e.target.checked && e.target.id === "hobbiesYes"){
-                $hobbiesContainer.style.display = 'block';
+                $hobbiesContainer.style.display = 'block'
                 $hobbies.forEach(($checkbox)=>{
-                    validate.addRequireField($checkbox);
-                });
+                    validate.addRequireField($checkbox)
+                })
             }else{
-                $hobbiesContainer.style.display = 'none';
+                $hobbiesContainer.style.display = 'none'
                 $hobbies.forEach(($checkbox)=>{
-                    validate.removeRequireField($checkbox);
-                });
+                    validate.removeRequireField($checkbox)
+                })
             }
-        });
-    });
+        })
+    })
 }
 
 console.log("'dom@dom' ===  format email --> ", validate.check('dom@dom', 'isemail'))
