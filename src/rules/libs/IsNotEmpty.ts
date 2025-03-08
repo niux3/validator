@@ -20,5 +20,10 @@
  * console.log(result3); // Output: false
 */
 export default (value:string|string[]|number[]):boolean =>{
+    // @ts-ignore
+    if([null, undefined].some(e => e === value)){
+        return false
+    }
+    value = typeof value === 'string'? value.trim() : value
     return value.length !== 0
 }
