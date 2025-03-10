@@ -1,6 +1,4 @@
-![validator](./static/img/logo.svg)
-
-# Validator
+# ![validator](./static/img/logo.svg)
 
 ## introduction / introduction
 
