@@ -1,6 +1,9 @@
 // @ts-nocheck
 import Validator from './Validator'
 
+export default Validator
+
+/*
 let defaultErrorMessage = "Ce champ ne doit pas être vide",
     optionValidator = {
         "selector" : ".formToValidate",
@@ -249,3 +252,4 @@ if(document.getElementsByName('hobbies')){
 }
 
 console.log("'dom@dom' ===  format email --> ", validate.check('dom@dom', 'isemail'))
+*/

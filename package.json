@@ -1,21 +1,33 @@
 {
-  "name": "validator",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --port 8000",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "docs": "npx typedoc --entryPointStrategy Expand src"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "jsdom": "^26.0.0",
-    "typedoc": "^0.27.7",
-    "typescript": "~5.7.2",
-    "vite": "^6.1.0",
-    "vitest": "^3.0.5"
-  }
+    "name": "Validator",
+    "private": true,
+    "version": "2.0.0",
+    "type": "module",
+    "files": [
+        "static",
+        "index.d.ts"
+    ],
+    "main": "./static/counter.umd.cjs",
+    "module": "./static/counter.js",
+    "types": "./index.d.ts",
+    "exports": {
+        "types": "./index.d.ts",
+        "import": "./static/counter.js",
+        "require": "./static/counter.umd.cjs"
+    },
+    "scripts": {
+        "dev": "vite --port 8000",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "test": "vitest",
+        "docs": "npx typedoc --entryPointStrategy Expand src"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^6.6.3",
+        "jsdom": "^26.0.0",
+        "typedoc": "^0.27.7",
+        "typescript": "~5.7.3",
+        "vite": "^6.1.1",
+        "vitest": "^3.0.5"
+    }
 }

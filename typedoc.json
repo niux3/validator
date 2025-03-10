@@ -1,6 +1,6 @@
 {
     "exclude": ["**/*.test.ts"],
-    "out": "docs/api",
+    "out": "docs",
     "excludeExternals": true,
     "hideGenerator": true,
     "tsconfig": "tsconfig.json"
