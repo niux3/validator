@@ -15,5 +15,11 @@ Additionally, you need flexibility to define validation rules tailored to differ
 ## Table des Matières / Table of Contents
 - français
     - [Installation](./docs/fr/installation.md)
+    - [Utilisation](./docs/fr/utilisation.md)
+    - [API](./docs/api/index.html)
+    - [License](./LICENSE)
 - english
     - [Installation](./docs/en/installation.md)
+    - [Utilisation](./docs/en/utilisation.md)
+    - [API](./docs/api/index.html)
+    - [License](./LICENSE)
