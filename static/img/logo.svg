@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="82.020836mm"
+   height="43.127083mm"
+   viewBox="0 0 82.020836 43.127083"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs2">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter963"
+       x="-0.00015471677"
+       width="1.0003094"
+       y="-0.00029424664"
+       height="1.0005885">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.0052874997"
+         id="feGaussianBlur965" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-41.396234"
+     inkscape:cy="154.98712"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer3"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:snap-global="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-29.16733,-57.88092)"
+     sodipodi:insensitive="true"
+     style="display:none">
+    <image
+       sodipodi:absref="/home/niuxe/www/validator_copy/perso/Sans titre.png"
+       xlink:href="../../../validator_copy/perso/Sans%20titre.png"
+       style="filter:url(#filter963)"
+       y="57.88092"
+       x="29.16733"
+       id="image911"
+       preserveAspectRatio="none"
+       height="43.127083"
+       width="82.020836" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Calque 2"
+     sodipodi:insensitive="true"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-size:12.3348px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';text-align:start;text-anchor:start;fill:#2c4753;fill-opacity:1;stroke-width:0.308371"
+       x="16.219767"
+       y="25.257561"
+       id="text970"><tspan
+         sodipodi:role="line"
+         id="tspan968"
+         x="16.219767"
+         y="25.257561"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold';text-align:start;text-anchor:start;fill:#2c4753;fill-opacity:1;stroke-width:0.308371">Validator</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="shield" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="form"
+     sodipodi:insensitive="true"
+     style="display:none">
+    <image
+       sodipodi:absref="/home/niuxe/www/validator_copy/perso/formulaire.png"
+       xlink:href="../../../validator_copy/perso/formulaire.png"
+       y="-121.4548"
+       x="173.71144"
+       id="image1039"
+       preserveAspectRatio="none"
+       height="148.96042"
+       width="159.27916" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="form-vecto"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <path
+       id="rect973-5"
+       style="fill:#f15e61;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-opacity:1"
+       d="m 3.7053555,14.891089 c -0.3473238,0 -0.626835,0.27951 -0.626835,0.626835 v 7.619173 c -0.064101,2.022461 4.3118855,5.308299 5.7836276,5.368147 2.0545319,-0.13451 5.8231009,-3.416983 5.9071319,-5.368147 v -7.619173 c 0,-0.347325 -0.279511,-0.626835 -0.626835,-0.626835 z m 2.868041,1.96112 h 4.6973885 c 0.362969,0 0.655256,0.292289 0.655256,0.655257 v 1.118278 l -0.596344,0.558623 v -1.612305 c 0,-0.09065 -0.07316,-0.163814 -0.163814,-0.163814 H 6.6658974 c -0.090651,0 -0.1638141,0.07316 -0.1638141,0.163814 v 6.149495 c 0,0.09065 0.073165,0.163815 0.1638141,0.163815 h 4.4999856 c 0.09065,0 0.163814,-0.07316 0.163814,-0.163815 V 21.00286 l 0.596344,-0.559139 V 23.7722 c 0,0.362969 -0.292287,0.655257 -0.655256,0.655257 H 6.5733965 c -0.362966,0 -0.6552565,-0.292288 -0.6552565,-0.655257 v -6.264734 c 0,-0.362968 0.2922905,-0.655257 0.6552565,-0.655257 z m 6.8166405,0.631486 0.655772,0.652157 -3.439583,3.322794 -0.6888458,-0.661975 z m -6.3696376,0.485242 h 3.7088176 v 1.631942 H 7.0203994 Z m 0.2098067,0.250114 v 1.12913 h 3.2824869 v -1.12913 z M 6.923763,20.358972 h 1.9905768 v 0.546737 H 6.923763 Z m 2.7683063,0.733288 0.6123677,0.623735 -0.9725503,0.345199 z m -2.7703727,0.538986 h 1.9910927 v 0.546736 H 6.9216966 Z m 0.017571,1.192175 h 3.9144894 v 0.546736 H 6.9392676 Z" />
+  </g>
+</svg>
