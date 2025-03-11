@@ -1,28 +1,36 @@
 # ![validator](./static/img/logo.svg)
 
-## introduction / introduction
-
-### français
-Vous cherchez une bibliothèque standard en Javascript très légère pour valider des données courantes (comme les adresses e-mail, les URL, les numéros de carte de crédit, etc.) ? Cette bibliothèque vous permet de déclencher des validations lors d'événements tels que la soumission d'un formulaire, la saisie dans un champ texte, ou la perte de focus sur un champ. En fonction des résultats de la validation, des messages d'erreur sont automatiquement insérés dans le DOM, affichés ou masqués pour guider l'utilisateur.
-
-De plus, vous avez besoin de flexibilité pour définir des règles de validation adaptées à différents environnements côté serveur selon les projets. Pourquoi réinventer la roue à chaque fois ? Cette bibliothèque vous offre une solution réutilisable et personnalisable, vous faisant gagner du temps et des efforts.
-
-### english
-Are you looking for a standard library in Javascript very light to validate common data (such as email addresses, URLs, credit card numbers, etc.)? This library allows you to trigger validations during events like form submission, text field input, or loss of focus on a field. Based on the validation results, error messages are automatically inserted into the DOM, displayed, or hidden to guide the user.
-
-Additionally, you need flexibility to define validation rules tailored to different server-side environments depending on the project. Why reinvent the wheel every time? This library provides a reusable and customizable solution, saving you time and effort.
-
 ## Table des Matières / Table of Contents
 - français
+    - [Introduction](#introduction_fr)
     - [Installation](#installation_fr)
     - [Utilisation](#utilisation_fr)
     - [API](#api_fr)
     - [License](#license)
 - english
+    - [Introduction](#introduction_en)
     - [Installation](#installation_en)
     - [Utilisation](#utilisation_en)
     - [API](#api_en)
     - [License](#license)
+
+## introduction / introduction
+
+<span id="introduction_fr"></span>
+### français
+Vous cherchez une bibliothèque standard en Javascript très légère pour valider des données courantes (comme les adresses e-mail, les URL, les numéros de carte de crédit, etc.) ? Cette bibliothèque vous permet de déclencher des validations lors d'événements tels que la soumission d'un formulaire, la saisie dans un champ texte, ou la perte de focus sur un champ. En fonction des résultats de la validation, des messages d'erreur sont automatiquement insérés dans le DOM, affichés ou masqués pour guider l'utilisateur.
+
+De plus, vous avez besoin de flexibilité pour définir des règles de validation adaptées à différents environnements côté serveur selon les projets. Pourquoi réinventer la roue à chaque fois ? Cette bibliothèque vous offre une solution réutilisable et personnalisable, vous faisant gagner du temps et des efforts.
+
+Sachez que le contenu de ce fichier et toute la documenation se trouvent dans le dossier "docs". Vous avez un fichier index.html
+
+<span id="introduction_en"></span>
+### english
+Are you looking for a standard library in Javascript very light to validate common data (such as email addresses, URLs, credit card numbers, etc.)? This library allows you to trigger validations during events like form submission, text field input, or loss of focus on a field. Based on the validation results, error messages are automatically inserted into the DOM, displayed, or hidden to guide the user.
+
+Additionally, you need flexibility to define validation rules tailored to different server-side environments depending on the project. Why reinvent the wheel every time? This library provides a reusable and customizable solution, saving you time and effort.
+
+Please note that the contents of this file and all documentation are located in the "docs" folder. You have an index.html file
 
 ## Installation / Installation
 
@@ -232,21 +240,65 @@ validate.addRules('une_regle', (value, params) => {
 
 #### Middleware
 
+Les middleware permettent d'intercepter l'état d'un ou plusieurs formulaires ou d'un ou plusieurs champs. Pour ce faire, vous devez initialiser ces hooks. Vous remarquerez que l'état d'un formulaire ou d'un champ sera indiqué via une class (error ou success) après chaque événements.
+
 ##### formOnError
 
-Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+Lorsque le formulaire avec l'id "my-form" est en état error : 
+
+```Javascript
+validate.middleware.formOnError = (event, $el) =>{
+    if($el.id === 'my-form'){
+        console.log(event)
+        console.log("my form n'est pas valide")
+    }
+}
+// ....
+validate.form()
+```
 
 ##### formOnSuccess
 
-Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+Lorsque le formulaire avec l'id "my-form" est en état success : 
+
+```Javascript
+validate.middleware.formOnSuccess = (event, $el) =>{
+    if($el.id === 'my-form'){
+        console.log(event)
+        console.log("my form est valide")
+    }
+}
+// ....
+validate.form()
+```
 
 ##### fieldOnError
 
-Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+Lorsque le champ avec l'id "my-form" est en état error : 
+
+```Javascript
+validate.middleware.fieldOnError = ($el) =>{
+    if($el.id === 'my-field'){
+        console.log("my field n'est pas valide")
+    }
+}
+// ....
+validate.form()
+```
 
 ##### fieldOnSuccess
 
-Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+Lorsque le champ avec l'id "my-form" est en état success : 
+
+```Javascript
+validate.middleware.fieldOnSuccess = ($el) =>{
+    if($el.id === 'my-field'){
+        console.log("my field est valide")
+    }
+}
+// ....
+validate.form()
+```
 
 <span id="utilisation_en"></span>
 ### english
