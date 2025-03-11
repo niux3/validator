@@ -238,6 +238,72 @@ validate.addRules('une_regle', (value, params) => {
 })
 ```
 
+#### Ajouter ou supprimer un formulaire à valider
+
+Il est possible d'ajouter ou supprimer un formulaire à valider
+
+```Javascript
+// Add a form for validation
+const myForm = document.querySelector('#myForm') as HTMLFormElement;
+validate.addRequireForm(myForm);
+
+// Remove a form from validation
+validate.removeRequireForm(myForm);
+```
+
+#### Ajouter ou supprimer un ou des champs à valider
+
+Il est possible d'ajouter ou supprimer un ou des champs à valider
+
+```Javascript
+//add require field if you answer 'yes' at 'add phone number'
+if(document.getElementById('phone')){
+    let $phone = document.getElementById('phone')
+    $phone.parentNode.style.display = 'none'
+    document.getElementsByName('validatePhone').forEach(($input) =>{
+        $input.addEventListener('change', (e)=>{
+            if(e.target.checked && e.target.id === "validatePhoneYes"){
+                $phone.parentNode.style.display = 'block'
+                validate.addRequireField($phone)
+            }else{
+                $phone.parentNode.style.display = 'none'
+                validate.removeRequireField($phone)
+            }
+        })
+    })
+}
+//add require fields if you answer 'yes'
+if(document.getElementsByName('hobbies')){
+    let $hobbies = document.getElementsByName('hobbies'),
+        $hobbiesContainer = document.getElementById('hobies-container')
+    document.getElementsByName('hobbiesChoice').forEach(($radio) =>{
+        $radio.addEventListener('change', (e)=>{
+            if(e.target.checked && e.target.id === "hobbiesYes"){
+                $hobbiesContainer.style.display = 'block'
+                $hobbies.forEach(($checkbox)=>{
+                    validate.addRequireField($checkbox)
+                })
+            }else{
+                $hobbiesContainer.style.display = 'none'
+                $hobbies.forEach(($checkbox)=>{
+                    validate.removeRequireField($checkbox)
+                })
+            }
+        })
+    })
+}
+```
+
+#### Valider simplement une donnée 
+
+Vous ne souhaitez pas utiliser toute les mécaniques HTML pour valider des champs. Vous pouvez simplement valider une donnée via la methode "check". Le 3e argument de la méthode check, sont les paramètres de la règle de validation
+
+```Javascript
+const isValid = validator.check('dom+dom@dom.com', 'isemail');
+console.log(isValid); // true or false
+console.log("format isminlength --> ", validate.check('d123', 'isminlength', 3))
+```
+
 #### Middleware
 
 Les middleware permettent d'intercepter l'état d'un ou plusieurs formulaires ou d'un ou plusieurs champs. Pour ce faire, vous devez initialiser ces hooks. Vous remarquerez que l'état d'un formulaire ou d'un champ sera indiqué via une class (error ou success) après chaque événements.

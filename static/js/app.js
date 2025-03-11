@@ -245,4 +245,4 @@ if(document.getElementsByName('hobbies')){
     })
 }
 
-console.log("'dom@dom' ===  format email --> ", validate.check('dom@dom', 'isemail'))
+console.log("format isminlength --> ", validate.check('d123', 'isminlength', 3))
