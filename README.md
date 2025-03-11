@@ -54,10 +54,16 @@ Non pas du tout. Vous avez 2 manières de configurer vos validations de formulai
 
 #### Comment configurer ?
 
-Vous remarquerez que les champs ont soit la class require soit l'attribut required. Lorsque vous initilisez la libriairie et que les champs ont l'attribut required, l'attribut required sera supprimé et remplacé par la class require
+Vous remarquerez que les champs ont soit la class require, soit l'attribut required. Lorsque vous initilisez la libriairie et que les champs ont l'attribut required, l'attribut required sera supprimé et remplacé par la class require
+
+** La validation se fait sur l'attribut name d'un champ. Il est aussi impératif que les champs du formulaire soient dans un élément [form](https://developer.mozilla.org/fr/docs/Web/HTML/Element/form) **
 
 ##### objet statique
 
+La clef target est optionnelle. Par défaut, le message d'erreur se place après le champ (afterend). Si vous optez pour paramètrer "target", le message se place à la fin de la cible (beforeend). 
+Les clefs suivantes ont le nom de la règle en minuscule. Vous devez impérativement indiquer un message d'erreur. La clef "success" est optionnelle. La clef "params" peut être obligatoire dans le cas où la règle l'exige.
+
+exemple : 
 ```html
 <form action="http://google.com" method="post">
     <div class="grid-x grid-padding-x">
@@ -74,6 +80,7 @@ Vous remarquerez que les champs ont soit la class require soit l'attribut requir
         </div>
     </div>
     <div class="grid-x grid-padding-x">
+        <div id="messageFirstname"></div>
         <div class="large-6 medium-6 cell">
             <label>
                 <span>prénom</span>
@@ -99,14 +106,23 @@ Vous remarquerez que les champs ont soit la class require soit l'attribut requir
 window.addEventListener('DOMContentLoaded', function(){
     let options = {
         fields : {
-            'firstname': {
+            "firstname": {
+                "target": {
+                    "error": "#messageFirstname",
+                    "success": "#messageFirstname",
+                },
                 "isnotempty" : {
-                    "error" : "ce champs ne doit pas être vide"
+                    "error" : "ce champs ne doit pas être vide",
+                    "success": "!"
                 }
             },
-            'lastname': {
+            "lastname": {
                 "isnotempty" : {
                     "error" : "ce champs ne doit pas être vide"
+                },
+                "isminlength": {
+                    "params": 3,
+                    "error": "Ce champ doit contenir au moins 3 caractères"
                 }
             },
         }
@@ -118,32 +134,48 @@ window.addEventListener('DOMContentLoaded', function(){
 
 ##### HTML
 
+Quel sont les formats des attributs de validation dans un champ ? 
+
+Pour déclarer des règles dans un champ : 
+```
+data-validate-rules="isnotempty isemail"
+```
+
+Pour déclarer le message erreur d'une règle (il est obligatoire d'indiquer ce message pour chaque règle) :  
+```
+data-error-<nomdelarègle>="message erreur"
+```
+
+Pour déclarer le message de succès : 
+```
+data-success-<nomdelarègle>="message succès"
+```
+
+Pour déclarer les paramètres d'une règle : 
+```
+data-validate-<nomdelarègle>-args="3"
+```
+
+Pour déclarer l'endroit dans lequel le message d'erreur doit se placer. ** n'oubliez pas de placer la cible **
+```
+data-validate-target-error="#cible" data-validate-target-success="#cible"
+```
+
+exemple : 
+
 ```html
 <form action="http://google.com" method="post">
-    <div class="grid-x grid-padding-x">
-        <div class="large-12 cell">
-            <label>
-                <span>civilités</span>
-                <select>
-                    <option value="">faire un choix</option>
-                    <option value="mlle">mademoiselle</option>
-                    <option value="mme">madame</option>
-                    <option value="m">monsieur</option>
-                </select>
-            </label>
-        </div>
-    </div>
     <div class="grid-x grid-padding-x">
         <div class="large-6 medium-6 cell">
             <label>
                 <span>prénom</span>
-                <input type="text" name="firstname" value="" required data-validationrules="notempty minlength" data-errornotempty="ce champs ne doit pas être vide" data-errorminlength="minimum 3 caractères" data-validationminlengthargs="3">
+                <input type="text" name="firstname" value="" required data-validate-rules="isnotempty" data-error-isnotempty="ne doit pas être vide (HTML validation)">
             </label>
         </div>
         <div class="large-6 medium-6 cell">
             <label>
                 <span>nom</span>
-                <input type="text" name="lastname" value="" required data-validationrules="notempty minlength" data-errornotempty="ce champs ne doit pas être vide" data-errorminlength="minimum 3 caractères" data-validationminlengthargs="3">
+                <input type="text" name="lastname" value="" required data-validate-rules="isnotempty isminlength" data-error-notempty="ce champs ne doit pas être vide" data-error-minlength="minimum 3 caractères" data-validate-isminlength-args="3">
             </label>
         </div>
     </div>
@@ -161,7 +193,6 @@ window.addEventListener('DOMContentLoaded', function(){
     validate.form();
 })
 ```
-
 
 #### Middleware
 
