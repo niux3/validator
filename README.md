@@ -41,7 +41,145 @@ Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur n
 <span id="utilisation_fr"></span>
 ### français
 
-Amet neque assumenda officiis libero alias eaque? Amet odio facere assumenda a consequuntur. Mollitia velit quaerat culpa sed quis Veritatis deserunt illo labore consectetur fugit quam Vitae consequatur eaque perspiciatis!
+#### Configurer, est ce difficile ?
+
+Non pas du tout. Vous avez 2 manières de configurer vos validations de formulaire :
+
+- objet static (dans un fichier js)
+- html (dans le dom)
+
+#### Pourquoi une configuration HTML ?
+
+Ça permet de mutualiser les messages erreurs avec le serveur. Aussi, les formulaires multi-langues sont plus simples à gérer puisque c'est l'application serveur qui gère ça.
+
+#### Comment configurer ?
+
+Vous remarquerez que les champs ont soit la class require soit l'attribut required. Lorsque vous initilisez la libriairie et que les champs ont l'attribut required, l'attribut required sera supprimé et remplacé par la class require
+
+##### objet statique
+
+```html
+<form action="http://google.com" method="post">
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+            <label>
+                <span>civilités</span>
+                <select>
+                    <option value="">faire un choix</option>
+                    <option value="mlle">mademoiselle</option>
+                    <option value="mme">madame</option>
+                    <option value="m">monsieur</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>prénom</span>
+                <input type="text" name="firstname" value="" class="require">
+            </label>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>nom</span>
+                <input type="text" name="lastname" value="" class="require">
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">envoyer</button>
+        </div>
+    </div>
+</form>
+```
+
+```Javascript
+window.addEventListener('DOMContentLoaded', function(){
+    let options = {
+        fields : {
+            'firstname': {
+                "isnotempty" : {
+                    "error" : "ce champs ne doit pas être vide"
+                }
+            },
+            'lastname': {
+                "isnotempty" : {
+                    "error" : "ce champs ne doit pas être vide"
+                }
+            },
+        }
+    };
+    let validate = new Validator(options);
+    validate.form();
+});
+```
+
+##### HTML
+
+```html
+<form action="http://google.com" method="post">
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+            <label>
+                <span>civilités</span>
+                <select>
+                    <option value="">faire un choix</option>
+                    <option value="mlle">mademoiselle</option>
+                    <option value="mme">madame</option>
+                    <option value="m">monsieur</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>prénom</span>
+                <input type="text" name="firstname" value="" required data-validationrules="notempty minlength" data-errornotempty="ce champs ne doit pas être vide" data-errorminlength="minimum 3 caractères" data-validationminlengthargs="3">
+            </label>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>nom</span>
+                <input type="text" name="lastname" value="" required data-validationrules="notempty minlength" data-errornotempty="ce champs ne doit pas être vide" data-errorminlength="minimum 3 caractères" data-validationminlengthargs="3">
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">envoyer</button>
+        </div>
+    </div>
+</form>
+```
+
+```Javascript
+window.addEventListener('DOMContentLoaded', function(){
+    let validate = new Validator();
+    validate.form();
+})
+```
+
+
+#### Middleware
+
+##### formOnError
+
+Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+
+##### formOnSuccess
+
+Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+
+##### fieldOnError
+
+Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
+
+##### fieldOnSuccess
+
+Amet suscipit ipsam porro enim quidem. Exercitationem quis optio quibusdam voluptatibus iste, architecto? Hic quod perspiciatis id aperiam omnis Architecto incidunt doloribus ut accusamus quos veniam Dolore consequuntur maxime ab
 
 <span id="utilisation_en"></span>
 ### english
