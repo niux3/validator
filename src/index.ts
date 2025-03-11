@@ -7,7 +7,6 @@ export default Validator
 let defaultErrorMessage = "Ce champ ne doit pas être vide",
     optionValidator = {
         "selector" : ".formToValidate",
-        "mode" : "object",
         "fields" : {
             "civility" : {
                 "target" : {

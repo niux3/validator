@@ -56,11 +56,13 @@ Non pas du tout. Vous avez 2 manières de configurer vos validations de formulai
 
 Vous remarquerez que les champs ont soit la class require, soit l'attribut required. Lorsque vous initilisez la libriairie et que les champs ont l'attribut required, l'attribut required sera supprimé et remplacé par la class require
 
-** La validation se fait sur l'attribut name d'un champ. Il est aussi impératif que les champs du formulaire soient dans un élément [form](https://developer.mozilla.org/fr/docs/Web/HTML/Element/form) **
+**La validation se fait sur l'attribut name d'un champ. Il est aussi impératif que les champs du formulaire soient dans un élément [form](https://developer.mozilla.org/fr/docs/Web/HTML/Element/form)**
 
 ##### objet statique
 
-La clef target est optionnelle. Par défaut, le message d'erreur se place après le champ (afterend). Si vous optez pour paramètrer "target", le message se place à la fin de la cible (beforeend). 
+la clef selector (par defaut : form) permet de spécifier quels sont les formulaires à valider avec cette libriairie. 
+
+La clef target est optionnelle. Par défaut, le message d'erreur se place après le champ [ afterend ](https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position). Si vous optez pour paramètrer "target", le message se place à la fin de la cible [ beforeend ](https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position). 
 Les clefs suivantes ont le nom de la règle en minuscule. Vous devez impérativement indiquer un message d'erreur. La clef "success" est optionnelle. La clef "params" peut être obligatoire dans le cas où la règle l'exige.
 
 exemple : 
@@ -141,7 +143,7 @@ Pour déclarer des règles dans un champ :
 data-validate-rules="isnotempty isemail"
 ```
 
-Pour déclarer le message erreur d'une règle (il est obligatoire d'indiquer ce message pour chaque règle) :  
+Pour déclarer le message erreur d'une règle (**il est obligatoire d'indiquer ce message pour chaque règle**) :  
 ```
 data-error-<nomdelarègle>="message erreur"
 ```
@@ -156,7 +158,7 @@ Pour déclarer les paramètres d'une règle :
 data-validate-<nomdelarègle>-args="3"
 ```
 
-Pour déclarer l'endroit dans lequel le message d'erreur doit se placer. ** n'oubliez pas de placer la cible **
+Pour déclarer l'endroit dans lequel le message d'erreur doit se placer. **n'oubliez pas de placer la cible**
 ```
 data-validate-target-error="#cible" data-validate-target-success="#cible"
 ```
@@ -191,6 +193,40 @@ exemple :
 window.addEventListener('DOMContentLoaded', function(){
     let validate = new Validator();
     validate.form();
+})
+```
+#### Ajouter une règle de validation ou surcharger une règle
+
+Il est possible de surcharger une règle ou d'ajouter une nouvelle. 
+
+```Javascript
+window.addEventListener('DOMContentLoaded', function(){
+    let optionsValidator = {
+        "selector": ".forms",
+        "fields": {
+            "vehicule": {
+                "isnotempty": {
+                    "error": "ne doit pas être vide"
+                },
+                "immatriculation":{
+                    "error": "l'immatriculation ne semble pas être valide"
+                }
+            }
+        }
+    }
+    let validate = new Validator(optionsValidator);
+
+    validate.addRules('immatriculation', value => /^[a-z]{2}-\d{3}-[a-z]{2}$/i.test(value.trim()) )
+
+    validate.form();
+})
+```
+
+Dans le cas où vous auriez des paramètres dynamiques : 
+
+```Javascript
+validate.addRules('une_regle', (value, params) => {
+    // etc.
 })
 ```
 
