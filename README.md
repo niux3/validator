@@ -14,12 +14,73 @@ Additionally, you need flexibility to define validation rules tailored to differ
 
 ## Table des Matières / Table of Contents
 - français
-    - [Installation](./docs/fr/installation.md)
-    - [Utilisation](./docs/fr/utilisation.md)
-    - [API](./docs/api/index.html)
-    - [License](./LICENSE)
+    - [Installation](#installation_fr)
+    - [Utilisation](#utilisation_fr)
+    - [API](#api_fr)
+    - [License](#license)
 - english
-    - [Installation](./docs/en/installation.md)
-    - [Utilisation](./docs/en/utilisation.md)
-    - [API](./docs/api/index.html)
-    - [License](./LICENSE)
+    - [Installation](#installation_en)
+    - [Utilisation](#utilisation_en)
+    - [API](#api_en)
+    - [License](#license)
+
+## Installation / Installation
+
+<span id="installation_fr"></span>
+### français
+
+Amet neque assumenda officiis libero alias eaque? Amet odio facere assumenda a consequuntur. Mollitia velit quaerat culpa sed quis Veritatis deserunt illo labore consectetur fugit quam Vitae consequatur eaque perspiciatis!
+
+<span id="installation_en"></span>
+### english
+
+Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur nihil iusto provident? Architecto officiis rem veniam facere ullam blanditiis Blanditiis nobis recusandae sapiente tenetur minima aliquam possimus? Molestias aliquid quia
+
+## Utilisation / Utilisation
+
+<span id="utilisation_fr"></span>
+### français
+
+Amet neque assumenda officiis libero alias eaque? Amet odio facere assumenda a consequuntur. Mollitia velit quaerat culpa sed quis Veritatis deserunt illo labore consectetur fugit quam Vitae consequatur eaque perspiciatis!
+
+<span id="utilisation_en"></span>
+### english
+
+Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur nihil iusto provident? Architecto officiis rem veniam facere ullam blanditiis Blanditiis nobis recusandae sapiente tenetur minima aliquam possimus? Molestias aliquid quia
+
+## API
+
+<span id="api_fr"></span>
+### français
+
+Amet neque assumenda officiis libero alias eaque? Amet odio facere assumenda a consequuntur. Mollitia velit quaerat culpa sed quis Veritatis deserunt illo labore consectetur fugit quam Vitae consequatur eaque perspiciatis!
+
+<span id="api_en"></span>
+### english
+
+Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur nihil iusto provident? Architecto officiis rem veniam facere ullam blanditiis Blanditiis nobis recusandae sapiente tenetur minima aliquam possimus? Molestias aliquid quia
+
+<span id="license"></span>
+## License
+
+MIT License
+
+Copyright (c) 2018 Niuxe
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
