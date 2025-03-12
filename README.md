@@ -26,6 +26,7 @@ Sachez que le contenu de ce fichier et toute la documenation se trouvent dans le
 
 <span id="introduction_en"></span>
 ### english
+
 Are you looking for a standard library in Javascript very light to validate common data (such as email addresses, URLs, credit card numbers, etc.)? This library allows you to trigger validations during events like form submission, text field input, or loss of focus on a field. Based on the validation results, error messages are automatically inserted into the DOM, displayed, or hidden to guide the user.
 
 Additionally, you need flexibility to define validation rules tailored to different server-side environments depending on the project. Why reinvent the wheel every time? This library provides a reusable and customizable solution, saving you time and effort.
@@ -51,27 +52,28 @@ Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur n
 
 #### Configurer, est ce difficile ?
 
-Non pas du tout. Vous avez 2 manières de configurer vos validations de formulaire :
+Il existe deux manières de configurer les validations de formulaire :
 
-- objet static (dans un fichier js)
-- html (dans le dom)
+- **objet static** (dans un fichier js)
+- **html** (dans le dom)
 
 #### Pourquoi une configuration HTML ?
 
-Ça permet de mutualiser les messages erreurs avec le serveur. Aussi, les formulaires multi-langues sont plus simples à gérer puisque c'est l'application serveur qui gère ça.
+La configuration HTML permet de mutualiser les messages d'erreur avec le serveur. Elle facilite également la gestion des formulaires multi-langues, car l'application serveur gère les traductions.
 
 #### Comment configurer ?
 
-Vous remarquerez que les champs ont soit la class require, soit l'attribut required. Lorsque vous initilisez la libriairie et que les champs ont l'attribut required, l'attribut required sera supprimé et remplacé par la class require
+Les champs peuvent avoir soit la classe `require`, soit l'attribut `required`. Lorsque vous initialisez la librairie, l'attribut `required` sera supprimé et remplacé par la classe `require`.
 
-**La validation se fait sur l'attribut name d'un champ. Il est aussi impératif que les champs du formulaire soient dans un élément [form](https://developer.mozilla.org/fr/docs/Web/HTML/Element/form)**
+**La validation se fait sur l'attribut `name` d'un champ. Il est aussi impératif que les champs du formulaire soient dans un élément [form](https://developer.mozilla.org/fr/docs/Web/HTML/Element/form)**
 
-##### objet statique
+##### Configuration avec un objet statique
 
-la clef selector (par defaut : form) permet de spécifier quels sont les formulaires à valider avec cette libriairie. 
+la clef `selector` (par defaut : `form`) permet de spécifier quels sont les formulaires à valider avec cette libriairie. 
 
-La clef target est optionnelle. Par défaut, le message d'erreur se place après le champ [ afterend ](https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position). Si vous optez pour paramètrer "target", le message se place à la fin de la cible [ beforeend ](https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position). 
-Les clefs suivantes ont le nom de la règle en minuscule. Vous devez impérativement indiquer un message d'erreur. La clef "success" est optionnelle. La clef "params" peut être obligatoire dans le cas où la règle l'exige.
+La clé `target` est optionnelle. Par défaut, le message d'erreur est placé après le champ [ `afterend` ](https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position). Si vous configurez target, le message sera placé à la fin de la cible [ `beforeend` ](https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position).
+
+Les clés suivantes correspondent au nom de la règle en **minuscules**. Vous devez impérativement indiquer un message d'erreur. La clé `success` est optionnelle. La clé `params` peut être obligatoire si la règle l'exige.
 
 exemple : 
 ```html
@@ -142,16 +144,14 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 ```
 
-##### HTML
-
-Quel sont les formats des attributs de validation dans un champ ? 
+##### Configuration avec HTML
 
 Pour déclarer des règles dans un champ : 
 ```
 data-validate-rules="isnotempty isemail"
 ```
 
-Pour déclarer le message erreur d'une règle (**il est obligatoire d'indiquer ce message pour chaque règle**) :  
+Pour déclarer le message erreur d'une règle (**obligatoire d'indiquer ce message pour chaque règle**) :  
 ```
 data-error-<nomdelarègle>="message erreur"
 ```
@@ -166,7 +166,7 @@ Pour déclarer les paramètres d'une règle :
 data-validate-<nomdelarègle>-args="3"
 ```
 
-Pour déclarer l'endroit dans lequel le message d'erreur doit se placer. **n'oubliez pas de placer la cible**
+Pour déclarer l'endroit dans lequel le message d'erreur doit être placé. **n'oubliez pas de placer la cible**
 ```
 data-validate-target-error="#cible" data-validate-target-success="#cible"
 ```
@@ -203,9 +203,10 @@ window.addEventListener('DOMContentLoaded', function(){
     validate.form();
 })
 ```
-#### Ajouter une règle de validation ou surcharger une règle
+#### Ajouter une nouvelle règle de validation
 
-Il est possible de surcharger une règle ou d'ajouter une nouvelle. 
+Pour ajouter une nouvelle règle, utilisez la méthode `addRules`. Cette méthode prend deux arguments : le nom de la règle et une fonction de validation.
+Vous pouvez nommer la règle comme vous le souhaitez (en PascalCase, camelCase ou snake_case). Cependant, lors de l'appel de la règle pour la validation, celle-ci doit toujours être référencée en minuscules.
 
 ```Javascript
 window.addEventListener('DOMContentLoaded', function(){
@@ -229,31 +230,46 @@ window.addEventListener('DOMContentLoaded', function(){
     validate.form();
 })
 ```
+#### Surcharger une règle existante
 
-Dans le cas où vous auriez des paramètres dynamiques : 
+Pour surcharger une règle existante, vous pouvez également utiliser la méthode `addRules`. Cela vous permet de remplacer la logique de validation d'une règle existante par une nouvelle logique.
 
 ```Javascript
-validate.addRules('une_regle', (value, params) => {
-    // etc.
+validate.addRules('IsMinLength', (value, params) => {
+    return value.length >= params.minLength
 })
 ```
 
 #### Ajouter ou supprimer un formulaire à valider
 
-Il est possible d'ajouter ou supprimer un formulaire à valider
+Il est possible d'ajouter ou de supprimer un formulaire de la validation pour adapter la validation à des besoins spécifiques.
+
+##### Ajouter un formulaire à la validation
+
+Pour ajouter un formulaire à la validation, utilisez la méthode `addRequireForm`. Cette méthode prend un argument : le formulaire à ajouter.
 
 ```Javascript
 // Add a form for validation
 const myForm = document.querySelector('#myForm') as HTMLFormElement;
 validate.addRequireForm(myForm);
+```
 
+##### Ajouter un formulaire à la validation
+
+Pour supprimer un formulaire de la validation, utilisez la méthode removeRequireForm. Cette méthode prend un argument : le formulaire à supprimer.
+
+```Javascript
 // Remove a form from validation
 validate.removeRequireForm(myForm);
 ```
 
 #### Ajouter ou supprimer un ou des champs à valider
 
-Il est possible d'ajouter ou supprimer un ou des champs à valider
+Il est possible d'ajouter ou de supprimer dynamiquement un ou plusieurs champs à valider en fonction des actions de l'utilisateur. Cela permet d'adapter la validation en temps réel, par exemple en affichant ou masquant des champs obligatoires en fonction des réponses fournies.
+
+##### Ajouter ou supprimer un champ à valider
+
+Pour ajouter ou supprimer un champ à valider, vous pouvez utiliser les méthodes `addRequireField` et `removeRequireField`. Voici un exemple où un champ de téléphone est ajouté ou supprimé de la validation en fonction de la réponse de l'utilisateur :
 
 ```Javascript
 //add require field if you answer 'yes' at 'add phone number'
@@ -272,6 +288,13 @@ if(document.getElementById('phone')){
         })
     })
 }
+```
+
+##### Ajouter ou supprimer plusieurs champs à valider
+
+Pour gérer plusieurs champs à la fois, vous pouvez itérer sur une liste de champs et appliquer les méthodes `addRequireField` ou `removeRequireField` à chacun d'eux. Voici un exemple où plusieurs champs de loisirs sont ajoutés ou supprimés de la validation en fonction de la réponse de l'utilisateur :
+
+```Javascript
 //add require fields if you answer 'yes'
 if(document.getElementsByName('hobbies')){
     let $hobbies = document.getElementsByName('hobbies'),
@@ -296,22 +319,40 @@ if(document.getElementsByName('hobbies')){
 
 #### Valider simplement une donnée 
 
-Vous ne souhaitez pas utiliser toute les mécaniques HTML pour valider des champs. Vous pouvez simplement valider une donnée via la methode "check". Le 3e argument de la méthode check, sont les paramètres de la règle de validation
+Si vous ne souhaitez pas utiliser tout le mécanisme HTML pour valider des champs, vous pouvez valider une donnée directement en utilisant la méthode `check`. Cette méthode permet de vérifier si une valeur respecte une règle de validation spécifique, sans avoir besoin de créer un formulaire ou d'interagir avec le DOM.
+
+La méthode `check` prend trois arguments :
+
+1. La valeur à valider : Il peut s'agir d'une chaîne de caractères, d'un nombre, ou de tout autre type de donnée.
+2. La règle de validation : Le nom de la règle à appliquer (par exemple, `isemail`, `isminlength`, etc.).
+3. Les paramètres de la règle (optionnel) : Certaines règles nécessitent des paramètres supplémentaires pour fonctionner (par exemple, une longueur minimale pour `isminlength`).
+
+La méthode retourne `true` si la valeur est valide selon la règle spécifiée, et `false` dans le cas contraire.
+
+Valider une adresse e-mail :
 
 ```Javascript
 const isValid = validator.check('dom+dom@dom.com', 'isemail');
 console.log(isValid); // true or false
+```
+Valider une longueur minimale : 
+
+```Javascript
 console.log("format isminlength --> ", validate.check('d123', 'isminlength', 3))
 ```
 
 #### Middleware
 
-Les middleware permettent d'intercepter l'état d'un ou plusieurs formulaires ou d'un ou plusieurs champs. Pour ce faire, vous devez initialiser ces hooks. Vous remarquerez que l'état d'un formulaire ou d'un champ sera indiqué via une class (error ou success) après chaque événements.
+Les middlewares permettent d'intercepter l'état d'un ou plusieurs formulaires ou champs pendant le processus de validation. Ils agissent comme des "hooks" qui se déclenchent en fonction de l'état de validation (succès ou erreur). Ces middlewares sont particulièrement utiles pour exécuter des actions spécifiques, comme afficher des messages personnalisés, envoyer des données, ou effectuer des vérifications supplémentaires.
 
-##### formOnError
+Pour utiliser ces middlewares, vous devez les initialiser avant d'appeler la méthode `validate.form()`. Après chaque événement de validation, l'état d'un formulaire ou d'un champ sera indiqué par une classe CSS (`error` ou `success`).
 
-Lorsque le formulaire avec l'id "my-form" est en état error : 
 
+##### Middleware formOnError
+
+Ce middleware est déclenché lorsque l'état d'un formulaire passe à "erreur". Vous pouvez l'utiliser pour exécuter des actions spécifiques, comme afficher un message d'erreur ou enregistrer des logs.
+
+exemple : 
 ```Javascript
 validate.middleware.formOnError = (event, $el) =>{
     if($el.id === 'my-form'){
@@ -323,10 +364,11 @@ validate.middleware.formOnError = (event, $el) =>{
 validate.form()
 ```
 
-##### formOnSuccess
+##### Middleware formOnSuccess
 
-Lorsque le formulaire avec l'id "my-form" est en état success : 
+Ce middleware est déclenché lorsque l'état d'un formulaire passe à "succès". Il est utile pour exécuter des actions comme soumettre le formulaire ou afficher un message de confirmation.
 
+exemple : 
 ```Javascript
 validate.middleware.formOnSuccess = (event, $el) =>{
     if($el.id === 'my-form'){
@@ -338,10 +380,11 @@ validate.middleware.formOnSuccess = (event, $el) =>{
 validate.form()
 ```
 
-##### fieldOnError
+##### Middleware fieldOnError
 
-Lorsque le champ avec l'id "my-form" est en état error : 
+Ce middleware est déclenché lorsque l'état d'un champ spécifique passe à "erreur". Il permet de réagir à des erreurs de validation sur des champs individuels.
 
+exemple : 
 ```Javascript
 validate.middleware.fieldOnError = ($el) =>{
     if($el.id === 'my-field'){
@@ -352,10 +395,11 @@ validate.middleware.fieldOnError = ($el) =>{
 validate.form()
 ```
 
-##### fieldOnSuccess
+##### Middleware fieldOnSuccess
 
-Lorsque le champ avec l'id "my-form" est en état success : 
+Ce middleware est déclenché lorsque l'état d'un champ spécifique passe à "succès". Il est utile pour indiquer visuellement que le champ est valide ou pour exécuter des actions spécifiques.
 
+exemple : 
 ```Javascript
 validate.middleware.fieldOnSuccess = ($el) =>{
     if($el.id === 'my-field'){
