@@ -254,7 +254,7 @@ const myForm = document.querySelector('#myForm') as HTMLFormElement;
 validate.addRequireForm(myForm);
 ```
 
-##### Ajouter un formulaire à la validation
+##### Supprimer un formulaire à la validation
 
 Pour supprimer un formulaire de la validation, utilisez la méthode removeRequireForm. Cette méthode prend un argument : le formulaire à supprimer.
 
@@ -620,6 +620,187 @@ window.addEventListener('DOMContentLoaded', function(){
 })
 ```
 
+#### Add a New Validation Rule
+
+To add a new rule, use the `addRules` method. This method takes two arguments: the name of the rule and a validation function.
+You can name the rule however you like (in PascalCase, camelCase, or snake_case). However, when calling the rule for validation, it must always be referenced in lowercase.
+
+```Javascript
+window.addEventListener('DOMContentLoaded', function(){
+    let optionsValidator = {
+        "selector": ".forms",
+        "fields": {
+            "vehicle": {
+                "isnotempty": {
+                    "error": "Must not be empty"
+                },
+                "registration": {
+                    "error": "The registration does not seem to be valid"
+                }
+            }
+        }
+    };
+    let validate = new Validator(optionsValidator);
+
+    // Add a new rule for validating vehicle registration
+    validate.addRules('registration', value => /^[a-z]{2}-\d{3}-[a-z]{2}$/i.test(value.trim()));
+
+    validate.form();
+});
+```
+
+#### Override an Existing Rule
+To override an existing rule, you can also use the `addRules` method. This allows you to replace the validation logic of an existing rule with new logic.
+
+```Javascript
+validate.addRules('IsMinLength', (value, params) => {
+    return value.length >= params.minLength;
+});
+```
+
+#### Add or Remove a Form from Validation
+It is possible to add or remove a form from validation to adapt it to specific needs.
+
+##### Add a Form to Validation
+
+To add a form to validation, use the `addRequireForm` method. This method takes one argument: the form to add.
+
+```Javascript
+// Add a form for validation
+const myForm = document.querySelector('#myForm') as HTMLFormElement;
+validate.addRequireForm(myForm);
+```
+
+##### Remove a Form to Validation
+
+To remove a form from validation, use the `removeRequireForm` method. This method takes one argument: the form to remove.
+
+```Javascript
+// Remove a form from validation
+validate.removeRequireForm(myForm);
+```
+
+#### Add or Remove One or More Fields to Validate
+
+It is possible to dynamically add or remove one or more fields to validate based on user actions. This allows for real-time validation adjustments, such as showing or hiding mandatory fields depending on user responses.
+
+##### Add or Remove a Field to Validate
+
+To add or remove a field to validate, you can use the `addRequireField` and `removeRequireField` methods. Here is an example where a phone field is added or removed from validation based on the user's response:
+
+```javascript
+// Add a required field if the user answers 'yes' to 'add phone number'
+if (document.getElementById('phone')) {
+    let $phone = document.getElementById('phone');
+    $phone.parentNode.style.display = 'none'; // Hide the field initially
+    document.getElementsByName('validatePhone').forEach(($input) => {
+        $input.addEventListener('change', (e) => {
+            if (e.target.checked && e.target.id === "validatePhoneYes") {
+                $phone.parentNode.style.display = 'block'; // Show the field
+                validate.addRequireField($phone); // Add the field to validation
+            } else {
+                $phone.parentNode.style.display = 'none'; // Hide the field
+                validate.removeRequireField($phone); // Remove the field from validation
+            }
+        });
+    });
+}
+```
+##### Add or Remove Multiple Fields to Validate
+
+To manage multiple fields at once, you can iterate over a list of fields and apply the `addRequireField` or `removeRequireField` methods to each one. Here is an example where multiple hobby fields are added or removed from validation based on the user's response:
+
+```javascript
+// Add required fields if the user answers 'yes'
+if (document.getElementsByName('hobbies')) {
+    let $hobbies = document.getElementsByName('hobbies'),
+        $hobbiesContainer = document.getElementById('hobbies-container');
+    $hobbiesContainer.style.display = 'none'; // Hide the container initially
+
+    document.getElementsByName('hobbiesChoice').forEach(($radio) => {
+        $radio.addEventListener('change', (e) => {
+            if (e.target.checked && e.target.id === "hobbiesYes") {
+                $hobbiesContainer.style.display = 'block'; // Show the container
+                $hobbies.forEach(($checkbox) => {
+                    validate.addRequireField($checkbox); // Add each field to validation
+                });
+            } else {
+                $hobbiesContainer.style.display = 'none'; // Hide the container
+                $hobbies.forEach(($checkbox) => {
+                    validate.removeRequireField($checkbox); // Remove each field from validation
+                });
+            }
+        });
+    });
+}
+```
+#### Validate Data Simply
+
+If you don’t want to use the entire HTML mechanism to validate fields, you can validate data directly using the `check` method. This method allows you to check if a value complies with a specific validation rule, without needing to create a form or interact with the DOM.
+
+The `check` method takes three arguments:
+
+1. **The value to validate**: This can be a string, a number, or any other type of data.
+2. **The validation rule**: The name of the rule to apply (e.g., `isemail`, `isminlength`, etc.).
+3. **The rule parameters (optional)**: Some rules require additional parameters to function (e.g., a minimum length for `isminlength`).
+
+The method returns `true` if the value is valid according to the specified rule, and `false` otherwise.
+
+Validate an Email Address:
+```javascript
+const isValid = validator.check('dom+dom@dom.com', 'isemail');
+console.log(isValid); // true or false
+```
+Validate a Minimum Length:
+```Javascript
+console.log("format isminlength --> ", validate.check('d123', 'isminlength', 3))
+```
+#### Validate Multiple Forms Simply
+
+The `validator.form()` method allows you to validate forms statically. However, if you add or remove fields or forms after calling this method, these changes will **not be taken into account**. To manage forms dynamically, it is better to use the `validator.checkForm()` method.
+
+When using `validator.form()`, the form configuration is frozen at the time of the call. If you add or remove fields or forms afterward, these changes will not be reflected in the validation.
+
+Problematic Example:
+```javascript
+let validate = new Validator();
+validate.addRequireForm(document.getElementById('my-form'));
+validate.form(); // Initialize validation
+validate.addRequireForm(document.getElementById('my-other-form')); // Will not be taken into account!
+```
+
+#### Validate Multiple Forms Dynamically with `validator.checkForm()`
+
+The `validator.checkForm()` method allows you to validate one or more forms dynamically. It is particularly useful when you have forms that can be added or modified after initialization.
+
+Example:
+```javascript
+let validate = new Validator();
+validate.addRequireForm(document.getElementById('my-form'));
+validate.form();
+validate.addRequireForm(document.getElementById('my-other-form')); // Will not be taken into account!
+validate.addRequireForm(document.getElementById('my-other-form-again')); // Will not be taken into account!
+
+let formsListSelector = [
+    '#my-form',
+    '#my-other-form',
+    '#my-other-form-again',
+];
+
+document.querySelectorAll(formsListSelector.join(',')).forEach($form => {
+    $form.addEventListener('submit', e => validate.checkForm($form, e));
+});
+```
+
+#### Validate a Specific Field
+
+In some cases, you may want to validate a specific field, for example, when it loses focus (`blur`). To do this, use the `validator.element()` method.
+
+Example:
+```javascript
+let $lastname = document.getElementById('lastname');
+$lastname?.addEventListener('blur', e => validate.element($lastname));
+```
 
 ## API
 
