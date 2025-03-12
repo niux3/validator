@@ -341,6 +341,54 @@ Valider une longueur minimale :
 console.log("format isminlength --> ", validate.check('d123', 'isminlength', 3))
 ```
 
+#### Valider simplement plusieurs formulaire
+
+La méthode `validator.form()` permet de valider des formulaires de manière statique. Cependant, si vous ajoutez ou supprimez des champs ou des formulaires après l'appel de cette méthode, ces modifications ne seront pas prises en compte. Pour gérer des formulaires de manière dynamique, il est préférable d'utiliser la méthode `validator.checkForm()`.
+
+Lorsque vous utilisez `validator.form()`, la configuration des formulaires est figée au moment de l'appel. Si vous ajoutez ou supprimez des champs ou des formulaires par la suite, ces changements ne seront pas reflétés dans la validation.
+
+exemple problématique : 
+```Javascript
+let validate = new Validator()
+validate.addRequireForm(document.getElementById('my-form'))
+validate.form() // Initialisation de la validation
+validate.addRequireForm(document.getElementById('my-other-form')) // ne sera pas pris en compte !
+```
+
+#### Valider plusieurs formulaires dynamiquement avec `validator.checkForm()`
+
+La méthode `validator.checkForm()` permet de valider un ou plusieurs formulaires de manière dynamique. Elle est particulièrement utile lorsque vous avez des formulaires qui peuvent être ajoutés ou modifiés après l'initialisation.
+
+
+exemple : 
+```Javascript
+let validate = new Validator()
+validate.addRequireForm(document.getElementById('my-form'))
+validate.form()
+validate.addRequireForm(document.getElementById('my-other-form')) // ne sera pas pris en compte !
+validate.addRequireForm(document.getElementById('my-other-form-again')) // ne sera pas pris en compte !
+
+let formsListSelector = [
+    '#my-form',
+    '#my-other-form',
+    '#my-other-form-again',
+]
+document.querySelectorAll(formsListSelector.join(',')).forEach($form =>{
+    $form.addEventListener('submit', e => validate.checkForm($form, e)))
+})
+```
+
+#### Valider un champ spécifiquement
+
+Dans certains cas, vous pouvez vouloir valider un champ spécifique, par exemple lors de la perte de focus (`blur`). Pour cela, utilisez la méthode `validator.element()`.
+
+exemple : 
+
+```Javascript
+let $lastname = document.getElementById('lastname')
+$lastname?.addEventListener('blur', e => validate.element($lastname))
+```
+
 #### Middleware
 
 Les middlewares permettent d'intercepter l'état d'un ou plusieurs formulaires ou champs pendant le processus de validation. Ils agissent comme des "hooks" qui se déclenchent en fonction de l'état de validation (succès ou erreur). Ces middlewares sont particulièrement utiles pour exécuter des actions spécifiques, comme afficher des messages personnalisés, envoyer des données, ou effectuer des vérifications supplémentaires.
