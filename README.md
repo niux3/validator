@@ -801,18 +801,86 @@ Example:
 let $lastname = document.getElementById('lastname');
 $lastname?.addEventListener('blur', e => validate.element($lastname));
 ```
+#### Middleware
+
+Middlewares allow you to intercept the state of one or more forms or fields during the validation process. They act as "hooks" that trigger based on the validation state (success or error). These middlewares are particularly useful for executing specific actions, such as displaying custom messages, sending data, or performing additional checks.
+
+To use these middlewares, you must initialize them before calling the `validate.form()` method. After each validation event, the state of a form or field will be indicated by a CSS class (`error` or `success`).
+
+##### Middleware `formOnError`
+
+This middleware is triggered when the state of a form changes to "error". You can use it to execute specific actions, such as displaying an error message or logging the event.
+
+Example:
+```javascript
+validate.middleware.formOnError = (event, $el) => {
+    if ($el.id === 'my-form') {
+        console.log(event); // Log the validation event
+        console.log("My form is not valid.");
+    }
+};
+
+// Initialize validation
+validate.form();
+```
+##### Middleware `formOnSuccess`
+
+This middleware is triggered when the state of a form changes to "success". It is useful for executing actions such as submitting the form or displaying a confirmation message.
+
+Example:
+```javascript
+validate.middleware.formOnSuccess = (event, $el) => {
+    if ($el.id === 'my-form') {
+        console.log(event); // Log the validation event
+        console.log("My form is valid.");
+    }
+};
+
+// Initialize validation
+validate.form();
+```
+##### Middleware `fieldOnError`
+
+This middleware is triggered when the state of a specific field changes to "error". It allows you to react to validation errors on individual fields.
+
+Example:
+```javascript
+validate.middleware.fieldOnError = ($el) => {
+    if ($el.id === 'my-field') {
+        console.log("My field is not valid.");
+    }
+};
+
+// Initialize validation
+validate.form();
+```
+##### Middleware `fieldOnSuccess`
+
+This middleware is triggered when the state of a specific field changes to "success". It is useful for visually indicating that the field is valid or for executing specific actions.
+
+##### Example:
+```javascript
+validate.middleware.fieldOnSuccess = ($el) => {
+    if ($el.id === 'my-field') {
+        console.log("My field is valid.");
+    }
+};
+
+// Initialize validation
+validate.form();
+```
 
 ## API
 
 <span id="api_fr"></span>
 ### français
 
-Amet neque assumenda officiis libero alias eaque? Amet odio facere assumenda a consequuntur. Mollitia velit quaerat culpa sed quis Veritatis deserunt illo labore consectetur fugit quam Vitae consequatur eaque perspiciatis!
+L'API est consultable dans le dossier `docs/index.html`. 
 
 <span id="api_en"></span>
 ### english
 
-Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur nihil iusto provident? Architecto officiis rem veniam facere ullam blanditiis Blanditiis nobis recusandae sapiente tenetur minima aliquam possimus? Molestias aliquid quia
+The API can be viewed in the `docs/index.html` folder.
 
 <span id="license"></span>
 ## License
