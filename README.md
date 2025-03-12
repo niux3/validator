@@ -461,7 +461,165 @@ validate.form()
 <span id="utilisation_en"></span>
 ### english
 
-Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur nihil iusto provident? Architecto officiis rem veniam facere ullam blanditiis Blanditiis nobis recusandae sapiente tenetur minima aliquam possimus? Molestias aliquid quia
+#### Is Configuration Difficult?
+There are two ways to configure form validations:
+
+- **Static object** (in a JS file)
+- **html** (in the DOM)
+
+#### Why Use HTML Configuration?
+
+HTML configuration allows error messages to be shared with the server. It also simplifies the management of multi-language forms, as the server application handles translations.
+
+#### How to Configure?
+
+Fields can have either the `require` class or the `required` attribute. When you initialize the library, the `required` attribute will be removed and replaced with the `require` class.
+
+**Validation is based on the name attribute of a field. It is also mandatory that form fields are within a [form](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) element.**
+
+##### Configuration with a Static Object
+
+The `selector` key (default: `form`) specifies which forms should be validated with this library.
+
+The `target` key is optional. By default, the error message is placed after the field [ `afterend` ](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position). If you configure target, the message will be placed at the end of the target [ `beforeend` ](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML#visualisation_des_noms_de_position).
+
+The following keys correspond to the rule name in **lowercase**. You must provide an error message. The `success` key is optional. The `params` key may be required if the rule demands it.
+
+example : 
+
+```html
+<form action="http://google.com" method="post">
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+            <label>
+                <span>Title</span>
+                <select>
+                    <option value="">Make a choice</option>
+                    <option value="mlle">Miss</option>
+                    <option value="mme">Mrs</option>
+                    <option value="m">Mr</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div id="messageFirstname"></div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>First name</span>
+                <input type="text" name="firstname" value="" class="require">
+            </label>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>Last name</span>
+                <input type="text" name="lastname" value="" class="require">
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">Submit</button>
+        </div>
+    </div>
+</form>
+```
+
+```Javascript
+window.addEventListener('DOMContentLoaded', function(){
+    let options = {
+        fields : {
+            "firstname": {
+                "target": {
+                    "error": "#messageFirstname",
+                    "success": "#messageFirstname",
+                },
+                "isnotempty" : {
+                    "error" : "This field must not be empty",
+                    "success": "!"
+                }
+            },
+            "lastname": {
+                "isnotempty" : {
+                    "error" : "This field must not be empty"
+                },
+                "isminlength": {
+                    "params": 3,
+                    "error": "This field must contain at least 3 characters"
+                }
+            },
+        }
+    };
+    let validate = new Validator(options);
+    validate.form();
+});
+```
+
+##### Configuration with HTML
+
+To declare rules in a field:
+
+```
+data-validate-rules="isnotempty isemail"
+```
+
+To declare the error message for a rule (mandatory to provide this message for each rule):
+
+```
+data-error-<rulename>="error message"
+```
+
+To declare the success message:
+
+```
+data-success-<rulename>="success message"
+```
+
+To declare the parameters of a rule:
+
+```
+data-validate-<rulename>-args="3"
+```
+
+To declare where the error message should be placed. Do not forget to place the target:
+
+```
+data-validate-target-error="#target" data-validate-target-success="#target"
+```
+
+example : 
+
+```html
+<form action="http://google.com" method="post">
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>First name</span>
+                <input type="text" name="firstname" value="" required data-validate-rules="isnotempty" data-error-isnotempty="Must not be empty (HTML validation)">
+            </label>
+        </div>
+        <div class="large-6 medium-6 cell">
+            <label>
+                <span>Last name</span>
+                <input type="text" name="lastname" value="" required data-validate-rules="isnotempty isminlength" data-error-notempty="This field must not be empty" data-error-minlength="Minimum 3 characters" data-validate-isminlength-args="3">
+            </label>
+        </div>
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <button type="submit" class="button">Submit</button>
+        </div>
+    </div>
+</form>
+```
+
+```Javascript
+window.addEventListener('DOMContentLoaded', function(){
+    let validate = new Validator();
+    validate.form();
+})
+```
+
 
 ## API
 
