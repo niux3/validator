@@ -23,7 +23,6 @@ export class Form extends ElementHTML implements FormSubject{
      */
     constructor(props:ElementHTMLProperties){
         super(props)
-        console.log('props form >', props)
 
         // Register all required fields found in the form element
         for(let [indexField, $field] of Object.entries(this.$el.querySelectorAll(this.getSelectorRequiresFields()))){

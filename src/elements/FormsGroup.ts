@@ -18,7 +18,6 @@ export class FormsGroup{
     */
     constructor(configuration:Configuration){
         this.configuration = configuration.get() as AppConfiguration
-        console.log('>>', configuration.get())
         
         if(document.querySelectorAll(this.configuration.options.get().selector).length){
             document.querySelectorAll(this.configuration.options.get().selector).forEach($form =>{
