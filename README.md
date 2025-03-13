@@ -38,12 +38,40 @@ Please note that the contents of this file and all documentation are located in 
 <span id="installation_fr"></span>
 ### français
 
-Amet neque assumenda officiis libero alias eaque? Amet odio facere assumenda a consequuntur. Mollitia velit quaerat culpa sed quis Veritatis deserunt illo labore consectetur fugit quam Vitae consequatur eaque perspiciatis!
+#### Installation de Validator
+
+Pour installer la librairie **Validator**, utilisez la commande suivante avec **npm** :
+
+```bash
+npm i @niuxe/validator
+```
+#### Initialisation
+
+Une fois la librairie installée, vous pouvez l'importer dans votre projet comme suit :
+
+```Javascript
+import Validator from '@niuxe/validator';
+```
+Cela vous permettra de créer une instance de Validator et de commencer à valider vos formulaires ou données.
 
 <span id="installation_en"></span>
 ### english
 
-Lorem assumenda quos nesciunt blanditiis nostrum? Excepturi rerum consequuntur nihil iusto provident? Architecto officiis rem veniam facere ullam blanditiis Blanditiis nobis recusandae sapiente tenetur minima aliquam possimus? Molestias aliquid quia
+#### Installing Validator
+
+To install the **Validator** library, use the following command with **npm**:
+
+```bash
+npm i @niuxe/validator
+```
+#### Initialization
+
+Once the library is installed, you can import it into your project as follows:
+
+```Javascript
+import Validator from '@niuxe/validator';
+```
+This will allow you to create an instance of `Validator` and start validating your forms or data.
 
 ## Utilisation / Utilisation
 
