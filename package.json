@@ -1,19 +1,19 @@
 {
-    "name": "Validator",
-    "private": true,
+    "name": "@niuxe/validator",
+    "private": false,
     "version": "2.0.0",
     "type": "module",
     "files": [
         "static",
         "index.d.ts"
     ],
-    "main": "./static/counter.umd.cjs",
-    "module": "./static/counter.js",
+    "main": "./static/js/validator.min.js",
+    "module": "./static/js/validator.min.js",
     "types": "./index.d.ts",
     "exports": {
         "types": "./index.d.ts",
-        "import": "./static/counter.js",
-        "require": "./static/counter.umd.cjs"
+        "import": "./static/js/validator.min.js",
+        "require": "./static/js/validator.min.js"
     },
     "scripts": {
         "dev": "vite --port 8000",
