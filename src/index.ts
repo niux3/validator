@@ -19,13 +19,16 @@ let defaultErrorMessage = "Ce champ ne doit pas être vide",
             "firstname" : {
                 "target" : {
                     "error" : ".messageFirstname",
+                    "success" : ".messageFirstname",
                 },
                 "isnotempty":{
                     "error" : defaultErrorMessage,
+                    "success": "done !!!"
                 },
                 "isminlength":{
                     'params': 2,
                     "error" : "Ce champ doit avoir minimum 3 caractères",
+                    "success": "done !"
                 }
             },
             "lastname" : {
