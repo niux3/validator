@@ -123,7 +123,7 @@ let defaultErrorMessage = "Ce champ ne doit pas être vide",
                     "error" : defaultErrorMessage
                 }
             },
-            "selectMultiple[]" : {
+            "selectMultiple" : {
                 "isminlength":{
                     'params' : 1,
                     "error" : "vous devez choisir au moins 2 items"

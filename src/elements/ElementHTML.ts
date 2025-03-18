@@ -90,6 +90,20 @@ export class ElementHTML {
     }
 
     /**
+     * get id of this HTMLElement
+    */
+    getId(){
+        return this.id
+    }
+
+    /**
+     * get params of this HTMLElement
+    */
+    getParams(): Record<string, { error: string; params?: any, success?:string }>{
+        return this.params
+    }
+
+    /**
      * Adds an event listener to the element.
      * @param {string} ev - The event type (e.g., "click").
      * @param {(event: Event, element: this) => void} callback - The callback function to execute when the event occurs.
