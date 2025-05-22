@@ -183,7 +183,7 @@ export default class Validator{
         this.formsGroup.get().forEach((form:Form)=>{
             if(form.$el === $el.closest('form')){
                 $el.classList.add('require')
-                form.register(this.formsGroup.get().length, $el, this.middleware)
+                form.register(form.getFields().length, $el, this.middleware)
             }
         })
     }

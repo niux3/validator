@@ -145,13 +145,11 @@ describe('Validator', () => {
         mockFormElement.appendChild(mockFieldElement)
 
         // Crée un mock de Form avec $el égal à mockFormElement
-        const mockForm = new Form({
-            element: mockFormElement,
-            id: { fo: 1, fi: 0 },
-            params: {},
-            state: null,
-            rules: {} as any,
-        })
+        const mockForm = {
+            $el: mockFormElement,
+            getFields: vi.fn().mockReturnValue([]), // Simule aucun champ initial
+            register: vi.fn(), // Mock de register
+        } as unknown as Form
 
         // Simuler que FormsGroup retourne le formulaire mocké
         vi.mocked(validator.formsGroup.get).mockReturnValue([mockForm])
