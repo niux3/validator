@@ -1,4 +1,5 @@
 import { Rules } from "../rules/Rules"
+import { Middleware } from "./Middleware.type"
 
 export interface AppConfiguration {
     options: {
@@ -7,5 +8,6 @@ export interface AppConfiguration {
             fields: Record<string, any> // @TODO Remplacez `any` par un type plus spécifique si possible
         }
     }
-    rules: Rules
+    rules: Rules,
+    middleware: Middleware
 }

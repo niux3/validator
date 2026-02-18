@@ -17,19 +17,15 @@ describe('Element Class', () => {
     beforeEach(() => {
         mockElement = document.createElement("input")
 
-        let middleware:Middleware = {
-            // @ts-ignore
-            formOnError(e, $el){},
-            // @ts-ignore
-            formOnSuccess(e, $el){},
-            // @ts-ignore
-            fieldOnError($el){},
-            // @ts-ignore
-            fieldOnSuccess($e){},
+        let middleware: Middleware = {
+            formOnError(_e, _$el) { },
+            formOnSuccess(_e, _$el) { },
+            fieldOnError(_$el) { },
+            fieldOnSuccess(_$e) { },
         }
         const properties: ElementHTMLProperties = {
             element: mockElement,
-            id: { html:"vfo0__vfi0", fo:0, fi:0},
+            id: { html: "vfo0__vfi0", fo: 0, fi: 0 },
             params: "paramValue",
             state: new NeutralState(null as any), // État temporaire
             rules: new Rules(),

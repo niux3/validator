@@ -7,17 +7,17 @@ import { FieldValueFactory } from './fieldValue/FieldValueFactory'
 /**
  * Represents a form field extending ElementHTML.
 */
-export class Field extends ElementHTML implements FieldObserver{
+export class Field extends ElementHTML implements FieldObserver {
     /**
      * Creates an instance of Field.
      * @param {ElementHTMLProperties} props - The properties of the field element.
     */
-    constructor(props:ElementHTMLProperties){
+    constructor(props: ElementHTMLProperties) {
         super(props)
         this.id.html = `vfo${this.id.fo}__vfi${this.id.fi}`
         this.switchRequireAttribute()
 
-        if([undefined, null].some(e => this.params === e)){
+        if ([undefined, null].some(e => this.params === e)) {
             this.getParamsFromHTML()
         }
     }
@@ -41,7 +41,7 @@ export class Field extends ElementHTML implements FieldObserver{
      * });
     */
     // @ts-ignore
-    update(field:Field, i:number, callback:(field: Field) => void){ 
+    update(field: Field, i: number, callback: (field: Field) => void) {
         return callback(field)
     }
 
@@ -53,17 +53,17 @@ export class Field extends ElementHTML implements FieldObserver{
         let defaultRules = this.rules.get(),
             extractor = FieldValueFactory.getExtractor(this.$el),
             fieldValue = extractor.extractValue(this.$el),
-            resultValid:{ status: boolean, message: string }[] = [],
+            resultValid: { status: boolean, message: string }[] = [],
             rulesList = this.getRulesList()
 
-        if(rulesList){
-            for(let ruleInNode of rulesList){
-                for(let key in defaultRules){
-                    if(key === ruleInNode){
+        if (rulesList) {
+            for (let ruleInNode of rulesList) {
+                for (let key in defaultRules) {
+                    if (key === ruleInNode) {
                         let isValid = defaultRules[key](fieldValue, this.params[key].params),
                             row = {
                                 status: isValid,
-                                message: this.params[key][isValid? 'success' : 'error']
+                                message: this.params[key][isValid ? 'success' : 'error']
                             }
                         resultValid.push(row)
                     }
@@ -73,12 +73,10 @@ export class Field extends ElementHTML implements FieldObserver{
 
         if (resultValid.every(e => e.status === true)) {
             this.successState()
-            // @ts-ignore
             this.middleware.fieldOnSuccess(this.$el)
             this.state.message = resultValid.find(e => e.status)?.message || ''
         } else {
             this.errorState()
-            // @ts-ignore
             this.middleware.fieldOnError(this.$el)
             this.state.message = resultValid.find(e => !e.status)?.message || ''
         }
@@ -88,35 +86,35 @@ export class Field extends ElementHTML implements FieldObserver{
     /**
      * Displays the validation state message.
     */
-    displayState(): void{
+    displayState(): void {
         let id = this.id.html!,
             cls = this.state.toString(),
             dataname = this.$el.name,
             msg = this.state.message,
             $currentForm = this.$el.closest('form') as HTMLFormElement,
             selectorState = `.error[data-name="field_${this.$el.name}"], .success[data-name="field_${this.$el.name}"]`,
-            paramsTarget:{target:HTMLElement|null, mode:InsertPosition} = {target:null, mode:'beforeend'}
+            paramsTarget: { target: HTMLElement | null, mode: InsertPosition } = { target: null, mode: 'beforeend' }
 
-        if($currentForm === null){
+        if ($currentForm === null) {
             throw new Error(`this field (${this.$el.name}) must be in HTMLFormElement`)
         }
-        if(this.params.hasOwnProperty('target')){
-            for(let k in this.params.target){
-                $currentForm?.querySelectorAll(this.params.target[k])?.forEach($target =>{
-                    if($target.querySelectorAll(selectorState).length > 0){
+        if (this.params.hasOwnProperty('target')) {
+            for (let k in this.params.target) {
+                $currentForm?.querySelectorAll(this.params.target[k])?.forEach($target => {
+                    if ($target.querySelectorAll(selectorState).length > 0) {
                         return
                     }
-                    if(msg !== ''){
-                        paramsTarget = {target: $currentForm.querySelector(this.params.target[this.state.toString()]), mode: 'beforeend'}
+                    if (msg !== '') {
+                        paramsTarget = { target: $currentForm.querySelector(this.params.target[this.state.toString()]), mode: 'beforeend' }
                     }
                 })
             }
-        }else{
+        } else {
             // @ts-ignore
-            if(this.$el.parentNode?.querySelectorAll(selectorState)?.length > 0) return
-            paramsTarget = {target: this.$el, mode: 'afterend'}
+            if (this.$el.parentNode?.querySelectorAll(selectorState)?.length > 0) return
+            paramsTarget = { target: this.$el, mode: 'afterend' }
         }
-        if(id){
+        if (id) {
             paramsTarget.target?.insertAdjacentHTML(paramsTarget.mode, this.getTemplate(cls, id, dataname, msg))
         }
     }
@@ -125,9 +123,9 @@ export class Field extends ElementHTML implements FieldObserver{
      * Cleans the field by resetting its state and removing any existing message.
      * @returns {Field} The current instance of the field.
     */
-    clean(): Field{
+    clean(): Field {
         this.resetState()
-        if(document.getElementById(this.id.html!) !== null){
+        if (document.getElementById(this.id.html!) !== null) {
             document.getElementById(this.id.html!)?.remove()
         }
         return this
@@ -165,61 +163,61 @@ export class Field extends ElementHTML implements FieldObserver{
      *
      * @returns {void}
      */
-    private getParamsFromHTML():void{
-        let config:Record<string, any> = {},
+    private getParamsFromHTML(): void {
+        let config: Record<string, any> = {},
             nullableValues = [undefined, null],
             rulesInNode = this.$el.dataset.validateRules?.trim().replace(/\s+/g, ' ').split(' ')
 
-        if(rulesInNode === undefined){
+        if (rulesInNode === undefined) {
             throw new Error(`this.params is empty (field name : ${this.$el.name})`)
         }
 
-        rulesInNode.forEach(rule =>{
-            let targetMessage:{error?: string, success?: string} = {},
-                optionsRules:{error: string, params?: string, success?:string} = {error: ''}
+        rulesInNode.forEach(rule => {
+            let targetMessage: { error?: string, success?: string } = {},
+                optionsRules: { error: string, params?: string, success?: string } = { error: '' }
 
             config[rule] = {}
 
-            if(nullableValues.every(e => this.$el.dataset.validateTargetError !== e)){
+            if (nullableValues.every(e => this.$el.dataset.validateTargetError !== e)) {
                 targetMessage['error'] = this.$el.dataset.validateTargetError
             }
 
-            if(nullableValues.every(e => this.$el.dataset.validateTargetSuccess !== e)){
+            if (nullableValues.every(e => this.$el.dataset.validateTargetSuccess !== e)) {
                 targetMessage['success'] = this.$el.dataset.validateTargetSuccess
             }
 
-            if(['success', 'error'].some(e => targetMessage.hasOwnProperty(e))){
+            if (['success', 'error'].some(e => targetMessage.hasOwnProperty(e))) {
                 config['target'] = targetMessage
             }
 
-            if(this.$el.getAttribute(`data-validate-${rule}-args`) !== null){
+            if (this.$el.getAttribute(`data-validate-${rule}-args`) !== null) {
                 // @ts-ignore
                 optionsRules['params'] = this.$el.getAttribute(`data-validate-${rule}-args`).trim()
             }
 
-            if(this.$el.getAttribute(`data-success-${rule}`) !== null){
+            if (this.$el.getAttribute(`data-success-${rule}`) !== null) {
                 // @ts-ignore
                 optionsRules["success"] = this.$el.getAttribute(`data-success-${rule}`).trim()
             }
 
-            if(this.$el.getAttribute(`data-error-${rule}`) === null){
+            if (this.$el.getAttribute(`data-error-${rule}`) === null) {
                 throw new Error(`field ${this.$el.name} doesn't have error message for this rule : ${rule}`)
             }
             // @ts-ignore
             optionsRules["error"] = this.$el.getAttribute(`data-error-${rule}`).trim()
 
-            config[ rule ] = optionsRules;
+            config[rule] = optionsRules;
         })
         this.params = config
     }
-    
+
     /**
      * Toggles the required attribute on the field element.
      * If required, it removes the attribute and adds a 'require' class.
      * @private
     */
-    private switchRequireAttribute(): void{
-        if(this.$el.hasAttribute('required')){
+    private switchRequireAttribute(): void {
+        if (this.$el.hasAttribute('required')) {
             this.$el.removeAttribute('required')
             this.$el.classList.add('require')
         }
@@ -230,28 +228,28 @@ export class Field extends ElementHTML implements FieldObserver{
      * @private
      * @returns {string[] | void} An array of rule names or undefined in case of an error.
     */
-    private getRulesList(): string[]|void{
-        try{
-            if([undefined, null].some(e => this.params === e)){
+    private getRulesList(): string[] | void {
+        try {
+            if ([undefined, null].some(e => this.params === e)) {
                 throw new Error(`this.params is empty (field name : ${this.$el.name})`)
             }
-            let rulesList:string[] = [],
+            let rulesList: string[] = [],
                 hasEmpty = false
-            for(let rule of Object.keys(this.params)){
+            for (let rule of Object.keys(this.params)) {
                 let trimRule = rule.trim().replace(/\s+/g, ' ')
-                if(trimRule !== 'target'){
-                    if(rule === 'isempty'){
+                if (trimRule !== 'target') {
+                    if (rule === 'isempty') {
                         hasEmpty = true
-                    }else{
+                    } else {
                         rulesList = [...rulesList, rule]
                     }
                 }
             }
-            if(hasEmpty){
+            if (hasEmpty) {
                 rulesList = [...rulesList, 'isempty']
             }
             return rulesList
-        }catch(e){
+        } catch (e) {
             console.error(e)
         }
     }
@@ -265,7 +263,7 @@ export class Field extends ElementHTML implements FieldObserver{
      * @param {string} msg - The validation message to display.
      * @returns {string} The HTML string representing the validation message.
     */
-    private getTemplate(cls:string, id:string, dataname:string, msg:string):string{
+    private getTemplate(cls: string, id: string, dataname: string, msg: string): string {
         return `<span id="${id}" data-name="field_${dataname}" class="${cls}">${msg}</span>`
     }
 }

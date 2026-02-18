@@ -19,36 +19,32 @@ describe('Field', () => {
         `
 
         fieldElement = document.querySelector('input[name="subject"]') as HTMLInputElement
-        
-        let middleware:Middleware = {
-            // @ts-ignore
-            formOnError(e, $el){},
-            // @ts-ignore
-            formOnSuccess(e, $el){},
-            // @ts-ignore
-            fieldOnError($el){},
-            // @ts-ignore
-            fieldOnSuccess($e){},
+
+        let middleware: Middleware = {
+            formOnError(_e, _$el) { },
+            formOnSuccess(_e, _$el) { },
+            fieldOnError(_$el) { },
+            fieldOnSuccess(_$e) { },
         }
         // Créer les propriétés du champ
         const fieldProps: ElementHTMLProperties = {
             element: fieldElement,
             id: { html: "", fo: 0, fi: 0 },
             params: {
-                
-                    "target": {
-                        "error": "#errorSubject",
-                        "success": "#successSubject",
-                    },
-                    "isnotempty": {
-                        "error": "doit être rempli",
-                        "success": "donnée valide",
-                    },
-                    "isminlength": {
-                        "params": 3,
-                        "error": "Ce champ doit avoir minimum 3 caractères",
-                        "success": "donnée valide"
-                    }
+
+                "target": {
+                    "error": "#errorSubject",
+                    "success": "#successSubject",
+                },
+                "isnotempty": {
+                    "error": "doit être rempli",
+                    "success": "donnée valide",
+                },
+                "isminlength": {
+                    "params": 3,
+                    "error": "Ce champ doit avoir minimum 3 caractères",
+                    "success": "donnée valide"
+                }
             },
             state: null,
             rules: new Rules(),

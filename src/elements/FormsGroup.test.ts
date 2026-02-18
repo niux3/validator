@@ -4,6 +4,7 @@ import { AppConfiguration } from './FormsGroup.type'
 import { Configuration } from '../configuration/Configuration'
 import { Form } from './Form'
 import { Rules } from '../rules/Rules'
+import { Middleware } from './Middleware.type'
 
 // Mocks
 vi.mock('../configuration/Configuration')
@@ -16,6 +17,7 @@ describe('FormsGroup', () => {
     // @ts-ignore
     let mockForm: Form
     let mockRules: Rules
+    let mockMiddleware: Middleware
 
     beforeEach(() => {
         // Réinitialiser les mocks avant chaque test
@@ -27,6 +29,13 @@ describe('FormsGroup', () => {
             set: vi.fn(), // Simulez la méthode set
         } as unknown as Rules
 
+        mockMiddleware = {
+            formOnError: vi.fn(),
+            formOnSuccess: vi.fn(),
+            fieldOnError: vi.fn(),
+            fieldOnSuccess: vi.fn(),
+        }
+
         // Mock de la configuration
         mockAppConfig = {
             options: {
@@ -36,6 +45,7 @@ describe('FormsGroup', () => {
                 }),
             },
             rules: mockRules, // Utilisez le mock de Rules
+            middleware: mockMiddleware,
         }
 
         mockConfiguration = {
@@ -87,11 +97,11 @@ describe('FormsGroup', () => {
             // Ajoutez un formulaire
             formsGroup.addForm(formElementB)
             expect(formsGroup.get().length).toBe(2)
-            
+
             // Supprimez le formulaire
             formsGroup.rmForm(formElementB)
             formElementB.remove()
-            expect(formsGroup.get().length).toBe(2) // bug ! 
+            expect(formsGroup.get().length).toBe(2) // bug !
         })
     })
 })

@@ -34,15 +34,11 @@ describe('Form', () => {
             <select name="field4" required></select>
         `
 
-        let middleware:Middleware = {
-            // @ts-ignore
-            formOnError(e, $el){},
-            // @ts-ignore
-            formOnSuccess(e, $el){},
-            // @ts-ignore
-            fieldOnError($el){},
-            // @ts-ignore
-            fieldOnSuccess($e){},
+        let middleware: Middleware = {
+            formOnError(_e, _$el) { },
+            formOnSuccess(_e, _$el) { },
+            fieldOnError(_$el) { },
+            fieldOnSuccess(_$e) { },
         }
         // Initialise les propriétés du formulaire
         formProps = {
