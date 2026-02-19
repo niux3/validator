@@ -26,12 +26,13 @@ vi.mock('./elements/FormsGroup', () => ({
 
 vi.mock('./elements/Form', () => ({
     Form: vi.fn().mockImplementation((props) => ({
-        $el: props.element, // Assure-toi que $el est bien défini
-        notify: vi.fn(), // Mock de la méthode notify
+        $el: props.element,
+        notify: vi.fn(),
         getState: vi.fn().mockReturnValue({ toString: vi.fn().mockReturnValue('success') }),
         on: vi.fn(),
         register: vi.fn(),
         unregister: vi.fn(),
+        getFields: vi.fn().mockReturnValue([]),
     })),
 }))
 
@@ -126,15 +127,33 @@ describe('Validator', () => {
     })
 
     it('should validate a specific field', () => {
-        const mockForm = new Form({} as any)
         const mockFieldElement = document.createElement('input')
 
-        // Simuler que FormsGroup retourne un formulaire
+        // Crée un mock de Field
+        const mockField = {
+            $el: mockFieldElement,
+            clean: vi.fn().mockReturnThis(),
+            validate: vi.fn().mockReturnThis(),
+            displayState: vi.fn(),
+        }
+
+        // Crée un mock de Form avec getFields qui retourne le field
+        const mockForm = {
+            $el: document.createElement('form'),
+            notify: vi.fn(),
+            getState: vi.fn().mockReturnValue({ toString: vi.fn().mockReturnValue('success') }),
+            getFields: vi.fn().mockReturnValue([mockField]),  // ← Retourne le field
+        } as unknown as Form
+
+        // Simuler que FormsGroup retourne le formulaire
         vi.mocked(validator.formsGroup.get).mockReturnValue([mockForm])
 
         validator.element(mockFieldElement)
 
-        expect(mockForm.notify).toHaveBeenCalled()
+        // Vérifier que le field a été validé
+        expect(mockField.clean).toHaveBeenCalled()
+        expect(mockField.validate).toHaveBeenCalled()
+        expect(mockField.displayState).toHaveBeenCalled()
     })
 
     it('should add a required field to the validation process', () => {
@@ -165,15 +184,34 @@ describe('Validator', () => {
     })
 
     it('should remove a required field from the validation process', () => {
-        const mockForm = new Form({} as any)
+        const mockFormElement = document.createElement('form')
         const mockFieldElement = document.createElement('input')
+        mockFieldElement.classList.add('require')  // Ajoute la classe au départ
 
-        // Simuler que FormsGroup retourne un formulaire
+        // Ajoute le field au form pour que closest() fonctionne
+        mockFormElement.appendChild(mockFieldElement)
+
+        // Crée un mock de Field
+        const mockField = {
+            $el: mockFieldElement,
+        } as unknown as Field
+
+        // Crée un mock de Form
+        const mockForm = {
+            $el: mockFormElement,
+            unregister: vi.fn(),
+            getFields: vi.fn().mockReturnValue([mockField]),
+        } as unknown as Form
+
+        // Simuler que FormsGroup retourne le formulaire
         vi.mocked(validator.formsGroup.get).mockReturnValue([mockForm])
 
         validator.removeRequireField(mockFieldElement)
 
-        expect(mockForm.notify).toHaveBeenCalled()
+        // Vérifier que unregister a été appelé
+        expect(mockForm.unregister).toHaveBeenCalledWith(mockField)
+
+        // Vérifier que la classe a été retirée
         expect(mockFieldElement.classList.contains('require')).toBe(false)
     })
 
